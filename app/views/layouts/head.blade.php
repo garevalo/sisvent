@@ -11,7 +11,27 @@
                     </a>
                 </div>
                 <!-- /Navbar Barnd -->
-                
+               
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" >
+                        <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+                        <li><a href="#"></a></li>
+                        <li class="dropdown" style="font-size:15px; color:white;">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-camera-retro "></i> Mantenimiento <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-purple" role="menu">
+                                <li><a href="#">Registrar Productos</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                 
+
                 <!-- Account Area and Settings --->
 
                 <div class="navbar-header pull-right">
@@ -48,10 +68,7 @@
                                 <!--/Login Area Dropdown-->
                             </li>
                             @endif
-                            <!-- /Account Area -->
-                            <!--Note: notice that setting div must start right after account area list.
-                            no space must be between these elements-->
-                            <!-- Settings -->
+                            
                         </ul>
                         
                         <!-- Settings -->
