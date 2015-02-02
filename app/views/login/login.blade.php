@@ -42,7 +42,7 @@
                         <i class="social-icon fa fa-google-plus"></i>
                     </a>-->
                     <div class="">
-                     <h1><strong class="text-primary">NCH</strong> <span style="font-size:24px;color:gray;"><strong> PERÚ</strong> </span></h1>   
+                        <h1><strong class="text-primary">NCH</strong> <span style="font-size:24px;color:gray;"><strong> PERÚ</strong> </span></h1>   
                     </div>
                     
                 </div>

@@ -12,6 +12,7 @@
                 </div>
                 <!-- /Navbar Barnd -->
                
+                @if(isset(Auth::user()->usuario))
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav" >
                         <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
@@ -19,7 +20,7 @@
                         <li class="dropdown" style="font-size:15px; color:white;">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-camera-retro "></i> Mantenimiento <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
-                                <li><a href="#">Registrar Productos</a></li>
+                                <li>{{ link_to('productos/nuevo', "Registrar Productos", $atributos = array('title'=>'registrar producto'), $seguro = null);}}</li>
                                 <li><a href="#">Another action</a></li>
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>
@@ -39,7 +40,7 @@
                         <ul class="account-area">
                            
                            
-                             @if(isset(Auth::user()->usuario))
+                            
                             <li>
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                     <div class="avatar" title="View your public profile">
@@ -67,7 +68,7 @@
                                 </ul>
                                 <!--/Login Area Dropdown-->
                             </li>
-                            @endif
+                            
                             
                         </ul>
                         
@@ -75,6 +76,7 @@
                     </div>
                 </div>
                 <!-- /Account Area and Settings -->
+                @endif
             </div>
         </div>
     </div>

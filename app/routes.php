@@ -24,12 +24,13 @@
      
         });
     Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
-    Route::get('productos/nuevo', array('uses' => 'ProductosController@nuevoProductos'));
+    
 
 
     Route::group(array('before' => 'auth'), function()
     {
         
+        /**** Usuarios ****/
         Route::get('dashboard', function()
         {
             return View::make('dashboard');
@@ -44,6 +45,12 @@
         Route::post('usuarios/crear', array('uses' => 'UsuariosController@crearUsuario'));
        
         Route::get('usuarios/{id}', array('uses'=>'UsuariosController@verUsuario'));
+        /*** Fin Usuarios ****/
 
+        /*Productos*/
+
+        Route::get('productos/nuevo', array('uses' => 'ProductosController@nuevoProductos'));
+
+        Route::post('productos/crear', array('uses' => 'ProductosController@crearProductos'));
 
     });

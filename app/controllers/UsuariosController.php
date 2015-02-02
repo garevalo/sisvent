@@ -8,14 +8,8 @@ class UsuariosController extends BaseController {
     {
         $usuarios = Usuario::all(); 
         
-        // Con el método all() le estamos pidiendo al modelo de Usuario
-        // que busque todos los registros contenidos en esa tabla y los devuelva en un Array
-        
         return View::make('usuarios.lista', array('usuarios' => $usuarios));
-        
-        // El método make de la clase View indica cual vista vamos a mostrar al usuario 
-        //y también pasa como parámetro los datos que queramos pasar a la vista. 
-        // En este caso le estamos pasando un array con todos los usuarios
+
     }
 
     /**
@@ -32,8 +26,6 @@ class UsuariosController extends BaseController {
      */
     public function crearUsuario()
     {
-
-
         
         $nombre   = Input::get('nombre');
         $apellido = Input::get('apellido');
@@ -42,46 +34,19 @@ class UsuariosController extends BaseController {
         'usuario' => $nombre,
         'password' =>  $apellido
         );
-        
 
-        
-        // al momento de crear el usuario la clave debe ser encriptada
-        // para utilizamos la función estática make de la clase Hash
-        // esta función encripta el texto para que sea almacenado de manera segura
         $input['password'] = Hash::make($input['password']);
      
         Usuario::create($input);
      
         return Redirect::to('/')->with('mensaje_registro', 'Usuario Registrado');
 
-
-
-
-
-
-/*
-
-        $nombre   = Input::get('nombre');
-        $apellido = Input::get('apellido');
-
-        $input = array(
-        'usuario' => $nombre,
-        'contrasena' =>  $apellido
-        );
-    
-        Usuario::create($input);
-    // el método create nos permite crear un nuevo usuario en la base de datos, este método es proporcionado por Laravel
-    // create recibe como parámetro un arreglo con datos de un modelo y los inserta automáticamente en la base de datos 
-    // en este caso el arreglo es la información que viene desde un formulario y la obtenemos con el metido Input::all()
- 
-        return Redirect::to('usuarios');
-    // el método redirect nos devuelve a la ruta de mostrar la lista de los usuarios
- */
     }
  
      /**
      * Ver usuario con id
      */
+     
     public function verUsuario($id)
     {
     // en este método podemos observar como se recibe un parámetro llamado id
