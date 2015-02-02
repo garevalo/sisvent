@@ -92,13 +92,8 @@
 
             {{  HTML::script('js/skins.min.js')  }}
             {{  HTML::script('js/bootbox/bootbox.js')  }}
-
-
-            
-            
+       
         @show
 
     </body>
-
-
 </html>

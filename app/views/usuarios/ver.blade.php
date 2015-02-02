@@ -9,8 +9,6 @@
 @section('css')
     @parent
 
-    	{{ HTML::style('css/plugins/morris/morris-0.4.3.min.css') }}
-		{{ HTML::style('js/plugins/gritter/jquery.gritter.css') }}
 		
  
 @stop

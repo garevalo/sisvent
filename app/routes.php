@@ -21,13 +21,6 @@ Route::get('login', function()
 
 */
 
-
-
-###########################33
-
-// esta ruta servirá para iniciar la sesión por medio del correo y la clave 
-// para esto utilizamos la función estática attemp de la clase Auth
-// esta función recibe como parámetro un arreglo con el correo y la clave
 Route::post('login', function(){
  
     // la función attempt se encarga automáticamente se hacer la encriptación de la clave para ser comparada con la que esta en la base de datos. 
@@ -46,12 +39,8 @@ Route::get('logout',  function ()
         return Redirect::to('/')->with('mensaje','¡Has cerrado sesión correctamente!.');
  
     });
+Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
 
- 
-// Por ultimo crearemos un grupo con el filtro auth. 
-// Para todas estas rutas el usuario debe haber iniciado sesión. 
-// En caso de que se intente entrar y el usuario haya iniciado session 
-// entonces sera redirigido a la ruta login
 Route::group(array('before' => 'auth'), function()
 {
     

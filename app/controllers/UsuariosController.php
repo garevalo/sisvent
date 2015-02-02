@@ -1,26 +1,8 @@
 <?php 
 class UsuariosController extends BaseController {
  
-    /**
-     * Mustra la lista con todos los usuarios
-     */
-     
     public $restful = true;
  
-    //en el constructor hacemos uso del filtro before auth, que lo que hace es
-    //comprobar si el usuario que intenta acceder ha iniciado sesión, si no es 
-    //así lo redirige al login
-   
-   /* public function __construct()
-    {
- 
-        parent::__construct();        
-        //protegemos la entrada si no existe la sesión
-        $this->filter('before', 'auth');
- 
-    }
-    
-*/
 
     public function mostrarUsuarios()
     {
