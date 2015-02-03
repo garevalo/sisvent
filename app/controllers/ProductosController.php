@@ -29,8 +29,8 @@ class ProductosController extends BaseController{
 */
     	$producto= new Producto(array(
             "nombre_producto"    	=>    Input::get("producto"),
-            "descripcion_producto"  =>    Input::get("email"),
-            "precio_producto"    	=>    Input::get("password"),
+            "descripcion_producto"  =>    Input::get("descripcion"),
+            "precio_producto"    	=>    Input::get("precio"),
             "img_producto"       	=>    Input::file("imagen")->getClientOriginalName()//nombre original de la foto
             
         ));
@@ -38,7 +38,7 @@ class ProductosController extends BaseController{
             //guardamos la imagen en public/imgs con el nombre original
             $file->move("img/foto_producto",$file->getClientOriginalName());
             //redirigimos con un mensaje flash
-            return Redirect::to('upload')->with(array('confirm' => 'Te has registrado correctamente.'));
+            return Redirect::to('productos/nuevo')->with(array('confirm' => 'Producto Registrado Correctamente'));
         } 
 
  	}

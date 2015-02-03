@@ -1,3 +1,24 @@
+@if (Session::has('confirm'))
+
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="glyphicon glyphicon-check"></i>
+                </div>
+                <div class="modal-title">Success</div>
+
+                <div class="modal-body">{{Session::has('confirm')}}</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div> <!-- / .modal-content -->
+        </div>
+
+              
+@endif
+
+
+
 @extends('layouts.master')
 
 @section('css')
