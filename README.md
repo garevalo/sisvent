@@ -40,14 +40,34 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-CREATE TABLE `productos` (
-  `idproducto` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_producto` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion_producto` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `img_producto` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `precio_producto` decimal(4,2) NOT NULL,
-  `created_at` timestamp NOT NULL,
-  `updated_at` timestamp NOT NULL,
-  PRIMARY KEY (`idproducto`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-SELECT * FROM prueba.productos;
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `idcategoria` INT NOT NULL AUTO_INCREMENT,
+  `categoria_producto` VARCHAR(45) NOT NULL,
+  `descripcion_categoria` VARCHAR(45) NULL,
+  PRIMARY KEY (`idcategoria`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `productos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `productos` (
+  `idproducto` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre_producto` VARCHAR(20) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `descripcion_producto` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `img_producto` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL,
+  `precio_producto` DECIMAL(9,2) NOT NULL,
+  `stock` INT(4) NULL DEFAULT NULL,
+  `idcategoria` INT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`idproducto`),
+  INDEX `fk_productos_categoria_idx` (`idcategoria` ASC),
+  CONSTRAINT `fk_productos_categoria`
+    FOREIGN KEY (`idcategoria`)
+    REFERENCES `categoria` (`idcategoria`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 11
+DEFAULT CHARACTER SET = latin1;
