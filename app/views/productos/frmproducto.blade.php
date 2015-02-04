@@ -78,8 +78,19 @@
     		</div>
 
  			{{ Form::close() }}
-    	</div>
+                        
+             @if($errors->has())
+                <div class="bg-danger">           
+                    <!--recorremos los errores en un loop y los mostramos-->
+                    @foreach ($errors->all('<p>:message</p>') as $message)
+                        {{ $message }}
+                    @endforeach
 
+                </div>
+            @endif
+    	</div>
+        
+       
       
     </div>
 
