@@ -34,63 +34,110 @@
 
 @section('content')
                		
-    <div class="row">
-
-    	<div class="col-md-12 well">
-    		{{ Form::open(array('url' => 'productos/crear','class'=>"","role"=>"form",'files' => true, 'method' => 'post'))}}
-    		<div class="row form-group">
-
-    			<label class="col-md-1" id="producto">Nombre Producto:</label>
-    			<div class="col-md-2">
-    				<input type="text" name="producto" id="producto" class="input-sm form-control ">
-    			</div>
-
-    		</div>
-    		<div class="row form-group">
-
-    			<label class="col-md-1" id="descripcion">Descripción:</label>
-    			<div class="col-md-2">
-    				<textarea class="input-sm form-control " name="descripcion" id="descripcion" ></textarea>
-    				
-    			</div>
-
-    		</div>
-    		<div class="row form-group">
-
-    			<label class="col-md-1" id="precio">Precio:</label>
-    			<div class="col-md-1">
-    				<input type="text" name="precio" id="precio" class="input-sm form-control ">
-    			</div>
-
-    		</div>
-
-    		<div class="row form-group">
-
-    			<label class="col-md-1" id="precio">Imagen:</label>
-    			<div class="col-md-2">
-    				<input type="file" name="imagen" id="imagen" class="input-sm form-control ">
-    			</div>
-
-    		</div>
-
-    		<div class="row form-group col-md-3">
-    			<input type="submit" value="Guardar" class="btn btn-primary btn-block">
-    		</div>
-
- 			{{ Form::close() }}
-                        
-             @if($errors->has())
-                <div class="bg-danger">           
-                    <!--recorremos los errores en un loop y los mostramos-->
-                    @foreach ($errors->all('<p>:message</p>') as $message)
-                        {{ $message }}
-                    @endforeach
-
-                </div>
-            @endif
-    	</div>
+    <div class="row well">
         
-       
+       <div class="col-lg-4 col-sm-5 col-md-6 col-xs-12">
+                <div class="widget">
+                                        <div class="widget-header bordered-top bordered-palegreen">
+                                            <span class="widget-caption">Registro de Nuevos Productos</span>
+                                        </div>
+                                        <div class="widget-body">
+                                            <div class="collapse in">
+                                                
+
+
+                                                    {{ Form::open(array('url' => 'productos/crear','class'=>"","role"=>"form",'files' => true, 'method' => 'post'))}}
+                                                            <div class="form-group">
+
+                                                                <label id="producto">Nombre Producto:</label>
+                                                                <input type="text" name="producto" id="producto" class="form-control input-sm">
+                                                               @if($errors->has('producto'))
+                                                               <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
+                                                               @endif
+
+                                                            </div>
+                                                            <div class="form-group">
+
+                                                                <label id="descripcion">Descripción:</label>
+                                                                <textarea class="form-control input-sm" name="descripcion" id="descripcion" ></textarea>
+                                                                @if($errors->has('descripcion'))
+                                                               <small class="text-danger">* <?php echo $errors->first('descripcion') ?></small>
+                                                               @endif
+
+                                                            </div>
+                                                            <div class="form-group">
+
+                                                                <label  id="precio">Precio:</label>
+                                                                <input type="text" name="precio" id="precio" class="form-control input-sm">
+                                                                @if($errors->has('precio'))
+                                                               <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                               @endif
+
+                                                            </div>
+
+                                                            <div class="form-group">
+
+                                                                <label id="precio">Imagen:</label>
+                                                                <input type="file" name="imagen" id="imagen" class="form-control input-sm">
+                                                                @if($errors->has('imagen'))
+                                                                <small class="text-danger">* <?php echo $errors->first('imagen') ?></small>
+                                                                @endif
+
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <input type="submit" value="Guardar" class="btn btn-primary">
+                                                            </div>
+
+                                                    {{ Form::close() }}
+
+
+
+                                            </div>
+                                        </div>
+                                        
+                    </div>
+        </div>
+
+        <div class="col-lg-8 col-sm-7 col-md-6 col-xs-12">
+                <div class="widget">
+                        <div class="widget-header bordered-top bordered-palegreen">
+                            <span class="widget-caption">Lista de Productos Registrados</span>
+                        </div>
+                        <div class="widget-body">
+                            <div class="collapse in">
+                                <table class="table table-condensed table-striped table-bordered">
+                                    <thead>
+                                        <th>Id</th>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Foto</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+
+                                    </thead>
+                                    <tbody>
+                                        @foreach($productos as $key=> $producto)
+                                        <tr>
+                                            <td>{{$key +1 }}</td>
+                                            <td>{{$producto->nombre_producto}}</td>
+                                            <td>{{$producto->precio_producto}}</td>
+                                            <td><img src="{{ asset('img/foto_producto').'/'.$producto->img_producto;}}" width="50" heigth="50"> </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <br>
+                            <div class=""><?php echo $productos->links(); ?> </div> 
+                        </div>
+                </div>
+        </div>
+
+
       
     </div>
 

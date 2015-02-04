@@ -12,8 +12,20 @@
 
 
 @section('content')
-               		
     <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4 text-left">
+              <button class="btn btn-success btn-block">Cotización</button>      
+            </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    <br>
+    <div class="row well">
 
     @foreach($productos as $producto)
            
@@ -28,7 +40,19 @@
         </div>
       </div>
     @endforeach 
-      
+     <div class="col-md-12">
+        <div class="row">
+            
+              <center><?php echo $productos->links(); ?>     </center>
+              
+            
+          
+        </div>
+        
+      </div>
+    </div>
+    
+   
 
 @stop
 

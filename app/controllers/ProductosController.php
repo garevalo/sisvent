@@ -4,21 +4,23 @@ class ProductosController extends BaseController{
     
     
     public function listarProductos(){
-       
-       $productos= Producto::all();  
+       $productos = Producto::paginate(8);
+       //$productos= Producto::all();  
        $data=array("subtitulo"=>"Lista de Productos","productos"=>$productos); 
        return View::make('productos.lista-cliente',$data);
     }
     
 
     public function nuevoProductos(){
-
-    	$data=array("subtitulo"=>"Registrar Producto"); 
+        $productos = Producto::paginate(5);
+       // $productos= Producto::all();
+    	$data=array("subtitulo"=>"Registrar Producto",'productos'=>$productos); 
     	return View::make('productos.frmproducto',$data);
     }
 
     public function crearProductos(){
 
+          
     	$file = Input::file("imagen");
     	$dataUpload = array(
 	        "producto"    	=>    Input::get("producto"),
@@ -28,8 +30,8 @@ class ProductosController extends BaseController{
     	);
 
         $rules = array(
-            'producto'  => 'required|min:6|max:100',
-            'descripcion'     => 'required|min:6|max:100|unique:productos,nombre_producto',
+            'producto'  => 'required|min:6|max:100|unique:productos,nombre_producto',
+            'descripcion'     => 'required|min:6|max:100',
             'precio'  => 'required|numeric',
             'imagen'     => 'required'
         );
@@ -39,13 +41,13 @@ class ProductosController extends BaseController{
             'min'       => 'El campo :attribute no puede tener menos de :min carácteres.',
             'email'     => 'El campo :attribute debe ser un email válido.',
             'max'       => 'El campo :attribute no puede tener más de :min carácteres.',
-            'unique'    => 'El email ingresado ya está registrado en el blog',
-            'confirmed' => 'Los passwords no coinciden'
+            'unique'    => 'El producto ingresado ya está registrado',
+            'confirmed' => 'Los passwords no coinciden',
+            'numeric'    => 'El campo :attribute debe ser un número'
         );
 
         $validation = Validator::make($dataUpload, $rules, $messages);
-             //si la validación falla redirigimos al formulario de registro con los errores
-            //y con los campos que nos habia llenado el usuario    
+  
         if ($validation->fails())
         {
             return Redirect::to('productos/nuevo')->withErrors($validation)->withInput();
@@ -61,7 +63,7 @@ class ProductosController extends BaseController{
 
             ));
             if($producto->save()){
-                //guardamos la imagen en public/imgs con el nombre original
+  
                 $file->move("img/foto_producto",$file->getClientOriginalName());
                 //redirigimos con un mensaje flash
                 return Redirect::to('productos/nuevo')->with(array('confirm' => 'Producto Registrado Correctamente'));
