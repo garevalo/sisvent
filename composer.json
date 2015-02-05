@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"chumper/datatable": "dev-master"
+		"chumper/datatable": "dev-master",
+		"maxxscho/laravel-tcpdf": "0.*"
 	},
 	"autoload": {
 		"classmap": [

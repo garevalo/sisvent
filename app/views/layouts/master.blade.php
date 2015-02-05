@@ -9,7 +9,7 @@
 
 			
             {{ HTML::style('css/bootstrap.min.css') }}
-            {{ HTML::style('font-awesome/css/font-awesome.css')}}
+            {{ HTML::style('css/font-awesome.css')}}
             {{ HTML::style('css/weather-icons.min.css') }}
             {{ HTML::style('css/beyond.min.css') }}
             {{ HTML::style('css/demo.min.css') }}
@@ -119,6 +119,7 @@
                     {{  HTML::script('js/bootstrap.min.js') }}
                     {{  HTML::script('js/beyond.min.js')  }}
                     {{  HTML::script('js/bootbox/bootbox.js')  }}
+                    {{  HTML::script('js/slimscroll/jquery.slimscroll.min.js')  }}
            
 			
 		@show

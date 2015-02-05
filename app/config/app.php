@@ -122,9 +122,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		//providers
-		//'Chumper\Datatable\DatatableServiceProvider',
+		'Chumper\Datatable\DatatableServiceProvider',
 		//aliases
 		//'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
+		//'Maxxscho\LaravelTcpdf\LaravelTcpdfServiceProvider',
 
 	),
 
@@ -192,7 +193,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-
+		'Datatable' 		=> 'Chumper\Datatable\Facades\DatatableFacade',
 	),
 
 );

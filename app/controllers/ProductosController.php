@@ -14,7 +14,8 @@ class ProductosController extends BaseController{
     public function nuevoProductos(){
         $productos = Producto::paginate(10);
        // $productos= Producto::all();
-    	$data=array("subtitulo"=>"Registrar Producto",'productos'=>$productos); 
+        $categorias= Categoria::all();
+    	$data=array("subtitulo"=>"Registrar Producto",'productos'=>$productos,'categorias'=>$categorias); 
     	return View::make('productos.frmproducto',$data);
     }
 
@@ -24,16 +25,18 @@ class ProductosController extends BaseController{
     	$file = Input::file("imagen");
     	$dataUpload = array(
 	        "producto"    	=>    Input::get("producto"),
-	        "descripcion"  =>    Input::get("descripcion"),
+	        "descripcion"   =>    Input::get("descripcion"),
 	        "precio"    	=>    Input::get("precio"),
-	        "imagen"        	=>    $file//campo foto para validar
+	        "imagen"        =>    $file,//campo foto para validar
+            "categoria"     =>    Input::get("categoria")
     	);
 
         $rules = array(
-            'producto'  => 'required|min:6|max:100|unique:productos,nombre_producto',
-            'descripcion'     => 'required|min:6|max:100',
-            'precio'  => 'required|numeric',
-            'imagen'     => 'required'
+            'producto'      => 'required|min:6|max:100|unique:productos,nombre_producto',
+            'descripcion'   => 'required|min:6|max:100',
+            'precio'        => 'required|numeric',
+            'imagen'        => 'required|mimes:jpeg,bmp,png|max:20000',
+            'categoria'     => 'required'
         );
 
         $messages = array(
@@ -43,7 +46,8 @@ class ProductosController extends BaseController{
             'max'       => 'El campo :attribute no puede tener más de :min carácteres.',
             'unique'    => 'El producto ingresado ya está registrado',
             'confirmed' => 'Los passwords no coinciden',
-            'numeric'    => 'El campo :attribute debe ser un número'
+            'numeric'   => 'El campo :attribute debe ser un número',
+            'mimes'     => 'El campo :attribute debe ser una imagen'
         );
 
         $validation = Validator::make($dataUpload, $rules, $messages);
@@ -54,17 +58,20 @@ class ProductosController extends BaseController{
         }
         
         else{
+
+          
         
             $producto= new Producto(array(
                 "nombre_producto"    	=>    Input::get("producto"),
                 "descripcion_producto"  =>    Input::get("descripcion"),
                 "precio_producto"    	=>    Input::get("precio"),
-                "img_producto"       	=>    Input::file("imagen")->getClientOriginalName()//nombre original de la foto
+                "img_producto"       	=>   str_replace("", "_", strtolower(Input::get("producto"))) ,//Input::file("imagen")->getClientOriginalName(),//nombre original de la foto
+                "idcategoria"             =>    Input::get("categoria")
 
             ));
             if($producto->save()){
   
-                $file->move("img/foto_producto",$file->getClientOriginalName());
+                $file->move("img/foto_producto",str_replace("", "_", strtolower(Input::get("producto"))));
                 //redirigimos con un mensaje flash
                 return Redirect::to('productos/nuevo')->with(array('confirm' => 'Producto Registrado Correctamente'));
             } 

@@ -1,16 +1,18 @@
 
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <i class="glyphicon glyphicon-check"></i>
-        </div>
-        <div class="modal-title">Success</div>
+<div id="modal-success" class="modal modal-message modal-success" style="" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="glyphicon glyphicon-check"></i>
+                </div>
+                <div class="modal-title">Success</div>
 
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-        </div>
-    </div> <!-- / .modal-content -->
+                <div class="modal-body">You have done great!</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div> <!-- / .modal-content -->
+        </div> <!-- / .modal-dialog -->
 </div>
 
 
@@ -77,6 +79,21 @@
                                                                 <input type="file" name="imagen" id="imagen" class="form-control input-sm">
                                                                 @if($errors->has('imagen'))
                                                                 <small class="text-danger">* <?php echo $errors->first('imagen') ?></small>
+                                                                @endif
+
+                                                            </div>
+
+                                                            <div class="form-group">
+
+                                                                <label id="categoria">Categoría:</label>
+                                                                <select name="categoria" id="categoria" class="form-control input-sm">
+                                                                    <option value="">Seleccione Categoría</option>
+                                                                    @foreach($categorias as $categoria)
+                                                                    <option value="{{$categoria->idcategoria}}">{{$categoria->nombre_categoria}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @if($errors->has('categoria'))
+                                                                <small class="text-danger">* <?php echo $errors->first('categoria') ?></small>
                                                                 @endif
 
                                                             </div>
