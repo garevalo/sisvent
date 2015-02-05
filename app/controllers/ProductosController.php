@@ -65,13 +65,13 @@ class ProductosController extends BaseController{
                 "nombre_producto"    	=>    Input::get("producto"),
                 "descripcion_producto"  =>    Input::get("descripcion"),
                 "precio_producto"    	=>    Input::get("precio"),
-                "img_producto"       	=>   str_replace("", "_", strtolower(Input::get("producto"))) ,//Input::file("imagen")->getClientOriginalName(),//nombre original de la foto
+                "img_producto"       	=>   str_replace(" ", "_", strtolower(Input::get("producto"))) ,//Input::file("imagen")->getClientOriginalName(),//nombre original de la foto
                 "idcategoria"             =>    Input::get("categoria")
 
             ));
             if($producto->save()){
   
-                $file->move("img/foto_producto",str_replace("", "_", strtolower(Input::get("producto"))));
+                $file->move("img/foto_producto",str_replace(" ", "_", strtolower(Input::get("producto"))));
                 //redirigimos con un mensaje flash
                 return Redirect::to('productos/nuevo')->with(array('confirm' => 'Producto Registrado Correctamente'));
             } 

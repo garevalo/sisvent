@@ -35,7 +35,9 @@
          </div>
     </div>
     <div class="col-md-2">
-         <button class="btn btn-success btn-block">Cotización</button> 
+
+      {{ link_to('cotizacion/nuevo', "Cotización", $atributos = array('title'=>'registrar Cotización','class'=>'btn btn-success btn-block'), $seguro = null);}}
+         <!--<button class="btn btn-success btn-block">Cotización</button> -->
     </div>
     
     </div>

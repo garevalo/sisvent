@@ -23,8 +23,11 @@
             return Redirect::to('/')->with('mensaje','¡Has cerrado sesión correctamente!.');
      
         });
-    Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
     
+    Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
+
+    /*Cotizacion*/
+    Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
 
 
     Route::group(array('before' => 'auth'), function()
@@ -52,5 +55,8 @@
         Route::get('productos/nuevo', array('uses' => 'ProductosController@nuevoProductos'));
 
         Route::post('productos/crear', array('uses' => 'ProductosController@crearProductos'));
+        /****** Fin Productos *****/
+
+        
 
     });

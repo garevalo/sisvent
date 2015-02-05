@@ -60,14 +60,15 @@
    	    
    	       	
    	       	@include('layouts/head')
-
+            
+            
    	       	<div class="main-container container-fluid">
 
                   <div class="page-container">
                     
                      
                      <div class="page-content" style="margin-left:0px;">
-                        
+                        @if(isset(Auth::user()->usuario))
                         <div class="page-breadcrumbs">
                           <ul class="breadcrumb">
                               <li>
@@ -93,7 +94,7 @@
                              </div>
                              
                          </div>
-
+                        @endif
                          <div class="page-body">
                             <div class="row">
                                
@@ -110,6 +111,7 @@
                   </div>
    	       	 	
    	       	</div>
+            
 
    	       @include('layouts/footer')
  
