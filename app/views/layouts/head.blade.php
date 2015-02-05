@@ -5,8 +5,8 @@
                 <div class="navbar-header pull-left">
                     <a href="#" class="navbar-brand">
                         <small>
-                            <!--<img src="{{ asset('img/logo.png');}}" alt="">-->
-                            <span style="" class="text-primary"><strong>NCH</strong></span> Perú
+                           
+                            <h5 class="row-title before-orange" style="margin-top: 2px; width: 120px;"><div class="" style=""><span style="font-size: 25px" class="text-primary"><strong>NCH</strong></span> Perú</div></h5>
                         </small>
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                             <li>
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                     <div class="avatar" title="View your public profile">
-                                        <img src="assets/img/avatars/adam-jansen.jpg">
+                                        <img src="{{ asset('img/user.png');}}">
                                     </div>
                                     <section>
                                         <h2><span class="profile"><span>Bienvenido {{Auth::user()->usuario}}</span></span></h2>

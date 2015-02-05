@@ -12,7 +12,7 @@ class ProductosController extends BaseController{
     
 
     public function nuevoProductos(){
-        $productos = Producto::paginate(5);
+        $productos = Producto::paginate(10);
        // $productos= Producto::all();
     	$data=array("subtitulo"=>"Registrar Producto",'productos'=>$productos); 
     	return View::make('productos.frmproducto',$data);
