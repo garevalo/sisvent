@@ -51,7 +51,7 @@
        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="widget">
                                         <div class="widget-header bordered-top bordered-palegreen">
-                                            <span class="widget-caption"><h2>Registrar Nueva Cotizacion</h2></span>
+                                            <span class="widget-caption">Registrar Nueva Cotizacion</span>
                                         </div>
                                         <div class="widget-body">
                                             <div class="collapse in">
@@ -78,34 +78,39 @@
 
                                                                  </div>
                                                              </div>
-                                                            <div class="form-group">
-                                                                <div class="col-md-4">
-                                                                    <label  id="precio">Nombre:</label>
-                                                                    <input type="text" name="precio" id="precio" class="form-control">
-                                                                    @if($errors->has('precio'))
-                                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                                   @endif
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <label  id="precio">Dirección:</label>
-                                                                    <input type="text" name="precio" id="precio" class="form-control">
-                                                                    @if($errors->has('precio'))
-                                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                                    @endif
+                                                             <div class="row">
+                                                                <div class="form-group has-info has-feedback">
+                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                        <label  id="precio">Nombre:</label>
+                                                                        <input type="text" name="precio" id="precio" class="form-control">
+                                                                        @if($errors->has('precio'))
+                                                                       <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                                       @endif
+                                                                    </div>
+                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                        <label  id="precio">Dirección:</label>
+                                                                        <input type="text" name="precio" id="precio" class="form-control">
+                                                                        @if($errors->has('precio'))
+                                                                        <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                                        @endif
+
+                                                                    </div>
+
+                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                        <label  id="precio">Teléfono:</label>
+                                                                        <input type="text" name="precio" id="precio" class="form-control">
+                                                                        @if($errors->has('precio'))
+                                                                        <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                                        @endif
+
+                                                                    </div>
 
                                                                 </div>
 
-                                                            </div>
+                                                             </div>
                                                             
-                                                            <div class="form-group">
-
-                                                                <label  id="precio">Teléfono:</label>
-                                                                <input type="text" name="precio" id="precio" class="form-control input-sm">
-                                                                @if($errors->has('precio'))
-                                                               <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                               @endif
-
-                                                            </div>
+                                                            
+                                                            
                                                             <div class="form-group">
 
                                                                 <label  id="precio">Dirección de Despacho:</label>
