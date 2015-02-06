@@ -61,14 +61,14 @@
                                                     {{ Form::open(array('url' => 'productos/crear','class'=>"","role"=>"form",'files' => true, 'method' => 'post'))}}
                                                             <div class="row">
                                                                 <div class="form-group has-info has-feedback">
-                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                    <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                                         <label id="producto">Código:</label>
                                                                         <input type="text" name="producto" id="producto" class="form-control ">
                                                                        @if($errors->has('producto'))
                                                                        <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
                                                                        @endif
                                                                     </div>
-                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                    <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                                         <label id="descripcion">Ruc:</label>
                                                                         <input type="text" class="form-control" name="descripcion" id="descripcion" >
                                                                         @if($errors->has('descripcion'))
@@ -80,14 +80,14 @@
                                                              </div>
                                                              <div class="row">
                                                                 <div class="form-group has-info has-feedback">
-                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                    <div class="col-lg-3 col-sm-4 col-md-4 col-xs-12">
                                                                         <label  id="precio">Nombre:</label>
                                                                         <input type="text" name="precio" id="precio" class="form-control">
                                                                         @if($errors->has('precio'))
                                                                        <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                                        @endif
                                                                     </div>
-                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                    <div class="col-lg-4 col-sm-5 col-md-5 col-xs-12">
                                                                         <label  id="precio">Dirección:</label>
                                                                         <input type="text" name="precio" id="precio" class="form-control">
                                                                         @if($errors->has('precio'))
@@ -96,7 +96,15 @@
 
                                                                     </div>
 
-                                                                    <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                   
+
+                                                                </div>
+
+                                                             </div>
+                                                            
+                                                            <div class="row">
+                                                                <div class="form-group has-info has-feedback">
+                                                                     <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                                         <label  id="precio">Teléfono:</label>
                                                                         <input type="text" name="precio" id="precio" class="form-control">
                                                                         @if($errors->has('precio'))
@@ -105,25 +113,25 @@
 
                                                                     </div>
 
+                                                                    <div class="col-lg-4 col-sm-5 col-md-5 col-xs-12">
+                                                                        <label  id="precio">Dirección de Despacho:</label>
+                                                                        <input type="text" name="precio" id="precio" class="form-control">
+                                                                        @if($errors->has('precio'))
+                                                                       <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                                       @endif
+                                                                    </div>
+    
                                                                 </div>
 
-                                                             </div>
-                                                            
-                                                            
-                                                            
-                                                            <div class="form-group">
-
-                                                                <label  id="precio">Dirección de Despacho:</label>
-                                                                <input type="text" name="precio" id="precio" class="form-control input-sm">
-                                                                @if($errors->has('precio'))
-                                                               <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                               @endif
-
                                                             </div>
+                                                            
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
 
-
-                                                            <div class="form-group">
-                                                                <input type="submit" value="Buscar" class="btn btn-success">
+                                                                    <input type="submit" value="Buscar" class="btn btn-success btn-block">    
+                                                                </div>
+                                                                
                                                             </div>
 
                                                     {{ Form::close() }}
