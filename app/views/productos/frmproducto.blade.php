@@ -2,7 +2,7 @@
 
 @section('css')
     @parent
-       {{ HTML::style('js/datatables/bootstrap-adapter/css/datatables.css')}} 
+       {{ HTML::style('js/jquery.datatables/bootstrap-adapter/css/datatables.css')}} 
  
 @stop
 
@@ -131,13 +131,8 @@
                         </div>
                         <div class="widget-body">
                             <div class="collapse in">
-                                <script type="text/javascript">
-                                    $(document).ready(function() {
-                                        $('#example').DataTable();
-                                    } );
-
-                                </script>
-                                <table class="table table-condensed table-striped table-bordered" id="example">
+                                
+                               <!--  <table class="table table-condensed table-striped table-bordered" id="example">
                                     <thead>
                                         <th>Id</th>
                                         <th>Producto</th>
@@ -148,7 +143,7 @@
 
                                     </thead>
                                     <tbody>
-                                       <!-- @foreach($productos as $key=> $producto)
+                                       @foreach($productos as $key=> $producto)
                                         <tr>
                                             <td>{{$key +1 }}</td>
                                             <td>{{$producto->nombre_producto}}</td>
@@ -157,7 +152,7 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                        @endforeach-->
+                                        @endforeach
                                         <tr>
                                             <td>dsc</td>
                                             <td>dscds</td>
@@ -175,7 +170,7 @@
                                             <td>sdcds</td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table>-->
                                 {{ Datatable::table()
                                 ->addColumn('Id','Producto')       // these are the column headings to be shown
                                 ->setUrl(route('api.productos'))   // this is the route where data will be retrieved
@@ -200,7 +195,8 @@
 @section('js')
 	@parent
         
-
-        {{ HTML::script('js/datatables/jquery.dataTables.js')  }}
+        
+         {{ HTML::script('js/jquery.datatables/jquery.dataTables.js')  }}
+         {{ HTML::script('js/jquery.datatables/dataTables.bootstrap.js')  }}
      
 @stop
