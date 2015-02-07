@@ -78,6 +78,15 @@ class ProductosController extends BaseController{
 
             }
         }
+
+        public function getDatatable()
+        {
+            return Datatable::collection(Producto::all(array('idproducto','nombre_producto')))
+            ->showColumns('idproducto', 'nombre_producto')
+            ->searchColumns('idproducto','nombre_producto')
+            ->orderColumns('idproducto','nombre_producto')
+            ->make();
+        }
 }
 
 

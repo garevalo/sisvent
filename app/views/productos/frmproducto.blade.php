@@ -1,41 +1,8 @@
-
-@if(isset($confirm))
-<script type="text/javascript">
-    
-    $(function(){
-
-        $( window ).load(function() {
-          $('#modal-success').modal('show');
-        });
-        
-    });
-
-
-</script>
-<div id="modal-success" class="modal modal-message modal-success" style="" >
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <i class="glyphicon glyphicon-check"></i>
-                </div>
-                <div class="modal-title">Success</div>
-
-                <div class="modal-body">You have done great!</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                </div>
-            </div> <!-- / .modal-content -->
-        </div> <!-- / .modal-dialog -->
-</div>
-@endif
-
-
-
 @extends('layouts.master')
 
 @section('css')
     @parent
-        
+       {{ HTML::style('js/datatables/bootstrap-adapter/css/datatables.css')}} 
  
 @stop
 
@@ -45,7 +12,38 @@
 
 
 @section('content')
-               		
+    
+
+    @if(isset($confirm))
+    <script type="text/javascript">
+        
+        $(function(){
+
+            $( window ).load(function() {
+              $('#modal-success').modal('show');
+            });
+            
+        });
+
+
+    </script>
+    <div id="modal-success" class="modal modal-message modal-success" style="" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <i class="glyphicon glyphicon-check"></i>
+                    </div>
+                    <div class="modal-title">Success</div>
+
+                    <div class="modal-body">You have done great!</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                    </div>
+                </div> <!-- / .modal-content -->
+            </div> <!-- / .modal-dialog -->
+    </div>
+    @endif
+
     <div class="row well">
         
        <div class="col-lg-4 col-sm-5 col-md-6 col-xs-12">
@@ -133,7 +131,13 @@
                         </div>
                         <div class="widget-body">
                             <div class="collapse in">
-                                <table class="table table-condensed table-striped table-bordered">
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        $('#example').DataTable();
+                                    } );
+
+                                </script>
+                                <table class="table table-condensed table-striped table-bordered" id="example">
                                     <thead>
                                         <th>Id</th>
                                         <th>Producto</th>
@@ -144,7 +148,7 @@
 
                                     </thead>
                                     <tbody>
-                                        @foreach($productos as $key=> $producto)
+                                       <!-- @foreach($productos as $key=> $producto)
                                         <tr>
                                             <td>{{$key +1 }}</td>
                                             <td>{{$producto->nombre_producto}}</td>
@@ -153,9 +157,29 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                        @endforeach
+                                        @endforeach-->
+                                        <tr>
+                                            <td>dsc</td>
+                                            <td>dscds</td>
+                                            <td>ds</td>
+                                            <td>sdc</td>
+                                            <td>sdc</td>
+                                            <td>sdcds</td>
+                                        </tr>
+                                        <tr>
+                                            <td>dsc</td>
+                                            <td>dscds</td>
+                                            <td>ds</td>
+                                            <td>sdc</td>
+                                            <td>sdc</td>
+                                            <td>sdcds</td>
+                                        </tr>
                                     </tbody>
                                 </table>
+                                {{ Datatable::table()
+                                ->addColumn('Id','Producto')       // these are the column headings to be shown
+                                ->setUrl(route('api.productos'))   // this is the route where data will be retrieved
+                                ->render() }}
                             </div>
                             
                             <br>
@@ -175,5 +199,8 @@
 
 @section('js')
 	@parent
+        
 
+        {{ HTML::script('js/datatables/jquery.dataTables.js')  }}
+     
 @stop

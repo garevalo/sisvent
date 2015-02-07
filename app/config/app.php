@@ -125,7 +125,7 @@ return array(
 		'Chumper\Datatable\DatatableServiceProvider',
 		//aliases
 		//'Datatable' => 'Chumper\Datatable\Facades\DatatableFacade',
-		//'Maxxscho\LaravelTcpdf\LaravelTcpdfServiceProvider',
+		'Maxxscho\LaravelTcpdf\LaravelTcpdfServiceProvider',
 
 	),
 

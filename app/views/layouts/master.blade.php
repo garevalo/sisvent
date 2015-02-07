@@ -118,6 +118,7 @@
 		@section('js')
 
                     {{  HTML::script('js/jquery-2.0.3.min.js')  }}
+                    {{  HTML::script('js/jquery.ui/jquery-ui.js')  }}
                     {{  HTML::script('js/bootstrap.min.js') }}
                     {{  HTML::script('js/beyond.min.js')  }}
                     {{  HTML::script('js/bootbox/bootbox.js')  }}
