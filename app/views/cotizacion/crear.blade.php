@@ -131,34 +131,94 @@
                                                                 
                                                             </div>
 
-                                                    {{ Form::close() }}
+                                                    
 
                                                     <hr>
-                                                    <table class="table table-condensed table-striped table-bordered">
-                                                        <thead>
-                                                            <th>Id</th>
-                                                            <th>Producto</th>
-                                                            <th>Precio</th>
-                                                            <th>Foto</th>
-                                                            <th>Editar</th>
-                                                            <th>Eliminar</th>
+                                                    <div class="row">
+                                                       <div class="col-lg-10 col-sm-8 col-md-10 col-xs-8">
+                                                            <table class="table table-condensed table-striped table-bordered table-responsive">
+                                                                <thead>
+                                                                    <th>Id</th>
+                                                                    <th>Producto</th>
+                                                                    <th>Precio</th>
+                                                                    <th>Foto</th>
+                                                                    <th>Editar</th>
+                                                                    <th>Eliminar</th>
 
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach($productos as $key=> $producto)
-                                                            <tr>
-                                                                <td>{{$key +1 }}</td>
-                                                                <td>{{$producto->nombre_producto}}</td>
-                                                                <td>{{$producto->precio_producto}}</td>
-                                                                <td><img src="{{ asset('img/foto_producto').'/'.$producto->img_producto;}}" width="50" heigth="50"> </td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach($productos as $key=> $producto)
+                                                                    <tr>
+                                                                        <td>{{$key +1 }}</td>
+                                                                        <td>{{$producto->nombre_producto}}</td>
+                                                                        <td>{{$producto->precio_producto}}</td>
+                                                                        <td><img src="{{ asset('img/foto_producto').'/'.$producto->img_producto;}}" width="50" heigth="50"> </td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                       </div>
+                                                    
+                                                        <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <label class="col-md-6">Precio Bruto:</label>
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                               
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="form-group">
+                                                                    <div class="row">
+                                                                    <label class="col-md-6">IGV:</label>
+                                                                    <div class="col-md-6">
+                                                                        <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                               
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                <label class="col-md-6">Precio Neto:</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control">
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                
+                                                                    <div class="col-md-12">
+                                                                        <button class="btn btn-primary btn-block">Aceptar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                
+                                                                    <div class="col-md-12">
+                                                                        <button class="btn btn-primary btn-block">Imprimir</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                                
+                                                     </div>
+                                                    
+                                                    {{ Form::close() }}
                                             </div>
+                                            
 
                                         </div>
                                         

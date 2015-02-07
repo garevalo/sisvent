@@ -23,7 +23,7 @@
               <div class="caption">
                 <h3>{{$producto->nombre_producto;}}</h3>
                 <p>{{$producto->descripcion_producto;}}</p>
-                <p><a href="#" class="btn btn-primary" role="button">Ver Detalle</a> <a href="#" class="btn btn-default" role="button">Seleccionar</a></p>
+                <!--<p><a href="#" class="btn btn-primary" role="button">Ver Detalle</a> <a href="#" class="btn btn-default" role="button">Seleccionar</a></p>-->
               </div>
             </div>
           </div>
