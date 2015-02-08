@@ -124,9 +124,9 @@
                                                             
                                                             <br>
                                                             <div class="row">
-                                                                <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                                <div class="col-lg-1 col-sm-4 col-md-3 col-xs-12">
 
-                                                                    <input type="submit" value="Buscar" class="btn btn-success btn-block">    
+                                                                    <button  class="btn btn-success btn-xs btn-block"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>   Buscar </button>
                                                                 </div>
                                                                 
                                                             </div>
@@ -141,7 +141,8 @@
                                                                     <th>Id</th>
                                                                     <th>Producto</th>
                                                                     <th>Precio</th>
-                                                                    <th>Foto</th>
+                                                                    <th>Cantidad</th>
+                                                                    <th>Precio Total</th>
                                                                     <th>Editar</th>
                                                                     <th>Eliminar</th>
 
@@ -152,6 +153,8 @@
                                                                         <td>{{$key +1 }}</td>
                                                                         <td>{{$producto->nombre_producto}}</td>
                                                                         <td>{{$producto->precio_producto}}</td>
+                                                                        <td></td>
+                                                                        <td></td>
                                                                         <td><img src="{{ asset('img/foto_producto').'/'.$producto->img_producto;}}" width="50" heigth="50"> </td>
                                                                         <td></td>
                                                                         <td></td>
@@ -200,7 +203,7 @@
                                                                 <div class="row">
                                                                 
                                                                     <div class="col-md-12">
-                                                                        <button class="btn btn-primary btn-block">Aceptar</button>
+                                                                        <button class="btn btn-primary btn-block"><i class="glyphicon glyphicon-save"></i> Aceptar</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -208,7 +211,7 @@
                                                                 <div class="row">
                                                                 
                                                                     <div class="col-md-12">
-                                                                        <button class="btn btn-primary btn-block">Imprimir</button>
+                                                                        <button class="btn btn-primary btn-block"><span class="glyphicon glyphicon-print"></span> Imprimir</button>
                                                                     </div>
                                                                 </div>
                                                             </div>

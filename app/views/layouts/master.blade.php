@@ -24,9 +24,10 @@
                     {{  HTML::script('js/jquery-2.0.3.min.js')  }}
                     {{  HTML::script('js/jquery.ui/jquery-ui.js')  }}
                     {{  HTML::script('js/bootstrap.min.js') }}
+                    {{  HTML::script('js/slimscroll/jquery.slimscroll.min.js')  }}
                     {{  HTML::script('js/beyond.min.js')  }}
                     {{  HTML::script('js/bootbox/bootbox.js')  }}
-                    {{  HTML::script('js/slimscroll/jquery.slimscroll.min.js')  }}
+                    
                     
 			
 		@show
@@ -41,32 +42,9 @@
 	
    <body>
      
-          <div class="loading-container">
-              <div class="loading-progress">
-                  <div class="rotator">
-                      <div class="rotator">
-                          <div class="rotator colored">
-                              <div class="rotator">
-                                  <div class="rotator colored">
-                                      <div class="rotator colored"></div>
-                                      <div class="rotator"></div>
-                                  </div>
-                                  <div class="rotator colored"></div>
-                              </div>
-                              <div class="rotator"></div>
-                          </div>
-                          <div class="rotator"></div>
-                      </div>
-                      <div class="rotator"></div>
-                  </div>
-                  <div class="rotator"></div>
-              </div>
-          </div>
-          
-
-   
-   	    
-   	       	
+         <div class="loading-container loading-active">
+            <div class="loader"></div>
+        </div>
    	       	@include('layouts/head')
             
             

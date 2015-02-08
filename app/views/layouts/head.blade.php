@@ -18,9 +18,13 @@
                         <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
                         <li><a href="#"></a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-camera-retro "></i> Mantenimiento <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-cog fa-fw"></i> Mantenimiento <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
-                                <li>{{ link_to('productos/nuevo', "Registrar Productos", $atributos = array('title'=>'registrar producto'), $seguro = null);}}</li>
+                                <!--<li><i class='fa fa-edit'></i> {{ link_to('productos/nuevo', "Registrar Productos", $atributos = array('title'=>'registrar producto','tabindex'=>'-1'), $seguro = null);}}</li>-->
+                                <li><a href="{{url('productos/nuevo', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-list"></i>
+                                    Registrar Productos
+                                </a></li>
                                 <!--<li><a href="#">Another action</a></li>
                                 <li><a href="#">Something else here</a></li>
                                 <li class="divider"></li>

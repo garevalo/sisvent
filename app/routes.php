@@ -9,6 +9,7 @@
      
         // la función attempt se encarga automáticamente se hacer la encriptación de la clave para ser comparada con la que esta en la base de datos. 
         if (Auth::attempt( array('usuario' => Input::get('usuario'), 'password' => Input::get('contrasena') ), true )){
+            
             return Redirect::to('dashboard');
         }else{
             return Redirect::to('/')->with('mensaje_login', 'Ingreso invalido');
@@ -37,7 +38,8 @@
         /**** Usuarios ****/
         Route::get('dashboard', function()
         {
-            return View::make('dashboard');
+            $data=array("subtitulo"=>"<strong>Bienvenido al Menú Principal Del Sistema de Ventas</strong>");
+            return View::make('dashboard',$data);
         });
 
         Route::controller('users', 'UserController');
