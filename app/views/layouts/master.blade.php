@@ -42,9 +42,9 @@
 	
    <body>
      
-         <div class="loading-container loading-active">
+<!--         <div class="loading-container loading-active">
             <div class="loader"></div>
-        </div>
+        </div>-->
    	       	@include('layouts/head')
             
             

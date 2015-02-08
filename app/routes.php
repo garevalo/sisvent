@@ -27,6 +27,7 @@
     
     Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
     Route::get('api/productos', array('as'=>'api.productos','uses'=>'ProductosController@getDatatable'));
+    Route::get('productos/modal', array('uses' => 'ProductosController@modalProductos'));
     /*Cotizacion*/
     Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
 
@@ -58,6 +59,8 @@
         Route::get('productos/nuevo', array('uses' => 'ProductosController@nuevoProductos'));
 
         Route::post('productos/crear', array('uses' => 'ProductosController@crearProductos'));
+        
+        
         /****** Fin Productos *****/
 
         

@@ -12,9 +12,6 @@
 
 
 @section('content')
-    
-
-    @if(isset($confirm))
     <script type="text/javascript">
         
         $(function(){
@@ -27,6 +24,10 @@
 
 
     </script>
+    
+
+    @if(isset($confirm))
+    
     <div id="modal-success" class="modal modal-message modal-success" style="" >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -131,54 +132,15 @@
                         </div>
                         <div class="widget-body">
                             <div class="collapse in">
-                                
-                               <!--  <table class="table table-condensed table-striped table-bordered" id="example">
-                                    <thead>
-                                        <th>Id</th>
-                                        <th>Producto</th>
-                                        <th>Precio</th>
-                                        <th>Foto</th>
-                                        <th>Editar</th>
-                                        <th>Eliminar</th>
-
-                                    </thead>
-                                    <tbody>
-                                       @foreach($productos as $key=> $producto)
-                                        <tr>
-                                            <td>{{$key +1 }}</td>
-                                            <td>{{$producto->nombre_producto}}</td>
-                                            <td>{{$producto->precio_producto}}</td>
-                                            <td><img src="{{ asset('img/foto_producto').'/'.$producto->img_producto;}}" width="50" heigth="50"> </td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        @endforeach
-                                        <tr>
-                                            <td>dsc</td>
-                                            <td>dscds</td>
-                                            <td>ds</td>
-                                            <td>sdc</td>
-                                            <td>sdc</td>
-                                            <td>sdcds</td>
-                                        </tr>
-                                        <tr>
-                                            <td>dsc</td>
-                                            <td>dscds</td>
-                                            <td>ds</td>
-                                            <td>sdc</td>
-                                            <td>sdc</td>
-                                            <td>sdcds</td>
-                                        </tr>
-                                    </tbody>
-                                </table>-->
+                              
                                 {{ Datatable::table()
                                 ->addColumn('Id','Producto','Precio','Foto')       // these are the column headings to be shown
                                 ->setUrl(route('api.productos'))   // this is the route where data will be retrieved
                                 ->render() }}
                             </div>
                             
-                            <br>
-                            <div class=""><?php echo $productos->links(); ?> </div> 
+<!--                            <br>
+                            <div class=""><?php //echo $productos->links(); ?> </div> -->
                         </div>
                 </div>
         </div>

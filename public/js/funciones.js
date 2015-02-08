@@ -411,3 +411,26 @@ function terminar_produccion(idasig,url){
    
     
 }
+
+ function form_modal(titulo,form){
+ 
+ $.get(form,function(data){
+     
+     
+     bootbox.dialog({
+                title: titulo,
+                message: data
+            }
+        );
+   
+ });
+ 
+ }
+
+ 
+function form_modal2(){
+
+     
+     bootbox.alert("hola");
+
+ }

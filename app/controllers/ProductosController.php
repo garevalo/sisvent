@@ -12,10 +12,10 @@ class ProductosController extends BaseController{
     
 
     public function nuevoProductos(){
-        $productos = Producto::paginate(10);
+        //$productos = Producto::paginate(10);
        // $productos= Producto::all();
         $categorias= Categoria::all();
-    	$data=array("subtitulo"=>"Registrar Producto",'productos'=>$productos,'categorias'=>$categorias); 
+    	$data=array("subtitulo"=>"Registrar Producto",'categorias'=>$categorias); 
     	return View::make('productos.frmproducto',$data);
     }
 
@@ -86,6 +86,11 @@ class ProductosController extends BaseController{
             ->searchColumns('idproducto','nombre_producto')
             ->orderColumns('idproducto','nombre_producto')
             ->make();
+        }
+        
+        public function modalProductos(){
+            
+            return View::make('productos.frmproducto_modal');
         }
 }
 

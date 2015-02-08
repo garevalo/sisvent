@@ -2,7 +2,7 @@
 
 @section('css')
     @parent
-        {{ HTML::style('css/datatables/bootstrap-adapter/css/datatables.css')}}
+        {{ HTML::style('js/jquery.datatables/bootstrap-adapter/css/datatables.css')}}
  
 @stop
 
@@ -125,8 +125,8 @@
                                                             <br>
                                                             <div class="row">
                                                                 <div class="col-lg-1 col-sm-4 col-md-3 col-xs-12">
-
-                                                                    <button  class="btn btn-success btn-xs btn-block"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>   Buscar </button>
+                                                                    {{url('productos/modal', $parameters = array(), $secure = null);}}
+                                                                    <button type="button" class="btn btn-success btn-xs btn-block" onclick="form_modal('Producto','http://localhost:8080/sisvent/public/productos/modal');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>   Buscar </button>
                                                                 </div>
                                                                 
                                                             </div>
@@ -237,7 +237,7 @@
 
 @section('js')
 	@parent
-    
-    {{ HTML::script('js/datatables/jquery.dataTables.js')  }}
-    {{ HTML::script('js/datatables/dataTables.bootstrap.js')  }}      
+        {{ HTML::script('js/jquery.datatables/jquery.dataTables.js')  }}
+        {{ HTML::script('js/jquery.datatables/dataTables.bootstrap.js')  }}
+        {{ HTML::script('js/funciones.js')  }}  
 @stop
