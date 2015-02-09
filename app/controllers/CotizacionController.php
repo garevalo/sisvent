@@ -11,6 +11,13 @@ class CotizacionController extends BaseController{
 
     }
     
+    
+    public function listaCotizacion(){
+        $cotizacion= Cotizacion::all();
+        $data=array("cotizacion"=>$cotizacion);
+        return View::make('cotizacion.listaCotizacion',$data);
+        
+    }
     public function crearCotizacion(){
        
         //print_r(Input::All());
@@ -52,8 +59,9 @@ class CotizacionController extends BaseController{
 //            in i int
 //          $sql="call sp_registra_asigmateriales({$data["idproducto"]},'{$data["proyeccion"]}','{$data["fecha"]}',{$idarticulo[$x]},{$cantidad[$x]},$x)";
 //          $this->db->query($sql);
-           DB::select("call sp_registrar_cotizacion('{$idprod}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}',"
-           . "'{$dirdespacho}','{$cantidad}','{$preciot}','{$preciobruto}','{$igv}','{$precioneto}',{$x})");
+           DB::select("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}',{$x})");
+           
+           return Redirect::to('cotizacion')->with(array('confirm' => 'Cotizacion Registrada Correctamente'));
        }
       
     }

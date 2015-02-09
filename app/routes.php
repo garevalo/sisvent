@@ -40,7 +40,7 @@
     /*Cotizacion*/
     Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
     Route::post('cotizacion/crear', array('uses' => 'CotizacionController@crearCotizacion'));
-
+    Route::get('cotizacion', array('uses' => 'CotizacionController@listaCotizacion'));
    
 
     Route::group(array('before' => 'auth'), function()
