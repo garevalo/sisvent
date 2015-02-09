@@ -151,7 +151,7 @@
 
                                 <hr>
                                 <div class="row">
-                                   <div class="col-lg-10 col-sm-8 col-md-10 col-xs-8">
+                                   <div class="col-lg-10 col-sm-8 col-md-10 col-xs-8 ">
                                         <table class="table table-condensed table-striped table-bordered table-responsive">
                                             <thead>
                                                 <th>Id</th>

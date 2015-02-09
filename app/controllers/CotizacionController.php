@@ -17,7 +17,7 @@ class CotizacionController extends BaseController{
 //         [codigo] => sdvdsv [ruc] => sdvdsv [nombre] => [contacto] => [direccion] => [telefono] => 
 //        [pago] => 1 [dirdespacho] => [cantidad] => Array ( [0] => [1] => [2] => [3] => ) [preciobruto] => [igv] => [precioneto] => )
         
-        $codigo     =   Input::get('codigo');
+       // $codigo     =   Input::get('codigo');
         $ruc        =   Input::get('ruc');
         $nombre     =   Input::get('nombre');
         $contacto   =   Input::get('contacto');
@@ -33,13 +33,27 @@ class CotizacionController extends BaseController{
         $precioneto        =   Input::get('precioneto');
         // DB::query('select * from users where name = ?', array('test'));
         
-        $cant=count($cantidad);
+        $cant=count($idprod);
         
         for($x=0;$x<$cant;$x++){
-           
-          $sql="call sp_registra_asigmateriales({$data["idproducto"]},'{$data["proyeccion"]}','{$data["fecha"]}',{$idarticulo[$x]},{$cantidad[$x]},$x)";
-          $this->db->query($sql);
-           //DB::select("call sp_prueba('{$codigo}','{$ruc}')");
+//           in vidprod int,
+//            in vruc int,
+//            in vnombre varchar(40),
+//            in vcontacto varchar(40),
+//            in vdireccion varchar(60),
+//            in vtelefono int,
+//            in vpago int,
+//            in vdirdespacho varchar(50),
+//            in vcantidad int,
+//            in vpreciot decimal(9,2),
+//            in vpreciobruto decimal(9,2),
+//            in vigv decimal(9,2),
+//            in vprecioneto decimal(9,2),
+//            in i int
+//          $sql="call sp_registra_asigmateriales({$data["idproducto"]},'{$data["proyeccion"]}','{$data["fecha"]}',{$idarticulo[$x]},{$cantidad[$x]},$x)";
+//          $this->db->query($sql);
+           DB::select("call sp_registrar_cotizacion('{$idprod}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}',"
+           . "'{$dirdespacho}','{$cantidad}','{$preciot}','{$preciobruto}','{$igv}','{$precioneto}',{$x})");
        }
       
     }
