@@ -68,7 +68,7 @@ CREATE TABLE `clientes` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `acreditacion_idacreditacion` int(11) NOT NULL,
   PRIMARY KEY (`idclientes`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `cotizacion` (
   PRIMARY KEY (`idcotizacion`),
   KEY `fk_cotizacion_clientes1_idx` (`idclientes`),
   CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,7 @@ CREATE TABLE `detalle_cotizacion` (
   KEY `fk_detalle_cotizacion_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,14 +279,20 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_cotizacion`(
-in vproveedor int,
-in vnumero_factura varchar(40),
-in vfecha date,
-in vidmateria_prima int,
+in vidprod int,
+in vruc int,
+in vnombre varchar(40),
+in vcontacto varchar(40),
+in vdireccion varchar(60),
+in vtelefono int,
+in vpago int,
+in vdirdespacho varchar(50),
 in vcantidad int,
-in vprecio decimal(9,3),
-in i int,
-in u int
+in vpreciot decimal(9,2),
+in vpreciobruto decimal(9,2),
+in vigv decimal(9,2),
+in vprecioneto decimal(9,2),
+in i int
 )
 BEGIN
 
@@ -294,15 +300,22 @@ BEGIN
 
 
 	if i=0 then
-		insert into orden_compra(idproveedor,factura,fecha_compra,fecha_reg) value(vproveedor,vnumero_factura,vfecha,now());
+		insert into clientes(ruc,nombre_cliente,direccion_cliente,telefono_cliente,created_at,updated_at) 
+		value(vruc,vnombre,vdireccion,vtelefono,now(),now());
+
+		set id=(select idclientes from clientes order by idclientes desc limit 1);
+		
+		insert into cotizacion (contacto,tipo_pago,idclientes,created_at,updated_at) 
+		values(vcontacto,vpago,id,now(),now());
 	end if;
 
-	set id=(select idorden_compra from orden_compra order by idorden_compra desc limit 1);
+	set id=(select idcotizacion from cotizacion order by idcotizacion desc limit 1);
 	
-	insert into orden_materia(idorden_compra,idmateria_prima,cant,precio) value(id,vidmateria_prima,vcantidad,vprecio);
+	insert into detalle_cotizacion(idproducto,idcotizacion,cantidad,precio) 
+	value(vidprod,id,vcantidad,vpreciot);
 	
 	-- Calcular el precio total de la orden de compra
-	if i=u then
+	/*if i=u then
 		update orden_compra set total=(select sum(cant*precio) as total from orden_materia 
 		where idorden_compra=id)
 		where idorden_compra=id;
@@ -313,7 +326,7 @@ BEGIN
 	set ncant=(artcant+vcantidad);
 	 
     update materia_prima set cantidad=ncant where idmateria_prima=vidmateria_prima;
-
+*/
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -330,4 +343,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-08 21:45:51
+-- Dump completed on 2015-02-08 23:00:44
