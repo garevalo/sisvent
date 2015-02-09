@@ -45,9 +45,44 @@
 <!--         <div class="loading-container loading-active">
             <div class="loader"></div>
         </div>-->
+
+ <script type="text/javascript">
+        
+//        $(function(){
+//
+//            $( window ).load(function() {
+//              $('#modal-success').modal('show');
+//            });
+//            
+//        });
+
+
+    </script>
+    
+
+
+    <div id="modal-success" class="modal modal-message modal-success" style="" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <i class="glyphicon glyphicon-check"></i>
+                    </div>
+                    <div class="modal-title">Correcto</div>
+
+                    <div class="modal-body">El Producto se agrego correctamente</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                    </div>
+                </div> <!-- / .modal-content -->
+            </div> <!-- / .modal-dialog -->
+    </div>
+
    	       	@include('layouts/head')
             
             
+                
+                
+                
    	       	<div class="main-container container-fluid">
 
                   <div class="page-container">

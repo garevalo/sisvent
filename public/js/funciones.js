@@ -428,9 +428,27 @@ function terminar_produccion(idasig,url){
  }
 
  
-function form_modal2(){
-
-     
-     bootbox.alert("hola");
+function agregar_producto(url,id){
+    var filas = ($("#table-body tr").length)+1;
+            
+   $.post(url,{id:id,filas:filas},function(data,status){
+       
+       if(status==="success"){
+           
+           $("#table-body").append(data);
+           $(".bootbox").modal("hide");
+           $('#modal-success').modal('show');
+         
+            
+       }
+     });
 
  }
+ 
+ function eliminar_producto_cotizacion(url,id){
+   
+            
+   
+
+ }
+ 

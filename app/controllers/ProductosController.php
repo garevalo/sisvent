@@ -82,11 +82,47 @@ class ProductosController extends BaseController{
         public function getDatatable()
         {
             return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto')))
-            ->showColumns('idproducto', 'nombre_producto','precio_producto','img_producto')
+            ->showColumns('idproducto', 'nombre_producto','precio_producto')
+            ->addColumn('img_producto',function($model){
+                return '<img src="'.asset('img/foto_producto')."/".$model->img_producto.'" width="50" />';
+            })        
             ->searchColumns('idproducto','nombre_producto')
             ->orderColumns('idproducto','nombre_producto')
             ->make();
         }
+        
+        public function getDatatableModal()
+        {
+            $url=url('productos/modal', $parameters = array(), null);
+            str_replace("/", ".",  url('productos/modalget', $parameters = array(), null));
+            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id')))
+            ->showColumns('idproducto', 'nombre_producto','precio_producto')
+            ->addColumn('img_producto',function($model){
+                return '<img src="'.asset('img/foto_producto')."/".$model->img_producto.'" width="50" />';
+            }) 
+            ->addColumn('id',function($model){
+                return '<a href="javascript:void(0);" onclick=agregar_producto("'.url('productos/modalget', $parameters = array(), null).'",'.$model->id.');><small  class="glyphicon glyphicon-plus-sign" style="font-size:25px;"></small></a>';
+            })        
+            ->searchColumns('idproducto','nombre_producto')
+            ->orderColumns('idproducto','nombre_producto')
+            ->make();
+        }
+        
+        public function getProducto(){
+           $id      = Input::get("id");
+           $filas   = Input::get("filas");
+          $producto= Producto::find( $id );
+          $tabla="<tr>";
+            $tabla.="<td>".$filas."</td>";
+            $tabla.="<td>".$producto->nombre_producto."</td>";
+            $tabla.="<td>".$producto->precio_producto."</td>";
+            $tabla.="<td><input type='hidden' name='idprod[]' id='idprod' value='".$producto->idproducto."'><input type='number' name='cantidad[]' id='cantidad'></td>";
+            $tabla.="<td><input type='number' name='preciot[]' id='preciot'></td>";
+            $tabla.="<td><a class='eliminar'><span class='glyphicon glyphicon-trash'></span></a></td>";
+          $tabla.="</tr>";
+          return $tabla;
+        }
+        
         
         public function modalProductos(){
             

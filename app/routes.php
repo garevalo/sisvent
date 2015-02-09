@@ -2,7 +2,14 @@
 
     Route::get('/', function()
     {
-    	 return View::make('login.login');
+         if(isset(Auth::user()->usuario)){
+             
+             //return Redirect::to('dashboard');
+             return View::make('dashboard');
+         }else{
+             return View::make('login.login');
+         }
+    	 
     });
 
     Route::post('login', function(){
@@ -27,9 +34,12 @@
     
     Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
     Route::get('api/productos', array('as'=>'api.productos','uses'=>'ProductosController@getDatatable'));
+    Route::get('api/productosmodal', array('as'=>'api.productosmodal','uses'=>'ProductosController@getDatatableModal'));
     Route::get('productos/modal', array('uses' => 'ProductosController@modalProductos'));
+    Route::post('productos/modalget', array('uses' => 'ProductosController@getProducto'));
     /*Cotizacion*/
     Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
+    Route::post('cotizacion/crear', array('uses' => 'CotizacionController@crearCotizacion'));
 
    
 
@@ -47,7 +57,7 @@
 
         Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
 
-         Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
+        Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
          
         Route::post('usuarios/crear', array('uses' => 'UsuariosController@crearUsuario'));
        
