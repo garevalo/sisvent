@@ -41,7 +41,13 @@
     Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
     Route::post('cotizacion/crear', array('uses' => 'CotizacionController@crearCotizacion'));
     Route::get('cotizacion', array('uses' => 'CotizacionController@listaCotizacion'));
-   
+    
+    /***ornden compra**/
+
+    Route::get('ordencompra/nuevo', function()
+    { return View::make('ordencompra.nuevoOrden'); });
+
+
 
     Route::group(array('before' => 'auth'), function()
     {

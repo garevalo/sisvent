@@ -36,8 +36,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-book"></i> Orden Compra <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
-                                <!--<li><i class='fa fa-edit'></i> {{ link_to('productos/nuevo', "Registrar Productos", $atributos = array('title'=>'registrar producto','tabindex'=>'-1'), $seguro = null);}}</li>-->
-                                <li><a href="{{url('productos/nuevo', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                
+                                <li><a href="{{url('cotizacion', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <i class="dropdown-icon fa fa-list"></i>
                                     Ver Cotizaciones
                                 </a></li>
