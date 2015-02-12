@@ -43,22 +43,7 @@ class CotizacionController extends BaseController{
         $cant=count($idprod);
         
         for($x=0;$x<$cant;$x++){
-//           in vidprod int,
-//            in vruc int,
-//            in vnombre varchar(40),
-//            in vcontacto varchar(40),
-//            in vdireccion varchar(60),
-//            in vtelefono int,
-//            in vpago int,
-//            in vdirdespacho varchar(50),
-//            in vcantidad int,
-//            in vpreciot decimal(9,2),
-//            in vpreciobruto decimal(9,2),
-//            in vigv decimal(9,2),
-//            in vprecioneto decimal(9,2),
-//            in i int
-//          $sql="call sp_registra_asigmateriales({$data["idproducto"]},'{$data["proyeccion"]}','{$data["fecha"]}',{$idarticulo[$x]},{$cantidad[$x]},$x)";
-//          $this->db->query($sql);
+
            DB::select("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}',{$x})");
            
            return Redirect::to('cotizacion')->with(array('confirm' => 'Cotizacion Registrada Correctamente'));
