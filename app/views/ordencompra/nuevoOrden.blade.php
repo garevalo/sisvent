@@ -51,7 +51,7 @@
        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="widget">
                     <div class="widget-header bordered-top bordered-palegreen">
-                        <span class="widget-caption">Registrar Nueva Cotizacion</span>
+                        <span class="widget-caption">Registrar Orden de Compra</span>
                     </div>
                     <div class="widget-body">
                         <div class="collapse in">
@@ -73,11 +73,6 @@
                                                    <small class="text-danger">* <?php echo $errors->first('descripcion') ?></small>
                                                    @endif
                                                 </div>
-
-                                             </div>
-                                         </div>
-                                         <div class="row">
-                                            <div class="form-group has-info has-feedback">
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
                                                     <input type="text" name="nombre" id="nombre" class="form-control">
@@ -85,6 +80,12 @@
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
                                                 </div>
+                                                
+                                             </div>
+                                         </div>
+                                         <div class="row">
+                                            <div class="form-group has-info has-feedback">
+                                                
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Contacto A:</label>
                                                     <input type="text" name="contacto" id="contacto" class="form-control">
@@ -92,7 +93,7 @@
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
                                                 </div>
-                                                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+                                                <div class="col-lg-4 col-sm-4 col-md-3 col-xs-12">
                                                     <label  id="precio">Dirección:</label>
                                                     <input type="text" name="direccion" id="direccion" class="form-control">
                                                     @if($errors->has('precio'))
@@ -100,7 +101,20 @@
                                                     @endif
 
                                                 </div>
-
+                                                <div class="col-lg-2 col-sm-3 col-md-4 col-xs-12">
+                                                    <label  id="precio">Distrito:</label>
+                                                    
+                                                    <select name="dirdespacho" id="dirdespacho" class="form-control">
+                                                        <option>Lima</option>
+                                                        <option>Comas</option>
+                                                        <option>Miraflores</option>
+                                                        <option>Comas</option>
+                                                        <option>Los Olivos</option>
+                                                    </select>
+                                                    @if($errors->has('precio'))
+                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                   @endif
+                                                </div>
 
 
                                             </div>
@@ -130,26 +144,27 @@
                                                     @endif
 
                                                 </div>
-                                                <div class="col-lg-4 col-sm-5 col-md-5 col-xs-12">
+                                                <div class="col-lg-4 col-sm-5 col-md-4 col-xs-12">
                                                     <label  id="precio">Dirección de Despacho:</label>
                                                     <input type="text" name="dirdespacho" id="dirdespacho" class="form-control">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
                                                 </div>
+                                                
 
                                             </div>
 
                                         </div>
 
                                         <br>
-                                        <div class="row">
+<!--                                        <div class="row">
                                             <div class="col-lg-1 col-sm-4 col-md-3 col-xs-12">
 
                                                 <button type="button" class="btn btn-success btn-xs btn-block" onclick="form_modal('Producto','{{url('productos/modal', $parameters = array(), $secure = null);}}');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>   Buscar </button>
                                             </div>
 
-                                        </div>
+                                        </div>-->
 
                                 <hr>
                                 <div class="row">

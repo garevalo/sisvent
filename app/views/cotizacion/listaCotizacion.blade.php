@@ -58,7 +58,7 @@
                                         <td>{{$cotiza->tipo_pago}}</td>
                                         <td>{{$cotiza->idclientes}}</td>
                                         
-                                        <td><a href="#">Generar</a></td>
+                                        <td><a href="{{url("ordencompra/nuevo");}}">Generar</a></td>
                                     </tr>
                                     @endforeach
                                     

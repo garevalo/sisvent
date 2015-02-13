@@ -45,7 +45,10 @@
     /***ornden compra**/
 
     Route::get('ordencompra/nuevo', function()
-    { return View::make('ordencompra.nuevoOrden'); });
+    { 
+        return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra")); 
+        
+    });
 
 
 
