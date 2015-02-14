@@ -46,7 +46,7 @@ class CotizacionController extends BaseController{
 
            DB::select("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}',{$x})");
            
-           return Redirect::to('cotizacion')->with(array('confirm' => 'Cotizacion Registrada Correctamente'));
+           return Redirect::to('productos')->with('confirm' , 'Cotizacion Registrada Correctamente');
        }
       
     }

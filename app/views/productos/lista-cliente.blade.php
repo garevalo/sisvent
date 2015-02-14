@@ -12,7 +12,9 @@
 
 
 @section('content')
-   
+     
+
+
     <div class="row well">
     <div class="col-md-10">
         @foreach($productos as $producto)

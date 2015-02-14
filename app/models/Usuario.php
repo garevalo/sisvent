@@ -5,7 +5,7 @@
 class Usuario extends Eloquent implements UserInterface{
 	 //Todos los modelos deben extender la clase Eloquent
     protected $table = 'usuarios';
-    protected $fillable = array('usuario', 'password','idestado');
+    protected $fillable = array('usuario', 'password','idestado','idtipo','idpersonas');
 
      // este metodo se debe implementar por la interfaz
     public function getAuthIdentifier()
