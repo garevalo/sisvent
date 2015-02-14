@@ -41,7 +41,13 @@
 	</head>
 	
    <body>
-     
+     @if(Session::has('mensaje'))
+ 
+        <div id="flash_notice">{{ Session::get('mensaje') }}</div>
+
+    @endif
+       
+       
 <!--         <div class="loading-container loading-active">
             <div class="loader"></div>
         </div>-->
