@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
+	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		@section('css')
@@ -41,9 +41,20 @@
 	</head>
 	
    <body>
-     @if(Session::has('mensaje'))
- 
-        <div id="flash_notice">{{ Session::get('mensaje') }}</div>
+     @if(Session::has('confirm'))
+         <script type="text/javascript">
+        
+        $(function(){
+
+            $( window ).load(function() {
+              $('#modal-success').modal('show');
+            });
+            
+        });
+
+
+    </script>
+       
 
     @endif
        
@@ -52,18 +63,7 @@
             <div class="loader"></div>
         </div>-->
 
- <script type="text/javascript">
-        
-//        $(function(){
-//
-//            $( window ).load(function() {
-//              $('#modal-success').modal('show');
-//            });
-//            
-//        });
 
-
-    </script>
     
 
 

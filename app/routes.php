@@ -15,7 +15,7 @@
     Route::post('login', function(){
      
         // la función attempt se encarga automáticamente se hacer la encriptación de la clave para ser comparada con la que esta en la base de datos. 
-        if (Auth::attempt( array('usuario' => Input::get('usuario'), 'password' => Input::get('contrasena') ), true )){
+        if (Auth::attempt( array('usuario' => Input::get('usuario'), 'password' => Input::get('contrasena'),'idestado'=>'1' ), true )){
             
             return Redirect::to('dashboard');
         }else{
@@ -48,8 +48,8 @@
 
 
 
-    Route::group(array('before' => 'auth'), function()
-    {
+//    Route::group(array('before' => 'auth'), function()
+//    {
         
         /**** Usuarios ****/
         Route::get('dashboard', function()
@@ -85,4 +85,4 @@
         });
         
 
-    });
+//    });

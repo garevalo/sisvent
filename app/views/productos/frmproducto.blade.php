@@ -16,11 +16,11 @@
 
     <div class="row well">
         
-       <div class="col-lg-4 col-sm-5 col-md-6 col-xs-12">
+       <div class="col-lg-3 col-sm-5 col-md-6 col-xs-12">
                 <div class="widget">
-                                        <div class="widget-header bordered-top bordered-palegreen">
-                                            <span class="widget-caption">Registro de Nuevos Productos</span>
-                                        </div>
+                    <div class="widget-header bordered-top bordered-palegreen">
+                        <span class="widget-caption">Registro de Nuevos Productos</span>
+                    </div>
                                         <div class="widget-body">
                                             <div class="collapse in">
                                                 
@@ -94,7 +94,7 @@
                     </div>
         </div>
 
-        <div class="col-lg-8 col-sm-7 col-md-6 col-xs-12">
+        <div class="col-lg-9 col-sm-7 col-md-6 col-xs-12">
                 <div class="widget">
                         <div class="widget-header bordered-top bordered-palegreen">
                             <span class="widget-caption">Lista de Productos Registrados</span>
