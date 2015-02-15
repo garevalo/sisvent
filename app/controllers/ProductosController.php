@@ -32,7 +32,7 @@ class ProductosController extends BaseController{
     	);
 
         $rules = array(
-            'producto'      => 'required|min:6|max:100|unique:productos,nombre_producto',
+            'producto'      => 'required|min:2|max:100|unique:productos,nombre_producto',
             'descripcion'   => 'required|min:6|max:100',
             'precio'        => 'required|numeric',
             'imagen'        => 'required|mimes:jpeg,bmp,png|max:20000',

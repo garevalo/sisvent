@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `sistventas` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `sistventas`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: sistventas
+-- Host: localhost    Database: sistventas
 -- ------------------------------------------------------
 -- Server version	5.6.17
 
@@ -45,10 +45,10 @@ DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categoria` (
   `idcategoria` int(11) NOT NULL AUTO_INCREMENT,
-  `categoria_producto` varchar(45) NOT NULL,
+  `nombre_categoria` varchar(45) NOT NULL,
   `descripcion_categoria` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idcategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `clientes` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `acreditacion_idacreditacion` int(11) NOT NULL,
   PRIMARY KEY (`idclientes`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `cotizacion` (
   PRIMARY KEY (`idcotizacion`),
   KEY `fk_cotizacion_clientes1_idx` (`idclientes`),
   CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,9 +110,9 @@ CREATE TABLE `detalle_cotizacion` (
   PRIMARY KEY (`iddetalle_cotizacion`),
   KEY `fk_detalle_cotizacion_productos1_idx` (`idproducto`),
   KEY `fk_detalle_cotizacion_cotizacion1_idx` (`idcotizacion`),
-  CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,17 +157,17 @@ DROP TABLE IF EXISTS `orden_compra`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orden_compra` (
   `idorden_compra` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `iddetalle_cotizacion` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `despacho` int(11) DEFAULT NULL COMMENT '1->despachado,2->no despachado',
   `motivo_no_despacho` varchar(100) DEFAULT NULL,
   `distrito` int(11) DEFAULT NULL,
   `iddistrito` int(11) NOT NULL,
+  `idcotizacion` int(11) unsigned zerofill NOT NULL,
   PRIMARY KEY (`idorden_compra`),
-  KEY `fk_orden_compra_detalle_cotizacion1_idx` (`iddetalle_cotizacion`),
   KEY `fk_orden_compra_distrito1_idx` (`iddistrito`),
-  CONSTRAINT `fk_orden_compra_detalle_cotizacion1` FOREIGN KEY (`iddetalle_cotizacion`) REFERENCES `detalle_cotizacion` (`iddetalle_cotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_orden_compra_cotizacion1_idx` (`idcotizacion`),
+  CONSTRAINT `fk_orden_compra_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orden_compra_distrito1` FOREIGN KEY (`iddistrito`) REFERENCES `distrito` (`iddistrito`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -191,7 +191,7 @@ CREATE TABLE `personas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idpersonas`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +214,25 @@ CREATE TABLE `productos` (
   PRIMARY KEY (`idproducto`),
   KEY `fk_productos_categoria_idx` (`idcategoria`),
   CONSTRAINT `fk_productos_categoria` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ruta`
+--
+
+DROP TABLE IF EXISTS `ruta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ruta` (
+  `idruta` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_ruta` datetime DEFAULT NULL,
+  `zona` varchar(45) DEFAULT NULL,
+  `idorden_compra` int(11) unsigned zerofill NOT NULL,
+  PRIMARY KEY (`idruta`),
+  KEY `fk_ruta_orden_compra1_idx` (`idorden_compra`),
+  CONSTRAINT `fk_ruta_orden_compra1` FOREIGN KEY (`idorden_compra`) REFERENCES `orden_compra` (`idorden_compra`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,10 +252,9 @@ CREATE TABLE `usuarios` (
   `idtipo` int(2) DEFAULT NULL,
   `idpersonas` int(11) NOT NULL,
   `remember_token` varchar(200) DEFAULT NULL,
-  `usuarioscol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usuarios_personas1_idx` (`idpersonas`),
-  CONSTRAINT `fk_usuarios_personas1` FOREIGN KEY (`idpersonas`) REFERENCES `personas` (`idpersonas`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_usuarios_personas1` FOREIGN KEY (`idpersonas`) REFERENCES `personas` (`idpersonas`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -252,7 +269,7 @@ CREATE TABLE `usuarios` (
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ALLOW_INVALID_DATES,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_prueba`(
 in nombre varchar(100),
@@ -333,6 +350,45 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_usuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_usuario`(
+	in vnombres varchar(40),
+	in vapepaterno varchar(20),
+	in vapematerno varchar(20),
+	in vdni int,
+	in vtelefono int,
+	in vcorreo varchar(100),
+	in vusuario varchar(20),
+	in vcontra varchar(70),
+	in vtipo_usuario int
+)
+BEGIN
+	
+	declare vidpersona ,vidusuario int; 
+		
+
+	insert into personas (nombres,apellido_paterno,apellido_materno,dni,telefono,correo,created_at) 
+	value (vnombres,vapepaterno,vapematerno,vdni,vtelefono,vcorreo,now());
+
+	set vidpersona = (select idpersonas from personas  order by idpersonas desc limit 1);
+
+	insert into usuarios (usuario,password,idestado,created_at,idtipo,idpersonas) value(vusuario,vcontra,1,now(),vtipo_usuario,vidpersona);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -343,4 +399,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-08 23:00:44
+-- Dump completed on 2015-02-15 16:03:06

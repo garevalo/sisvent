@@ -42,7 +42,8 @@ function registrar_ajax(form, c) {
                     }
 
                     else if (datos.dir) {
-                        $('#mod-success').modal('show');
+                        $(".modal-body").text(datos.mensaje);
+                        $('#modal-success').modal('show');
 
                         $("#ok").click(function() {
                             // $("#form")[0].reset();

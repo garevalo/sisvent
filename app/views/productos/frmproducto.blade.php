@@ -107,9 +107,7 @@
                                 ->setUrl(route('api.productos'))   // this is the route where data will be retrieved
                                 ->render() }}
                             </div>
-                            
-<!--                            <br>
-                            <div class=""><?php //echo $productos->links(); ?> </div> -->
+
                         </div>
                 </div>
         </div>

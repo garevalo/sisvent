@@ -2,7 +2,7 @@
 
 @section('css')
     @parent
-        
+    {{ HTML::style('js/jquery.datatables/bootstrap-adapter/css/datatables.css')}}     
  
 @stop
 
@@ -28,8 +28,8 @@
     </div>-->
 
         <div class="row well">
-            <div class="col-lg-3 col-sm-5 col-xs-12">
-                {{ Form::open(array('url' => 'usuarios/crear')) }}
+            <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
+                {{ Form::open(array('url' => 'usuarios/crear','name'=>'form','id'=>'form')) }}
                                 <div class="widget">
                                     <div class="widget-header bordered-top bordered-palegreen">
                                         <span class="widget-caption">Registro de Usuario</span>
@@ -74,7 +74,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre">
+                                                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required="">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
                                                         </div>
@@ -82,7 +82,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" placeholder="Apellido Paterno" name="apepaterno" id="apepaterno">
+                                                                <input type="text" class="form-control" placeholder="Apellido Paterno" name="apepaterno" id="apepaterno" required="">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
                                                         </div>
@@ -92,7 +92,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" placeholder="Apellido Materno" name="apematerno" id="apematerno">
+                                                                <input type="text" class="form-control" placeholder="Apellido Materno" name="apematerno" id="apematerno" required="">
                                                                 <i class="fa fa-user"></i>
                                                             </span>
                                                         </div>
@@ -119,7 +119,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" placeholder="DNI" id="dni" name="dni">
+                                                                <input type="text" class="form-control" placeholder="DNI" id="dni" name="dni" required="">
                                                                 <i class="glyphicon glyphicon-user circular"></i>
                                                             </span>
                                                         </div>
@@ -134,14 +134,31 @@
                                                     </div>
                                                 </div>
                                                
-                                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                <button type="submit" class="btn btn-primary" onclick="registrar_ajax('form',2)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
             {{ Form::close() }}
+                            
+            <div class="col-lg-9 col-sm-6 col-md-6 col-xs-12">
+                <div class="widget">
+                        <div class="widget-header bordered-top bordered-palegreen">
+                            <span class="widget-caption">Lista de Productos Registrados</span>
+                        </div>
+                        <div class="widget-body">
+                            <div class="collapse in">
+                              
+                                {{ Datatable::table()
+                                ->addColumn('Id','Usuario','Nombres','Apellido','Accion')       // these are the column headings to be shown
+                                ->setUrl(route('api.usuarios'))   // this is the route where data will be retrieved
+                                ->render() }}
+                            </div>
 
+                        </div>
+                </div>
+        </div>
         </div>
 
 
@@ -150,5 +167,7 @@
 
 @section('js')
 	@parent
-
+        {{  HTML::script('js/funciones.js')  }}
+        {{ HTML::script('js/jquery.datatables/jquery.dataTables.js')  }}
+        {{ HTML::script('js/jquery.datatables/dataTables.bootstrap.js')  }}
 @stop

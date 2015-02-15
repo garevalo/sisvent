@@ -59,13 +59,9 @@
     @endif
        
        
-<!--         <div class="loading-container loading-active">
-            <div class="loader"></div>
-        </div>-->
-
-
-    
-
+    <div class="loading-container loading-active">
+        <div class="loader"></div>
+    </div>
 
     <div id="modal-success" class="modal modal-message modal-success" style="" >
             <div class="modal-dialog">
@@ -77,7 +73,7 @@
 
                     <div class="modal-body">El Producto se agrego correctamente</div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="ok">OK</button>
                     </div>
                 </div> <!-- / .modal-content -->
             </div> <!-- / .modal-dialog -->
@@ -100,7 +96,7 @@
                           <ul class="breadcrumb">
                               <li>
                                   <i class="fa fa-home"></i>
-                                  <a href="#">Inicio</a>
+                                  <a href="/dashboard">Inicio</a>
                               </li>
                               <li>
                                   <a href="#">@if(isset($subtitulo)) {{$subtitulo}} @endif</a>

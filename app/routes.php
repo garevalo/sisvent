@@ -34,6 +34,9 @@
     
     Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
     Route::get('api/productos', array('as'=>'api.productos','uses'=>'ProductosController@getDatatable'));
+    
+    Route::get('api/usuarios', array('as'=>'api.usuarios','uses'=>'UsuariosController@getDatatable'));
+    
     Route::get('api/productosmodal', array('as'=>'api.productosmodal','uses'=>'ProductosController@getDatatableModal'));
     Route::get('productos/modal', array('uses' => 'ProductosController@modalProductos'));
     Route::post('productos/modalget', array('uses' => 'ProductosController@getProducto'));

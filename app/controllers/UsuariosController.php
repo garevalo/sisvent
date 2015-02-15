@@ -26,20 +26,22 @@ class UsuariosController extends BaseController {
      */
     public function crearUsuario()
     {
+
+        $usuario    = Input::get('usuario');
+        $contrasena = Hash::make(Input::get('contrasena'));
+        $tipo       = Input::get('tipo');
+        $nombre     = Input::get('nombre');
+        $apepaterno = Input::get('apepaterno');
+        $apematerno = Input::get('apematerno');
+        $telefono   = Input::get('telefono');
+        $dni        = Input::get('dni');
+        $correo     = Input::get('correo');
+
+        DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}')");
         
-        $nombre   = Input::get('nombre');
-        $apellido = Input::get('apellido');
-
-        $input = array(
-        'usuario' => $nombre,
-        'password' =>  $apellido
-        );
-
-        $input['password'] = Hash::make($input['password']);
-     
-        Usuario::create($input);
-     
-        return Redirect::to('/')->with('mensaje_registro', 'Usuario Registrado');
+        $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario registrado correctamente");
+        
+        return json_encode($datos);
 
     }
  
@@ -67,5 +69,20 @@ class UsuariosController extends BaseController {
         return Redirect::to('/')->with('mensaje','¡Has cerrado sesión correctamente!.');
  
     }
+    
+    public function getDatatable()
+        {
+             $query=DB::table('usuarios')
+            ->join('personas', 'usuarios.idpersonas', '=', 'personas.idpersonas')
+            ->select('usuarios.id','usuarios.usuario', 'personas.nombres','personas.apellido_paterno','personas.apellido_materno','usuarios.idestado','usuarios.idtipo');
+        
+            return Datatable::query($query)
+            ->showColumns('id', 'usuario','nombres','apellido_paterno','id')
+            ->addColumn('img_producto',function($model){
+                return '<a href="javascript:void(0);" onclick="'.$model->id.'" class="btn btn-sm btn-success">Editar <i class="fa fa-edit fa-lg"></i></a>';
+            })
+            ->make();
+  
+        }
  
 }
