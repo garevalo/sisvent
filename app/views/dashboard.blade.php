@@ -26,12 +26,14 @@
                     </div>
                 </div>
                 <div class="databox-right">
-                    <span class="databox-number lightred">Productos</span>
-                    <div class="databox-text darkgray">Mantenimiento de Productos</div>
-                    <div class="databox-stat bg-lightred radius-bordered">
-                        <div class="stat-text">1</div>
-                        <i class="stat-icon fa fa-arrow-down"></i>
-                    </div>
+                    <a href="{{url("productos/nuevo")}}">
+                        <span class="databox-number lightred">Productos</span>
+                        <div class="databox-text darkgray">Mantenimiento de Productos</div>
+                        <div class="databox-stat bg-lightred radius-bordered">
+                            <div class="stat-text">1</div>
+                            <i class="stat-icon fa fa-arrow-down"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -45,12 +47,14 @@
                     </div>
                 </div>
                 <div class="databox-right">
-                    <span class="databox-number lightred">Usuarios</span>
-                    <div class="databox-text darkgray">Mantenimiento de Usuarios</div>
-                    <div class="databox-stat bg-lightred radius-bordered">
-                        <div class="stat-text">2</div>
-                        <i class="stat-icon fa fa-arrow-down"></i>
-                    </div>
+                    <a href="{{url("usuarios/nuevo")}}">
+                        <span class="databox-number lightred">Usuarios</span>
+                        <div class="databox-text darkgray">Mantenimiento de Usuarios</div>
+                        <div class="databox-stat bg-lightred radius-bordered">
+                            <div class="stat-text">2</div>
+                            <i class="stat-icon fa fa-arrow-down"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -65,12 +69,14 @@
                     </div>
                 </div>
                 <div class="databox-right">
-                    <span class="databox-number lightred">Orden Compra</span>
-                    <div class="databox-text darkgray">Registrar Orden de Compra</div>
-                    <div class="databox-stat bg-lightred radius-bordered">
-                        <div class="stat-text">3</div>
-                        <i class="stat-icon fa fa-arrow-down"></i>
-                    </div>
+                    <a href="{{url("cotizacion")}}">
+                        <span class="databox-number lightred">Orden Compra</span>
+                        <div class="databox-text darkgray">Registrar Orden de Compra</div>
+                        <div class="databox-stat bg-lightred radius-bordered">
+                            <div class="stat-text">3</div>
+                            <i class="stat-icon fa fa-arrow-down"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

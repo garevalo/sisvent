@@ -82,11 +82,13 @@
         
         
         /****** Orden de Compra *****/
-        Route::get('ordencompra/nuevo/{id?}', function($id=null)
-        { 
-            return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra")); 
-
-        });
+        
+        Route::get('ordencompra/nuevo/{id?}', 'OrdenController@nuevaOrden');
+//        Route::get('ordencompra/nuevo/{id?}', function($id=null)
+//        { 
+//            return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra")); 
+//
+//        });
         
         
          //modalAcreditacion

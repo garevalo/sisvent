@@ -58,24 +58,33 @@
 
                                 {{ Form::open(array('url' => 'cotizacion/crear','class'=>"","role"=>"form", 'method' => 'post'))}}
                                         <div class="row">
-                                            <div class="form-group has-info has-feedback">
+                                            <div class="form-group has-success has-feedback">
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
-                                                    <label id="producto">Código:</label>
-                                                    <input type="text" name="codigo" id="codigo" class="form-control ">
+                                                    <label id="producto">Código Cotización:</label>
+                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$cotizacion[0]->idcotizacion}}" disabled="" style="font-size: 20px; color: red;">
                                                    @if($errors->has('producto'))
                                                    <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
                                                    @endif
                                                 </div>
+                                                
+                                                <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
+                                                    <label id="producto">Número Orden:</label>
+                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$idorden}}" disabled="">
+                                                   @if($errors->has('producto'))
+                                                   <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
+                                                   @endif
+                                                </div>
+                                                
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="descripcion">Ruc:</label>
-                                                    <input type="text" class="form-control" name="ruc" id="ruc" >
+                                                    <input type="text" class="form-control" name="ruc" id="ruc" value="{{$cotizacion[0]->ruc}}" disabled="">
                                                     @if($errors->has('descripcion'))
                                                    <small class="text-danger">* <?php echo $errors->first('descripcion') ?></small>
                                                    @endif
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control">
+                                                    <input type="text" name="nombre" id="nombre" class="form-control" value="{{$cotizacion[0]->nombre_cliente}}">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
@@ -84,18 +93,18 @@
                                              </div>
                                          </div>
                                          <div class="row">
-                                            <div class="form-group has-info has-feedback">
+                                            <div class="form-group has-success has-feedback">
                                                 
-                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
+                                                <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Contacto A:</label>
-                                                    <input type="text" name="contacto" id="contacto" class="form-control">
+                                                    <input type="text" name="contacto" id="contacto" class="form-control" value="{{$cotizacion[0]->contacto}}">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
                                                 </div>
                                                 <div class="col-lg-4 col-sm-4 col-md-3 col-xs-12">
                                                     <label  id="precio">Dirección:</label>
-                                                    <input type="text" name="direccion" id="direccion" class="form-control">
+                                                    <input type="text" name="direccion" id="direccion" class="form-control" value="{{$cotizacion[0]->direccion_cliente}}">
                                                     @if($errors->has('precio'))
                                                     <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                     @endif
@@ -122,16 +131,16 @@
                                          </div>
 
                                         <div class="row">
-                                            <div class="form-group has-info has-feedback">
+                                            <div class="form-group has-success has-feedback">
                                                  <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Teléfono:</label>
-                                                    <input type="text" name="telefono" id="telefono" class="form-control">
+                                                    <input type="text" name="telefono" id="telefono" class="form-control" value="{{$cotizacion[0]->telefono_cliente}}" disabled="">
                                                     @if($errors->has('precio'))
                                                     <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                     @endif
 
                                                 </div>
-                                                <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
+                                                <div class="col-lg-1 col-sm-4 col-md-4 col-xs-12">
                                                     <label  id="precio">Tipo de Pago:</label>
                                                     <select name="pago" id="pago" class="form-control">
 
@@ -144,14 +153,20 @@
                                                     @endif
 
                                                 </div>
-                                                <div class="col-lg-4 col-sm-5 col-md-4 col-xs-12">
+                                                <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                     <label  id="precio">Dirección de Despacho:</label>
-                                                    <input type="text" name="dirdespacho" id="dirdespacho" class="form-control">
+                                                    <input type="text" name="dirdespacho" id="dirdespacho" class="form-control" value="{{$cotizacion[0]->direccion_cliente}}">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
                                                 </div>
-                                                
+                                                <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
+                                                    <label  id="precio">Motivo no despacho:</label>
+                                                    <input type="text" name="motivo" id="motivo" class="form-control">
+                                                    @if($errors->has('precio'))
+                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
+                                                   @endif
+                                                </div>
 
                                             </div>
 
@@ -167,13 +182,25 @@
                                                  <th>Id</th>
                                                  <th>Producto</th>
                                                  <th>Precio</th>
-                                                 <th>Cantidad</th>
+                                                 <th>Cantidad Solicitada</th>
+                                                 <th>Stock</th>
                                                  <th>Precio Total</th>
                                                  <th>Solicitar</th>
 
                                              </thead>
                                              <tbody id="table-body" >
-
+                                                 @foreach($cotizacion as $key=>$value)
+                                                 <tr>
+                                                     <td>{{$key+1}}</td>
+                                                     <td>{{$value->nombre_producto}}</td>
+                                                     <td>{{$value->precio_producto}}</td>
+                                                     <td>{{$value->cantidad}}</td>
+                                                     <td>{{$value->stock}}</td>
+                                                     <td>{{$value->precio}}</td>
+                                                     <td width="5%"><button type="button" onclick="bootbox.alert('Pedido de Stock Enviada')" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-share"></i></button></td>
+                                                 </tr>
+                                                 
+                                                 @endforeach
                                              </tbody>
                                          </table>
                                        </div>
@@ -206,7 +233,7 @@
                                             <div class="row">
                                                 <label class="col-md-6">Precio Bruto:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control">
+                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" value="{{$cotizacion[0]->precio_neto}}">
                                                 </div>
 
                                             </div>
@@ -218,7 +245,7 @@
                                                 <div class="row">
                                                 <label class="col-md-6">IGV:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="igv" name="igv" class="input-sm form-control">
+                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="{{$cotizacion[0]->igv}}">
                                                 </div>
 
                                             </div>
@@ -230,7 +257,7 @@
                                             <div class="row">
                                             <label class="col-md-6">Precio Neto:</label>
                                             <div class="col-md-6">
-                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control">
+                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control" value="{{$cotizacion[0]->preciototal}}">
                                             </div>
                                             </div>
                                         </div>
@@ -242,7 +269,7 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button  type="submit" class="btn btn-darkorange"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                    <button  type="button" class="btn btn-darkorange" onclick="bootbox.alert('Se guardo correctamente')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +277,7 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button type="buttton" class="btn btn-sky "><span class="glyphicon glyphicon-send"></span> Despacho</button>
+                                                    <button type="button" class="btn btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button>
                                                 </div>
                                             </div>
                                         </div>

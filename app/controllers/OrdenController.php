@@ -3,6 +3,26 @@
 class OrdenController extends BaseController{
     
     
+    public function nuevaOrden($id){
+        
+       $cotizacion= DB::table('cotizacion')
+            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
+            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal','clientes.ruc',
+                    'clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','productos.nombre_producto',
+                    'productos.precio_producto','productos.stock')
+            ->where('cotizacion.idcotizacion', '=', $id)
+            ->get();
+       
+       $idorden=  DB::select("select idorden_compra  from orden_compra order by idorden_compra desc limit 1");
+       if(count($idorden)>0){$id = ($idorden[0]->idorden_compra)+1;}else{$id="00000001";}
+        //return $id;
+        return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra","idorden"=>$id,'cotizacion'=>$cotizacion)); 
+       // print_r($cotizacion);
+    }
+    
 //    public function nuevoCotizacion(){
 //        $productos= Producto::all();
 //       //select ifnull(idcotizacion,0) from cotizacion order by idcotizacion desc limit 1;
