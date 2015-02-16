@@ -92,6 +92,6 @@
         
         
          //modalAcreditacion
-        Route::get('ordencompra/modal', array('uses' => 'ordenController@modalAcreditacion'));
+        Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
         
     });

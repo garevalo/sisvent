@@ -115,9 +115,9 @@ class ProductosController extends BaseController{
           $tabla="<tr>";
             $tabla.="<td>".$filas."</td>";
             $tabla.="<td>".$producto->nombre_producto."</td>";
-            $tabla.="<td>".$producto->precio_producto."</td>";
-            $tabla.="<td><input type='hidden' name='idprod[]' id='idprod' value='".$producto->idproducto."'><input type='number' name='cantidad[]' id='cantidad'></td>";
-            $tabla.="<td><input type='number' name='preciot[]' id='preciot'></td>";
+            $tabla.="<td><input type='hidden' name='precio' class='precio' value='".$producto->precio_producto."'>".$producto->precio_producto."</td>";
+            $tabla.="<td><input type='hidden' name='idprod[]' id='idprod' value='".$producto->idproducto."'><input type='number' name='cantidad[]' id='cantidad' class='cantidad'></td>";
+            $tabla.="<td><input type='number' name='preciot[]' id='preciot' class='preciot'></td>";
             $tabla.="<td><a class='eliminar'><span class='glyphicon glyphicon-trash'></span></a></td>";
           $tabla.="</tr>";
           return $tabla;
