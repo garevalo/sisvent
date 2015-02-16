@@ -5,9 +5,27 @@ class CotizacionController extends BaseController{
     
     public function nuevoCotizacion(){
         $productos= Producto::all();
-    	$data=array("subtitulo"=>"Registrar Cotización","productos"=>$productos);
-	   	return View::make('cotizacion.crear',$data);
-    
+       //select ifnull(idcotizacion,0) from cotizacion order by idcotizacion desc limit 1;
+//        Order By, Group By, And Having
+//
+//$users = DB::table('users')
+//                    ->orderBy('name', 'desc')
+//                    ->groupBy('count')
+//                    ->having('count', '>', 100)
+//                    ->get();
+//Offset & Limit
+//
+//$users = DB::table('users')->skip(10)->take(5)->get();
+
+
+        $idcotizacion=  DB::select("select idcotizacion  from cotizacion order by idcotizacion desc limit 1");
+       if(count($idcotizacion)>0){$id = ($idcotizacion[0]->idcotizacion)+1;}else{$id="00000001";}
+    	
+        $data=array("subtitulo"=>"Registrar Cotización","productos"=>$productos,"idcotizacion"=>$id);
+	return View::make('cotizacion.crear',$data);
+//       $idcotizacion->idcotizacion;
+//      print_r($idcotizacion);
+//      echo $idcotizacion[0]->idcotizacion;
 
     }
     
@@ -19,12 +37,7 @@ class CotizacionController extends BaseController{
         
     }
     public function crearCotizacion(){
-       
-        //print_r(Input::All());
-//         [codigo] => sdvdsv [ruc] => sdvdsv [nombre] => [contacto] => [direccion] => [telefono] => 
-//        [pago] => 1 [dirdespacho] => [cantidad] => Array ( [0] => [1] => [2] => [3] => ) [preciobruto] => [igv] => [precioneto] => )
-        
-       // $codigo     =   Input::get('codigo');
+
         $ruc        =   Input::get('ruc');
         $nombre     =   Input::get('nombre');
         $contacto   =   Input::get('contacto');

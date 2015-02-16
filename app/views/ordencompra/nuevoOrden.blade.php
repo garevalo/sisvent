@@ -157,37 +157,52 @@
 
                                         </div>
 
-                                        <br>
-<!--                                        <div class="row">
-                                            <div class="col-lg-1 col-sm-4 col-md-3 col-xs-12">
-
-                                                <button type="button" class="btn btn-success btn-xs btn-block" onclick="form_modal('Producto','{{url('productos/modal', $parameters = array(), $secure = null);}}');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>   Buscar </button>
-                                            </div>
-
-                                        </div>-->
 
                                 <hr>
                                 <div class="row">
-                                   <div class="col-lg-10 col-sm-8 col-md-10 col-xs-8 ">
-                                        <table class="table table-condensed table-striped table-bordered table-responsive">
-                                            <thead>
-                                                <th>Id</th>
-                                                <th>Producto</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Precio Total</th>
-                                                <th>Eliminar</th>
+                                   <div class="col-lg-8 col-sm-8 col-md-10 col-xs-8 ">
+                                       <div style="height:200px;" class="well"> 
+                                        <table  class="table table-condensed table-striped table-bordered table-responsive">
+                                             <thead>
+                                                 <th>Id</th>
+                                                 <th>Producto</th>
+                                                 <th>Precio</th>
+                                                 <th>Cantidad</th>
+                                                 <th>Precio Total</th>
+                                                 <th>Solicitar</th>
 
-                                            </thead>
-                                            <tbody id="table-body">
-                                               
-                                            </tbody>
-                                        </table>
+                                             </thead>
+                                             <tbody id="table-body" >
+
+                                             </tbody>
+                                         </table>
+                                       </div>
                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
+                                       <div class="form-group has-warning">
+                                                                                        
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                    <button type="button" class="btn btn-success btn-sm shiny" onclick="form_modal('Registrar Acreditación','{{url("ordencompra/modal")}}')">
+                                                        <i class="glyphicon glyphicon-road"></i> Acreditación</button>
+                                                </div>
+                                                <label class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                    <!--<span class="label label-info graded col-md-12" style="height: 30px;">Nuevo</span>--> 
+                                                    <input style="color: #005eff; font-size: 15px;" type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" readonly="" value="Nuevo">
+                                                </label>
 
+                                            </div>
+                                       </div>
+                                      
+                                    </div>
                                     <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
 
                                         <div class="form-group">
+                                                                                        
                                             <div class="row">
                                                 <label class="col-md-6">Precio Bruto:</label>
                                                 <div class="col-md-6">
@@ -220,11 +235,14 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
+                                        
                                         <div class="form-group">
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button  type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-save"></i> Aceptar</button>
+                                                    <button  type="submit" class="btn btn-darkorange"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +250,7 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button type="buttton" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-print"></span> Imprimir</button>
+                                                    <button type="buttton" class="btn btn-sky "><span class="glyphicon glyphicon-send"></span> Despacho</button>
                                                 </div>
                                             </div>
                                         </div>

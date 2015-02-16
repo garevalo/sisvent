@@ -59,7 +59,8 @@
                                             <div class="form-group has-info has-feedback">
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="producto">Código:</label>
-                                                    <input type="text" name="codigo" id="codigo" class="form-control ">
+                                                    <?php if(isset($idcotizacion)){$id=$idcotizacion;}else{$id="";}?>
+                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$id}}">
                                                    @if($errors->has('producto'))
                                                    <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
                                                    @endif

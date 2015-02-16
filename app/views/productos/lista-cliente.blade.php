@@ -23,7 +23,8 @@
             <div class="thumbnail">
               <img src="{{ asset('img/foto_producto').'/'.$producto->img_producto;}}" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
               <div class="caption">
-                <h3>{{$producto->nombre_producto;}}</h3>
+                  <h4 class="text-primary">{{$producto->nombre_producto;}}</h4>
+                  <h5 class="label label-danger"><strong>S/. {{$producto->precio_producto;}}</strong></h5>
                 <p>{{$producto->descripcion_producto;}}</p>
                 <!--<p><a href="#" class="btn btn-primary" role="button">Ver Detalle</a> <a href="#" class="btn btn-default" role="button">Seleccionar</a></p>-->
               </div>

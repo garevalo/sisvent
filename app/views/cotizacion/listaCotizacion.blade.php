@@ -14,24 +14,6 @@
 
 @section('content')
 
-   @if(isset($confirm))
-    
-    <div id="modal-success" class="modal modal-message modal-success" style="" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <i class="glyphicon glyphicon-check"></i>
-                    </div>
-                    <div class="modal-title">Success</div>
-
-                    <div class="modal-body">You have done great!</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                    </div>
-                </div>  / .modal-content 
-            </div>  / .modal-dialog 
-    </div>
-    @endif
                		
     <div class="row well">
 
@@ -58,7 +40,7 @@
                                         <td>{{$cotiza->tipo_pago}}</td>
                                         <td>{{$cotiza->idclientes}}</td>
                                         
-                                        <td><a href="{{url("ordencompra/nuevo");}}">Generar</a></td>
+                                        <td><a href="{{url("ordencompra/nuevo/".$cotiza->idcotizacion);}}">Generar</a></td>
                                     </tr>
                                     @endforeach
                                     

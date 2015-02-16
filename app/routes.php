@@ -47,12 +47,11 @@
     
     /***ornden compra**/
 
-    
+   
 
 
-
-//    Route::group(array('before' => 'auth'), function()
-//    {
+    Route::group(array('before' => 'auth'), function()
+    {
         
         /**** Usuarios ****/
         Route::get('dashboard', function()
@@ -81,11 +80,16 @@
         
         /****** Fin Productos *****/
         
-        Route::get('ordencompra/nuevo', function()
+        
+        /****** Orden de Compra *****/
+        Route::get('ordencompra/nuevo/{id?}', function($id=null)
         { 
             return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra")); 
 
         });
         
-
-//    });
+        
+         //modalAcreditacion
+        Route::get('ordencompra/modal', array('uses' => 'ordenController@modalAcreditacion'));
+        
+    });
