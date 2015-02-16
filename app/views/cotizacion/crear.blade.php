@@ -35,7 +35,7 @@
                		
     <div class="row well">
         <script type="text/javascript">
-            function calcular(cantidad,precio,total){
+            function calcular(cantidad,precio){
        
        var multi = ( parseInt(cantidad) * parseFloat( precio));
        
@@ -52,11 +52,11 @@
         $("body").on("keyup",".cantidad",function(){
              var cantidad=$(this).val();
              var precio  =$(this).parents("tr").find("input[name*='precio']").val();
-             var total=$("#preciot").val();
-             var res= calcular(cantidad,precio,total);
+             
+             var res= calcular(cantidad,precio);
              $(this).parents("tr").find("input[name*='preciot']").val(res);
              
-            var ids;
+    /*        var ids;
     
             ids = $(this).parents("#table-body").find("input[name*='preciot']").map(function() {
                 return $(this).attr('value');
@@ -65,14 +65,23 @@
             var sum=0;          
                       for(celda=0;celda<ids.length;celda++)
                         {
-                             alert("hola");   
+                             
                             var numero = ids[celda].split(',');  
                             
                             sum =numero +sum;
                              //$("#preciobruto").val("sum");
                              alert(sum);
                         }
-        
+                        */
+            importe_total = 0
+            $(".preciot").each(
+                function(index, value) {
+                    importe_total = importe_total + eval($(this).val());
+                }
+            ); 
+            
+            //alert(importe_total);           
+            $("#preciobruto").val(importe_total);
         });
         
     });
