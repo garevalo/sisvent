@@ -45,7 +45,7 @@ class CotizacionController extends BaseController{
         $telefono   =   Input::get('telefono');
         $pago       =   Input::get('pago');
         $dirdespacho=   Input::get('dirdespacho');
-        $idprod   =   Input::get('idprod');
+        $idprod     =   Input::get('idprod');
         $cantidad   =   Input::get('cantidad');
         $preciot    =   Input::get('preciot');
         $preciobruto        =   Input::get('preciobruto');
@@ -55,12 +55,14 @@ class CotizacionController extends BaseController{
         
         $cant=count($idprod);
         
-        for($x=0;$x<$cant;$x++){
+       for($x=0;$x<$cant;$x++){
 
-           DB::select("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}',{$x})");
+           DB::statement("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}','{$x}');");
            
            
        }
+       
+      // DB::statement("call sp_prueba('{$nombre}','{$ruc}')");      
       return Redirect::to('productos')->with('confirm' , 'Cotizacion Registrada Correctamente');
     }
 }

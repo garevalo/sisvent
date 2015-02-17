@@ -10,81 +10,52 @@
    Registrar Producto
 @stop
 
-
-
 @section('content')
-
-<!--    @if(isset($confirm))
-    
-    <div id="modal-success" class="modal modal-message modal-success" style="" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <i class="glyphicon glyphicon-check"></i>
-                    </div>
-                    <div class="modal-title">Success</div>
-
-                    <div class="modal-body">You have done great!</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                    </div>
-                </div>  / .modal-content 
-            </div>  / .modal-dialog 
-    </div>
-    @endif-->
-               		
+		
     <div class="row well">
         <script type="text/javascript">
+            
             function calcular(cantidad,precio){
        
-       var multi = ( parseInt(cantidad) * parseFloat( precio));
-       
-      
-       
-       
-       return parseFloat(multi.toFixed(2));
-    }
-    
-    
+                var multi = ( parseInt(cantidad) * parseFloat( precio));
+                return parseFloat(multi.toFixed(2));
+            }
 
-    $(function() {
-        
-        $("body").on("keyup",".cantidad",function(){
-             var cantidad=$(this).val();
-             var precio  =$(this).parents("tr").find("input[name*='precio']").val();
-             
-             var res= calcular(cantidad,precio);
-             $(this).parents("tr").find("input[name*='preciot']").val(res);
-             
-    /*        var ids;
+            function calcular_precio_neto(precio_bruto){
+
+                var precioneto,porcentaje;
+
+                porcentaje=(precio_bruto * 0.18).toFixed(2);
+
+                return precioneto=parseFloat(porcentaje)+parseFloat(precio_bruto);
+
+            }   
     
-            ids = $(this).parents("#table-body").find("input[name*='preciot']").map(function() {
-                return $(this).attr('value');
-            }).get();
-            
-            var sum=0;          
-                      for(celda=0;celda<ids.length;celda++)
-                        {
-                             
-                            var numero = ids[celda].split(',');  
-                            
-                            sum =numero +sum;
-                             //$("#preciobruto").val("sum");
-                             alert(sum);
+            $(function() {
+                
+                $("body").on("keyup",".cantidad",function(){
+                     var cantidad=$(this).val();
+                     var precio  =$(this).parents("tr").find("input[name*='precio']").val();
+                     
+                     var res= calcular(cantidad,precio);
+                     $(this).parents("tr").find("input[name*='preciot']").val(res);
+                     
+
+                    importe_total = 0
+                    $(".preciot").each(
+                        function(index, value) {
+                            importe_total = importe_total + eval($(this).val());
                         }
-                        */
-            importe_total = 0
-            $(".preciot").each(
-                function(index, value) {
-                    importe_total = importe_total + eval($(this).val());
-                }
-            ); 
-            
-            //alert(importe_total);           
-            $("#preciobruto").val(importe_total);
-        });
-        
-    });
+                    ); 
+                    
+                    //alert(importe_total);           
+                    $("#preciobruto").val(importe_total.toFixed(2));
+
+                    precioneto=calcular_precio_neto( $("#preciobruto").val() );
+                    $('#precioneto').val(precioneto);
+                });
+                
+            });
 
             $(function(){
                 $("body").on("click",".eliminar",function(){
@@ -97,6 +68,7 @@
             });
 
       </script>
+      
        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="widget">
                     <div class="widget-header bordered-top bordered-palegreen">
@@ -226,7 +198,7 @@
                                             <div class="row">
                                                 <label class="col-md-6">Precio Bruto:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control">
+                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" readonly="">
                                                 </div>
 
                                             </div>
@@ -238,7 +210,7 @@
                                                 <div class="row">
                                                 <label class="col-md-6">IGV:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="igv" name="igv" class="input-sm form-control">
+                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="18" readonly="">
                                                 </div>
 
                                             </div>
@@ -250,7 +222,7 @@
                                             <div class="row">
                                             <label class="col-md-6">Precio Neto:</label>
                                             <div class="col-md-6">
-                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control">
+                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control" readonly="">
                                             </div>
                                             </div>
                                         </div>
