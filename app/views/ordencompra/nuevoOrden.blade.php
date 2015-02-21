@@ -140,7 +140,7 @@
                                                     @endif
 
                                                 </div>
-                                                <div class="col-lg-1 col-sm-4 col-md-4 col-xs-12">
+                                                <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12">
                                                     <label  id="precio">Tipo de Pago:</label>
                                                     <select name="pago" id="pago" class="form-control">
 
