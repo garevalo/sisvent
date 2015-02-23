@@ -15,6 +15,7 @@
 @section('content')
 
     <div class=row>
+        @if( Auth::user()->idtipo==1 )
     	<div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="databox radius-bordered databox-shadowed databox-graded">
                 
@@ -80,7 +81,7 @@
                 </div>
             </div>
         </div>
-        
+        @endif
 <!--        <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="databox radius-bordered databox-shadowed databox-graded">
                 <div class="databox-left bg-lightred">

@@ -13,6 +13,19 @@ class AcreditacionController extends BaseController{
        return json_encode(array( "dir" =>  url("ordencompra/nuevo/".$idcotizacion),"mensaje"=>"Acreditacion Enviada"));
     }
     
+    public function registrarAcreditacion(){
+        
+       $idcliente = Input::get('idcliente');
+              
+       DB::update('UPDATE clientes SET acreditacion = ? WHERE idclientes = ? ', array( '3', $idcliente));
+       return json_encode(array( "dir" =>  url("acreditacion/lista"),"mensaje"=>"Cliente Acreditado Correctamente"));
+    }
+    
+    
+     public function listaClientesAcreditacion(){
+        
+        return View::make('acreditacion.listaAcreditacion');
+    }
 }
     
     

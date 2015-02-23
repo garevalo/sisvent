@@ -97,7 +97,9 @@
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
         Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));
-        
+        Route::get('api/getclientesacreditacion', array('as'=>'api.clientesacreditacion','uses'=>'ClientesController@getClientesAcreditacion'));
+        Route::get('acreditacion/lista', array('uses' => 'AcreditacionController@listaClientesAcreditacion'));
+        Route::get('acreditacion/registrar', array('uses' => 'AcreditacionController@registrarAcreditacion'));
         /**CLientes***/
         
         Route::post('clientes/getbyruc', array('uses' => 'ClientesController@getClienteRuc'));

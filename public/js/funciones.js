@@ -364,6 +364,6 @@ function agregar_producto(url,id){
  }
  
 function solicitar_productos(idcli){
-     $("#modal-body-success").text(idcli);
+     $("#modal-body-success").text("Producto solicitado");
      $('#modal-success').modal('show');
 } 

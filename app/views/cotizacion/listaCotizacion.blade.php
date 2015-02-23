@@ -24,31 +24,7 @@
                     </div>
                     <div class="widget-body">
                         <div class="collapse in">
-                            <?php /* <table class="table table-bordered table-condensed table-striped">
-                                <thead>
-                                    <th>id</th>
-                                    <th>Contacto</th>
-                                    <th>Tipo Pago</th>
-                                    <th>Cliente</th>
-                                    <th>Generar Orden Compra</th>
-                                </thead>
-                                <tbody>
-                                    @foreach($cotizacion as $key=>$cotiza)
-                                    <tr>
-                                        <td>{{$cotiza->idcotizacion}}</td>
-                                        <td>{{$cotiza->contacto}}</td>
-                                        <td>{{$cotiza->tipo_pago}}</td>
-                                        <td>{{$cotiza->idclientes}}</td>
-                                        
-                                        <td><a href="{{url("ordencompra/nuevo/".$cotiza->idcotizacion);}}">Generar</a></td>
-                                    </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                                    
-                                
-                            </table>
-                              */ ?>
+                           
                             {{ Datatable::table()
                                 ->addColumn('Id','Cliente','RUC','Precio','Fec.Cotización','Estado','Acción') 
                                 ->setUrl(route('api.cotizacion'))  

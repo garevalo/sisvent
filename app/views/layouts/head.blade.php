@@ -13,10 +13,12 @@
                 <!-- /Navbar Barnd -->
                
                 @if(isset(Auth::user()->usuario))
+                
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav" >
                         <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
                         <li><a href="#"></a></li>
+                         @if( Auth::user()->idtipo==1 )
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-cog fa-fw"></i> Mantenimiento <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
@@ -33,14 +35,9 @@
                                     Registrar Usuarios
                                     </a>
                                 </li>
-                                <!--<li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>-->
                             </ul>
                         </li>
+                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-book"></i> Orden Compra <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
@@ -66,14 +63,21 @@
                                 </a></li>
                             </ul>
                         </li>
+                        @endif
+                        
+                        @if( Auth::user()->idtipo==4 || Auth::user()->idtipo==1 )
                         <li class="">
-                            <a href="#"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Acreditación </a>
+                            <a href="{{url('acreditacion/lista', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Acreditación </a>
                             
                         </li>
+                        @endif
+                        
+                        @if( Auth::user()->idtipo==1 )
                         <li class="">
                             <a href="#"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Almacén </a>
                             
                         </li>
+                        @endif
                     </ul>
                 </div>
                  

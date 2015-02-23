@@ -189,7 +189,8 @@
                                                  <th>Solicitar</th>
 
                                              </thead>
-                                             <tbody id="table-body" >
+                                             <tbody id="table-body">
+                                                 <?php $contaNoStock="";?>
                                                  @foreach($cotizacion as $key=>$value)
                                                  <tr>
                                                      <td>{{$key+1}}</td>
@@ -199,7 +200,7 @@
                                                      <td>{{$value->stock}}</td>
                                                      <td>{{$value->precio}}</td>
                                                      <td width="5%">
-                                                     <?php $contaNoStock=""; if($value->cantidad > $value->stock){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
+                                                     <?php  if($value->cantidad > $value->stock){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
                                                          <button type="button" onclick="solicitar_productos({{$cotizacion[0]->idclientes}});" class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
                                                      </td>
                                                  </tr>
