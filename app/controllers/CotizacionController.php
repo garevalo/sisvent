@@ -4,28 +4,12 @@ class CotizacionController extends BaseController{
     
     
     public function nuevoCotizacion(){
-        $productos= Producto::all();
-       //select ifnull(idcotizacion,0) from cotizacion order by idcotizacion desc limit 1;
-//        Order By, Group By, And Having
-//
-//$users = DB::table('users')
-//                    ->orderBy('name', 'desc')
-//                    ->groupBy('count')
-//                    ->having('count', '>', 100)
-//                    ->get();
-//Offset & Limit
-//
-//$users = DB::table('users')->skip(10)->take(5)->get();
-
 
         $idcotizacion=  DB::select("select idcotizacion  from cotizacion order by idcotizacion desc limit 1");
-       if(count($idcotizacion)>0){$id = ($idcotizacion[0]->idcotizacion)+1;}else{$id="00000001";}
+        if(count($idcotizacion)>0){$id = ($idcotizacion[0]->idcotizacion)+1;}else{$id="00000001";}
     	
-        $data=array("subtitulo"=>"Registrar Cotización","productos"=>$productos,"idcotizacion"=>$id);
+        $data=array("subtitulo"=>"Registrar Cotización","idcotizacion"=>$id);
 	return View::make('cotizacion.crear',$data);
-//       $idcotizacion->idcotizacion;
-//      print_r($idcotizacion);
-//      echo $idcotizacion[0]->idcotizacion;
 
     }
     
@@ -36,6 +20,28 @@ class CotizacionController extends BaseController{
         return View::make('cotizacion.listaCotizacion',$data);
         
     }
+
+    
+    public function getDatatable()
+        {
+             $query=DB::table('cotizacion')
+            ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
+            ->select('idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.created_at','cotizacion.estado','idcotizacion as id');
+        
+            return Datatable::query($query)
+            ->showColumns('idcotizacion', 'nombre_cliente','ruc','preciototal','created_at')
+            ->addColumn('estado',function($model){
+                    if($model->estado =='1'){$estado="<span class='label label-danger'>Activo</span>";}  
+                    else {$estado="<span class='label label-primary'>Cerrado</span>";}
+                return $estado;
+            })                    
+            ->addColumn('id',function($model){
+                return '<a href="'.url("ordencompra/nuevo/".$model->id).'"  class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Crear Orden Compra</a>';
+            })
+            ->make();
+  
+        }
+    
     public function crearCotizacion(){
 
         $ruc        =   Input::get('ruc');
@@ -64,5 +70,17 @@ class CotizacionController extends BaseController{
        
       // DB::statement("call sp_prueba('{$nombre}','{$ruc}')");      
       return Redirect::to('productos')->with('confirm' , 'Cotizacion Registrada Correctamente');
+    }
+    
+    
+    public function reporteCotizacion(){
+        
+        PDF::SetTitle('Hello World');
+
+        PDF::AddPage();
+
+        PDF::Write(0, 'Hello World');
+
+        PDF::Output('hello_world.pdf');
     }
 }

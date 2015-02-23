@@ -112,7 +112,7 @@ class ProductosController extends BaseController{
            $id      = Input::get("id");
            $filas   = Input::get("filas");
           $producto= Producto::find( $id );
-          $tabla="<tr>";
+          $tabla="<tr class='".$id."'>";
             $tabla.="<td>".$filas."</td>";
             $tabla.="<td>".$producto->nombre_producto."</td>";
             $tabla.="<td><input type='hidden' name='precio' class='precio' value='".$producto->precio_producto."'>".$producto->precio_producto."</td>";

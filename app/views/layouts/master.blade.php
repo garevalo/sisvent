@@ -71,14 +71,16 @@
             </div> <!-- / .modal-dialog -->
     </div>
     @endif
-       
+    
+    
+    
        
     <div class="loading-container loading-active">
         <div class="loader"></div>
     </div>
 
     
-
+                @include('layouts/alerts')
    	       	@include('layouts/head')
             
             

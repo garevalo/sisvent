@@ -90,10 +90,13 @@ function registrar_modal(form, c) {
                     else if (datos.dir) {
 
                         $('.bootbox ').modal('hide');
+                        
                     }
                     else if (datos.datos) {
                         console.log(data);
                     }
+                    $(".modal-body").text(datos.mensaje);
+                    $('#modal-success').modal('show');
                 }
             });
 
@@ -194,8 +197,6 @@ function buscar_ajax2(form, content) {
 
 }
 
-
-
 function eliminar_ajax(dir, id) {
 
 
@@ -219,114 +220,12 @@ function eliminar_ajax(dir, id) {
 }
 
 
-
-
-
 function limpiar() {
     $("#form")[0].reset();
 
 }
 
 
-function verificar_existe(valor, caja) {
-
-
-
-}
-/*
- * 
- * 
- * 
- * function calculo(obj,turno,prove1,tiempop,n){
- 
- if(prove1==="proveedor1"){
- var prove=10;
- }
- if(prove1==="proveedor2"){
- prove=15;
- }
- if(prove1==="proveedor3"){
- prove=20;
- }
- 
- var tf1=(obj*tiempop)/(turno*8);
- $("#tf"+n).val(tf1);
- $("#coste"+n).val(obj*prove);
- 
- $("#boton").removeAttr("disabled");
- 
- 
- }
- function calculotot(){
- 
- var   tf= parseFloat( $("#tf1").val()) +parseFloat($("#tf2").val()) ;
- var   tc= parseFloat( $("#coste1").val()) +parseFloat($("#coste2").val()) ;
- $("#total1").val(tf);
- $("#total2").val(tc);
- }
- 
- 
- $(function(){
- 
- $("#obj1").keyup(function(){
- var obj=$("#obj1").val();
- var turno=$("input[name=turno]:checked").val();
- var prove=$("#prove1").val();
- var tiempop=$("#tiempop1").val();
- 
- calculo(obj,turno,prove,tiempop,1);
- calculotot();
- //alert("hola");
- });
- 
- $("#obj2").keyup(function(){
- var obj=$("#obj2").val();
- var turno=$("input[name=turno]:checked").val();
- var prove=$("#prove2").val();
- var tiempop=$("#tiempop2").val();
- 
- calculo(obj,turno,prove,tiempop,2);
- calculotot();
- //alert("hola");
- });
- 
- 
- $("input[name=turno]:radio").click(function(){
- var obj1=$("#obj1").val();
- var turno=$("input[name=turno]:checked").val();
- var prove1=$("#prove1").val();
- var tiempop1=$("#tiempop1").val();
- 
- var obj2=$("#obj2").val();
- var prove2=$("#prove2").val();
- var tiempop2=$("#tiempop2").val();
- 
- 
- calculo(obj1,turno,prove1,tiempop1,1);
- calculo(obj2,turno,prove2,tiempop2,2);
- calculotot();
- });
- $("#prove1").click(function(){
- var obj=$("#obj1").val();
- var turno=$("input[name=turno]:checked").val();
- var prove=$("#prove1").val();
- var tiempop=$("#tiempop1").val();
- 
- calculo(obj,turno,prove,tiempop,1);
- calculotot();
- });
- $("#prove2").click(function(){
- var obj=$("#obj2").val();
- var turno=$("input[name=turno]:checked").val();
- var prove=$("#prove2").val();
- var tiempop=$("#tiempop2").val();
- 
- calculo(obj,turno,prove,tiempop,2);
- calculotot();
- });
- });
- 
- */
 
 function seg(id,idasig,url) {
 
@@ -399,57 +298,72 @@ function proceso(id,url,idseg) {
 }
 
 
-function terminar_produccion(idasig,url){
-    
-   if( confirm("¿esta seguro de cerrar esta produccion?")){
-        $.post(url,{id:idasig},function(data){
-//        disabled="disabled"
-        $("#cierre"+idasig).attr("disabled","disabled");
-//        alert(data);
-    });
-   }
-    
-   
-    
-}
-
  function form_modal(titulo,form){
  
- $.get(form,function(data){
-     
-     
-     bootbox.dialog({
-                title: titulo,
-                message: data
-            }
-        );
-   
- });
+    $.get(form,function(data){
+
+
+        bootbox.dialog({
+                   title: titulo,
+                   message: data
+               }
+           );
+
+    });
  
  }
+ 
+  function form_modal_acreditacion(titulo,form){
+   
+    var idcliente =$("#idcliente").val();
+    var idcotizacion =$("#codigo").val();
+    var ruc=$("#ruc").val();
+    var nombre=$("#nombre").val();
+    var precio=$("#precioneto").val();
+      console.log(idcliente);
+    $.get(form,{ruc:ruc,"nombre":nombre,"precio":precio,"idcliente":idcliente,"idcotizacion":idcotizacion},function(data){
+
+
+        bootbox.dialog({
+                   title: titulo,
+                   message: data
+               }
+           );
+
+    });
+ 
+ }
+ 
 
  
 function agregar_producto(url,id){
     var filas = ($("#table-body tr").length)+1;
-            
-   $.post(url,{id:id,filas:filas},function(data,status){
+    var idprod = ($("."+id).length);
+   
+   if(idprod>0){ 
+       
+       //alert("Este producto ya ha sido añadido a la cotización. Seleccione otro producto porfavor");
+       $("#warning-title").text('Alerta');
+       $("#warning-body").text('Este producto ya ha sido añadido a la cotización. Seleccione otro producto porfavor');
+       $('#modal-warning').modal('show');
+   }else{
+    $.post(url,{id:id,filas:filas},function(data,status){
        
        if(status==="success"){
            
            $("#table-body").append(data);
            $(".bootbox").modal("hide");
            $('#modal-success').modal('show');
-         
+           
             
        }
-     });
+     }); 
+  }
+ 
 
  }
  
- function eliminar_producto_cotizacion(url,id){
-   
-            
-   
-
- }
- 
+function solicitar_productos(idcli){
+     $("#modal-body-success").text(idcli);
+     $('#modal-success').modal('show');
+} 

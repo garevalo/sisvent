@@ -36,6 +36,7 @@
     Route::get('api/productos', array('as'=>'api.productos','uses'=>'ProductosController@getDatatable'));
     
     Route::get('api/usuarios', array('as'=>'api.usuarios','uses'=>'UsuariosController@getDatatable'));
+    Route::get('api/cotizacion', array('as'=>'api.cotizacion','uses'=>'CotizacionController@getDatatable'));
     
     Route::get('api/productosmodal', array('as'=>'api.productosmodal','uses'=>'ProductosController@getDatatableModal'));
     Route::get('productos/modal', array('uses' => 'ProductosController@modalProductos'));
@@ -44,6 +45,8 @@
     Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
     Route::post('cotizacion/crear', array('uses' => 'CotizacionController@crearCotizacion'));
     Route::get('cotizacion', array('uses' => 'CotizacionController@listaCotizacion'));
+    Route::get('cotizacion/reporte', array('uses' => 'CotizacionController@reporteCotizacion'));
+    
     
     /***ornden compra**/
 
@@ -91,7 +94,12 @@
 //        });
         
         
-         //modalAcreditacion
+         //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
+        Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));
+        
+        /**CLientes***/
+        
+        Route::post('clientes/getbyruc', array('uses' => 'ClientesController@getClienteRuc'));
         
     });

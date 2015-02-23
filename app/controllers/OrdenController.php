@@ -9,8 +9,9 @@ class OrdenController extends BaseController{
             ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
             ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
             ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
-            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal','clientes.ruc',
-                    'clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente',
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
+                    'cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
+                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente',
                     'detalle_cotizacion.cantidad','detalle_cotizacion.precio','productos.nombre_producto',
                     'productos.precio_producto','productos.stock')
             ->where('cotizacion.idcotizacion', '=', $id)

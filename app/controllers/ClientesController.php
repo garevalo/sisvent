@@ -13,6 +13,13 @@ class ClientesController extends BaseController {
         // El método make de la clase View indica cual vista vamos a mostrar al usuario 
         //y también pasa como parámetro los datos que queramos pasar a la vista. 
         // En este caso le estamos pasando un array con todos los usuarios
-    } 
+    }
+    
+    public function getClienteRuc(){
+        
+        $ruc=  Input::get("ruc");
+        $model = Cliente::where('ruc', '=', $ruc)->first()->toJson();
+        print_r( $model);
+    }
     
 }

@@ -77,50 +77,44 @@
                     <div class="widget-body">
                         <div class="collapse in">
 
-                                {{ Form::open(array('url' => 'cotizacion/crear','class'=>"","role"=>"form", 'method' => 'post'))}}
+                                {{ Form::open(array('url' => 'cotizacion/crear','class'=>"","role"=>"form", 'method' => 'post','id'=>'frmcotizacion'))}}
                                         <div class="row">
                                             <div class="form-group has-info has-feedback">
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="producto">Código:</label>
                                                     <?php if(isset($idcotizacion)){$id=$idcotizacion;}else{$id="";}?>
-                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$id}}">
+                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$id}}" readonly="">
                                                    @if($errors->has('producto'))
                                                    <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
                                                    @endif
                                                 </div>
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="descripcion">Ruc:</label>
-                                                    <input type="text" class="form-control" name="ruc" id="ruc" >
-                                                    @if($errors->has('descripcion'))
-                                                   <small class="text-danger">* <?php echo $errors->first('descripcion') ?></small>
-                                                   @endif
+                                                    <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required=""> 
+                                                    <span id="reloadruc"></span>
+                                                    
+                                                     
+                                                 
                                                 </div>
-
+                                                
+                                                
                                              </div>
                                          </div>
                                          <div class="row">
                                             <div class="form-group has-info has-feedback">
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control">
-                                                    @if($errors->has('precio'))
-                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                   @endif
+                                                    <input type="text" name="nombre" id="nombre" class="form-control" required="">
+                                                   
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Contacto A:</label>
-                                                    <input type="text" name="contacto" id="contacto" class="form-control">
-                                                    @if($errors->has('precio'))
-                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                   @endif
+                                                    <input type="text" name="contacto" id="contacto" class="form-control" required="">
+                                                    
                                                 </div>
                                                 <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                                                     <label  id="precio">Dirección:</label>
-                                                    <input type="text" name="direccion" id="direccion" class="form-control">
-                                                    @if($errors->has('precio'))
-                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                    @endif
-
+                                                    <input type="text" name="direccion" id="direccion" class="form-control" required="">
                                                 </div>
 
 
@@ -133,28 +127,20 @@
                                             <div class="form-group has-info has-feedback">
                                                  <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Teléfono:</label>
-                                                    <input type="text" name="telefono" id="telefono" class="form-control">
-                                                    @if($errors->has('precio'))
-                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                    @endif
-
-                                                </div>
+                                                    <input type="text" name="telefono" id="telefono" class="form-control" required="">
+                                                  </div>
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Tipo de Pago:</label>
-                                                    <select name="pago" id="pago" class="form-control">
+                                                    <select name="pago" id="pago" class="form-control" required="">
 
                                                         <option value="1">Crédito</option>
                                                         <option value="2">Contado</option>
 
                                                     </select>
-                                                    @if($errors->has('precio'))
-                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                    @endif
-
                                                 </div>
                                                 <div class="col-lg-4 col-sm-5 col-md-5 col-xs-12">
                                                     <label  id="precio">Dirección de Despacho:</label>
-                                                    <input type="text" name="dirdespacho" id="dirdespacho" class="form-control">
+                                                    <input type="text" name="dirdespacho" id="dirdespacho" class="form-control" required="">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
@@ -231,7 +217,7 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button  type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-save"></i> Aceptar</button>
+                                                    <button  type="submit" class="btn btn-primary btn-block" onclick="validar_productos('frmcotizacion',0)"><i class="glyphicon glyphicon-save"></i> Aceptar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -250,7 +236,7 @@
                                 {{ Form::close() }}
                         </div>
 
-
+                      
                     </div>
                                         
                     </div>
@@ -259,7 +245,58 @@
       
     </div>
 
+    <script type="text/javascript">
+        function validar_productos(form,c){
+//            $(".preciot").each(
+//                function(index, value) {
+//                    importe_total = importe_total + eval($(this).val());
+//                }
+//            );
+                var filas=$("#table-body tr").length;
+                if(filas==0){
+                    $("#warning-title").text('Alerta');
+                    $("#warning-body").text('Seleccion un producto, para continuar con la cotización');
+                    $('#modal-warning').modal('show');
+                }else{
+                    //registrar_ajax(form,c);
+                    
+                }
+        }
+        
+        $(function(){
+           $("body").on("keypress","#ruc",function(){
+               $("#reloadruc").html('<i class="fa fa-spinner fa-spin"></i>');
+           });
+           
+           
+           $("body").on("change","#ruc",function(){
+             var ruc=$("#ruc").val(); 
+             $("#reloadruc").html('');
+             $("#nombre").val("");
+                    $("#direccion").val("");
+                    $("#telefono").val("");
+             $.post('<?= url("clientes/getbyruc")?>',{"ruc":ruc},function(data){
+                 
+                 if(datos!=""){
+                    var datos = jQuery.parseJSON(data);
+                    $("#nombre").val(datos.nombre_cliente);
+                    $("#direccion").val(datos.direccion_cliente);
+                    $("#telefono").val(datos.telefono_cliente);
+                 }
+                 else{
+                     $("#nombre").val("");
+                    $("#direccion").val("");
+                    $("#telefono").val("");
+                 }
+                 console.log(data);
+             });
+              
+           });
+           
+        });
 
+
+    </script>
 @stop
 
 

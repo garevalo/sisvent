@@ -7,7 +7,7 @@
 @stop
 
 @section('title')
-   Registrar Producto
+   Lista de Cotizaciones
 @stop
 
 
@@ -24,7 +24,7 @@
                     </div>
                     <div class="widget-body">
                         <div class="collapse in">
-                            <table class="table table-bordered table-condensed table-striped">
+                            <?php /* <table class="table table-bordered table-condensed table-striped">
                                 <thead>
                                     <th>id</th>
                                     <th>Contacto</th>
@@ -48,7 +48,12 @@
                                     
                                 
                             </table>
-                               
+                              */ ?>
+                            {{ Datatable::table()
+                                ->addColumn('Id','Cliente','RUC','Precio','Fec.Cotización','Estado','Acción') 
+                                ->setUrl(route('api.cotizacion'))  
+                                ->render() }}
+                            
                         </div>
 
 

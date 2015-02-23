@@ -66,6 +66,14 @@
                                 </a></li>
                             </ul>
                         </li>
+                        <li class="">
+                            <a href="#"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Acreditación </a>
+                            
+                        </li>
+                        <li class="">
+                            <a href="#"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Almacén </a>
+                            
+                        </li>
                     </ul>
                 </div>
                  

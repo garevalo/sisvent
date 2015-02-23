@@ -69,6 +69,7 @@
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="producto">Número Orden:</label>
+                                                    <input type="hidden" name="idcliente" id="idcliente" value="{{$cotizacion[0]->idclientes}}">
                                                     <input type="text" name="codigo" id="codigo" class="form-control " value="{{$idorden}}" disabled="">
                                                    @if($errors->has('producto'))
                                                    <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
@@ -84,7 +85,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control" value="{{$cotizacion[0]->nombre_cliente}}">
+                                                    <input type="text" name="nombre" id="nombre" class="form-control" value="{{$cotizacion[0]->nombre_cliente}}" disabled="">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
@@ -97,14 +98,14 @@
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Contacto A:</label>
-                                                    <input type="text" name="contacto" id="contacto" class="form-control" value="{{$cotizacion[0]->contacto}}">
+                                                    <input type="text" name="contacto" id="contacto" class="form-control" value="{{$cotizacion[0]->contacto}}" disabled="">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
                                                 </div>
                                                 <div class="col-lg-4 col-sm-4 col-md-3 col-xs-12">
                                                     <label  id="precio">Dirección:</label>
-                                                    <input type="text" name="direccion" id="direccion" class="form-control" value="{{$cotizacion[0]->direccion_cliente}}">
+                                                    <input type="text" name="direccion" id="direccion" class="form-control" value="{{$cotizacion[0]->direccion_cliente}}" disabled="">
                                                     @if($errors->has('precio'))
                                                     <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                     @endif
@@ -142,10 +143,10 @@
                                                 </div>
                                                 <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12">
                                                     <label  id="precio">Tipo de Pago:</label>
-                                                    <select name="pago" id="pago" class="form-control">
-
-                                                        <option value="1">Crédito</option>
-                                                        <option value="2">Contado</option>
+                                                    <select name="pago" id="pago" class="form-control" disabled="">
+                                                        <?php if($cotizacion[0]->tipo_pago==1){$tp='Crédito';} else{$tp='Contado';}?>
+                                                        <option value="{{$cotizacion[0]->tipo_pago}}">{{$tp}}</option>
+                                                        
 
                                                     </select>
                                                     @if($errors->has('precio'))
@@ -155,7 +156,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                     <label  id="precio">Dirección de Despacho:</label>
-                                                    <input type="text" name="dirdespacho" id="dirdespacho" class="form-control" value="{{$cotizacion[0]->direccion_cliente}}">
+                                                    <input type="text" name="dirdespacho" id="dirdespacho" class="form-control" value="{{$cotizacion[0]->direccion_despacho}}" disabled="">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
@@ -175,7 +176,7 @@
 
                                 <hr>
                                 <div class="row">
-                                   <div class="col-lg-8 col-sm-8 col-md-10 col-xs-8 ">
+                                   <div class="col-lg-10 col-sm-12 col-md-10 col-xs-12 ">
                                        <div style="height:200px;" class="well"> 
                                         <table  class="table table-condensed table-striped table-bordered table-responsive">
                                              <thead>
@@ -194,10 +195,13 @@
                                                      <td>{{$key+1}}</td>
                                                      <td>{{$value->nombre_producto}}</td>
                                                      <td>{{$value->precio_producto}}</td>
-                                                     <td>{{$value->cantidad}}</td>
+                                                     <td><span></span>{{$value->cantidad}}</td>
                                                      <td>{{$value->stock}}</td>
                                                      <td>{{$value->precio}}</td>
-                                                     <td width="5%"><button type="button" onclick="bootbox.alert('Pedido de Stock Enviada')" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-share"></i></button></td>
+                                                     <td width="5%">
+                                                     <?php $contaNoStock=""; if($value->cantidad > $value->stock){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
+                                                         <button type="button" onclick="solicitar_productos({{$cotizacion[0]->idclientes}});" class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
+                                                     </td>
                                                  </tr>
                                                  
                                                  @endforeach
@@ -208,32 +212,44 @@
                                 </div>
                                 
                                 <div class="row">
-                                    <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
+                                    <div class="col-lg-2 col-sm-3 col-md-2 col-xs-12">
                                        <div class="form-group has-warning">
-                                                                                        
+                                           <div class="row">
+                                               <div class="col-md-12">
+                                                   @if($cotizacion[0]->acreditacion==1)
+                                                    <div class="alert alert-warning">Cliente No Acreditado</div>
+                                                   @elseif($cotizacion[0]->acreditacion==2)
+                                                    <div class="alert alert-info">En proceso de Acreditación</div>
+                                                   @elseif($cotizacion[0]->acreditacion==3)
+                                                    <div class="alert alert-success">Cliente Acreditado</div>
+                                                   @endif
+                                               </div>
+                                               
+                                           </div> 
+                                           
                                             <div class="row">
-                                                
-                                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                                    <button type="button" class="btn btn-success btn-sm shiny" onclick="form_modal('Registrar Acreditación','{{url("ordencompra/modal")}}')">
+                                                <?php if($cotizacion[0]->acreditacion==1){$btndisabled="";}
+                                                      elseif($cotizacion[0]->acreditacion==2){$btndisabled="disabled=''";}
+                                                      elseif($cotizacion[0]->acreditacion==3){$btndisabled="disabled=''";}
+                                                ?>
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    
+                                                    <button type="button" class="btn btn-success btn-sm btn-block shiny " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
                                                         <i class="glyphicon glyphicon-road"></i> Acreditación</button>
                                                 </div>
-                                                <label class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                                                    <!--<span class="label label-info graded col-md-12" style="height: 30px;">Nuevo</span>--> 
-                                                    <input style="color: #005eff; font-size: 15px;" type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" readonly="" value="Nuevo">
-                                                </label>
 
                                             </div>
                                        </div>
                                       
                                     </div>
-                                    <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
+                                    <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 ">
 
-                                        <div class="form-group">
+                                        <div class="form-group has-success has-feedback">
                                                                                         
                                             <div class="row">
                                                 <label class="col-md-6">Precio Bruto:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" value="{{$cotizacion[0]->precio_neto}}">
+                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" value="{{$cotizacion[0]->precio_neto}}" disabled="">
                                                 </div>
 
                                             </div>
@@ -241,11 +257,11 @@
                                         </div>
 
 
-                                        <div class="form-group">
+                                        <div class="form-group has-success has-feedback">
                                                 <div class="row">
                                                 <label class="col-md-6">IGV:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="{{$cotizacion[0]->igv}}">
+                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="{{$cotizacion[0]->igv}}" disabled="">
                                                 </div>
 
                                             </div>
@@ -253,23 +269,23 @@
                                         </div>
 
 
-                                        <div class="form-group">
+                                        <div class="form-group has-success has-feedback">
                                             <div class="row">
                                             <label class="col-md-6">Precio Neto:</label>
                                             <div class="col-md-6">
-                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control" value="{{$cotizacion[0]->preciototal}}">
+                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control" value="{{$cotizacion[0]->preciototal}}" disabled="">
                                             </div>
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
+                                    <div class="col-lg-2 col-sm-3 col-md-4 col-xs-12">
                                         
                                         <div class="form-group">
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button  type="button" class="btn btn-darkorange" onclick="bootbox.alert('Se guardo correctamente')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                    <button  type="button" class="btn btn-darkorange btn-block" onclick="bootbox.alert('Se guardo correctamente')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -277,7 +293,8 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button type="button" class="btn btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button>
+                                                    <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
+                                                    <button {{$btndespacho}} type="button" class="btn btn-sky btn-block" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button>
                                                 </div>
                                             </div>
                                         </div>
