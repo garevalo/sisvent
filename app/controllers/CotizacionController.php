@@ -60,6 +60,43 @@ class CotizacionController extends BaseController{
         $correo         =   Input::get('correo');
         $validar        =   Input::get('validar');
 
+
+/*
+        $dataUpload = array(
+            "producto"      =>    Input::get("producto"),
+            "descripcion"   =>    Input::get("descripcion"),
+            "precio"        =>    Input::get("precio"),
+            "imagen"        =>    $file,//campo foto para validar
+            "categoria"     =>    Input::get("categoria")
+        );
+
+        $rules = array(
+            'producto'      => 'required|min:2|max:100|unique:productos,nombre_producto',
+            'descripcion'   => 'required|min:6|max:100',
+            'precio'        => 'required|numeric',
+            'imagen'        => 'required|mimes:jpeg,bmp,png|max:20000',
+            'categoria'     => 'required'
+        );
+
+        $messages = array(
+            'required'  => 'El campo :attribute es obligatorio.',
+            'min'       => 'El campo :attribute no puede tener menos de :min carácteres.',
+            'email'     => 'El campo :attribute debe ser un email válido.',
+            'max'       => 'El campo :attribute no puede tener más de :min carácteres.',
+            'unique'    => 'El producto ingresado ya está registrado',
+            'confirmed' => 'Los passwords no coinciden',
+            'numeric'   => 'El campo :attribute debe ser un número',
+            'mimes'     => 'El campo :attribute debe ser una imagen'
+        );
+
+        $validation = Validator::make($dataUpload, $rules, $messages);
+  
+        if ($validation->fails())
+        {
+            return Redirect::to('productos/nuevo')->withErrors($validation)->withInput();
+        }
+
+*/
        
        if( $validar=="si" ){
            
