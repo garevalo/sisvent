@@ -13,8 +13,12 @@
             padding: 15px 15px 15px 15px;
             
         }
+        .third td{
+            padding: 15px 15px 15px 15px;
+        }
         .first .cuadro{
             background-color: wheat;
+
         }
         .cabecera{
             background-color: gray;
@@ -48,7 +52,7 @@
                         <td align="center" >
                             <p style="font-size: 50px;">
                                 <b >COTIZACION</b><br>
-                                56734  <br>
+                                <?= $cotizacion[0]->idcotizacion ?>  <br>
                             </p>
                         </td>
                     </tr>
@@ -66,58 +70,71 @@
     <table  border="0" class="second">
         <tr>
             <td width="550"><b>RUC:</b></td>
-            <td>73849504567</td><td></td><td><?= date("H-m-s")?></td>
+            <td width="820"><?= $cotizacion[0]->ruc ?></td><td><?= $cotizacion[0]->fechacotizacion ?></td>
         </tr>
         <tr>
-            <td><b>Nombre:</b></td><td>CLientes SAC</td>
+            <td><b>Nombre:</b></td><td><?= $cotizacion[0]->nombre_cliente ?></td>
         </tr>
         <tr>
-            <td><b>Dirección:</b></td><td> Los olivos </td>
+            <td><b>Dirección:</b></td><td> <?= $cotizacion[0]->direccion_cliente ?></td>
         </tr>
         <tr>
-            <td><b>Correo:</b></td><td>correo@hotmail.com</td>
+            <td><b>Correo:</b></td><td><?= $cotizacion[0]->nombre_cliente ?></td>
         </tr>
         <tr>
-            <td><b>Tipo de Pago:</b></td><td>Credito</td>
+            <td><b>Tipo de Pago:</b></td><td><?= $cotizacion[0]->tipo_pago ?></td>
         </tr>
         <tr>
-            <td><b>Dirección de Despacho:</b></td><td>Direccion de despacho</td>
+            <td><b>Dirección de Despacho:</b></td><td><?= $cotizacion[0]->direccion_despacho ?></td>
         </tr>
     </table>
-    <br>
-    <br>
+   
     <h2>Cotización Electrónica</h2>
-    <table border="1" cellpadding="0" cellspacing="0" class="second">
+    <table border="1" cellpadding="2" cellspacing="0" class="third">
         <tr class="cabecera">
-            <td align="center" colspan="2">Producto</td>
+            <td align="center" width="580" >Producto</td>
             <td align="center">Precio</td>
             <td align="center">Cantidad</td>
             <td align="center">PrecioTotal</td>
         </tr>
-    <tr>
-    <td colspan="2"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-    <tr>
-    <td colspan="2"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-    
+        <?php  foreach ($cotizacion as $key => $value) { ?>
+        <tr>
+            <td ><?= $value->nombre_producto ?></td>
+            <td align="center"><?= $value->precio_producto ?></td>
+            <td align="center"><?= $value->cantidad ?></td>
+            <td align="center"><?= $value->precio ?></td>
+        </tr>
+       <?php } ?>
+       
+       <?php 
+        $cantidadfilas=25;
+       if( count($cotizacion) < $cantidadfilas){  $completar= $cantidadfilas - count($cotizacion);
 
-    <tr>
-    <td colspan="2"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-    <tr>
-    <td colspan="2">TOTAL</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>    
+                for ($i=0; $i < $completar; $i++) { 
+        ?>
+           <tr>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+           </tr>
+        <?php
+                }
+
+       }?> 
+        
+        <tr>
+            <td colspan="3"></td>
+            <td align="center"> <b><?= $value->precio_neto ?></b> </td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td align="center"> <b><?= $value->igv ?></b> </td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td align="center"> <b><?= $value->preciototal ?></b> </td>
+        </tr>
+    
     </table>
+

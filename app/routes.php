@@ -45,7 +45,7 @@
     Route::get('cotizacion/nuevo', array('uses' => 'CotizacionController@nuevoCotizacion'));
     Route::post('cotizacion/crear', array('uses' => 'CotizacionController@crearCotizacion'));
     Route::get('cotizacion', array('uses' => 'CotizacionController@listaCotizacion'));
-    Route::get('cotizacion/reporte', array('uses' => 'CotizacionController@reporteCotizacion'));
+    Route::get('cotizacion/reporte/{id}', array('uses' => 'CotizacionController@reporteCotizacion'));
     
     
     /***ornden compra**/

@@ -115,23 +115,32 @@ class CotizacionController extends BaseController{
     }
     
     
-    public function reporteCotizacion(){
-       // set document information
+    public function reporteCotizacion($id){
+
+
+        $cotizacion= DB::table('cotizacion')
+            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
+            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
+                    'cotizacion.direccion_despacho','cotizacion.created_at as fechacotizacion','clientes.acreditacion','clientes.idclientes',
+                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','productos.nombre_producto',
+                    'productos.precio_producto','productos.stock')
+            ->where('cotizacion.idcotizacion', '=', $id)
+            ->get();
+
+        // set document information
         PDF::SetCreator(PDF_CREATOR);
         PDF::SetAuthor('Cotizacion');
         PDF::SetTitle('NCH PERU');
         PDF::SetSubject('NCH PERU');
         PDF::SetKeywords('TCPDF, PDF, Cotizacion');
 
-        // set default header data
-       // PDF::SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'Cotizacion', 'NCH PERU');
-
-        // set header and footer fonts
        
         PDF::setPrintHeader(false);
         PDF::setPrintFooter(false);
 
-        // set default monospaced font
         PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
         // set margins
@@ -149,10 +158,11 @@ class CotizacionController extends BaseController{
 
         PDF::AddPage();
 
-        $html = View::make('cotizacion.imprimir');
+        $datos=array("cotizacion"=>$cotizacion);   
+        $html = View::make('cotizacion.imprimir',$datos);
 
         PDF::writeHTML($html, true, false, true, false, '');
 
-        PDF::Output('example_061.pdf', 'I');
+        PDF::Output('Cotizacion.pdf', 'I');
     }
 }
