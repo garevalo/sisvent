@@ -6,7 +6,7 @@
                     </div>
                     <div class="modal-title">Correcto</div>
 
-                    <div class="modal-body" id="modal-body-success">{{ Session::get('confirm') }}</div>
+                    <div class="modal-body" id="modal-body-success"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal" id="ok">OK</button>
                     </div>

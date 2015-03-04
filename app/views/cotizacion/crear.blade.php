@@ -27,7 +27,7 @@
 
                 porcentaje=(precio_bruto * 0.18).toFixed(2);
 
-                return precioneto=parseFloat(porcentaje)+parseFloat(precio_bruto);
+                return precioneto=(parseFloat(porcentaje)+parseFloat(precio_bruto)).toFixed(2);
 
             }   
     
@@ -81,6 +81,7 @@
                                         <div class="row">
                                             <div class="form-group has-info has-feedback">
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
+                                                     <input type="hidden" name="validar" id="validar" value="si">
                                                     <label id="producto">Código:</label>
                                                     <?php if(isset($idcotizacion)){$id=$idcotizacion;}else{$id="";}?>
                                                     <input type="text" name="codigo" id="codigo" class="form-control " value="{{$id}}" readonly="">
@@ -92,43 +93,45 @@
                                                     <label id="descripcion">Ruc:</label>
                                                     <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required=""> 
                                                     <span id="reloadruc"></span>
-                                                    
-                                                     
-                                                 
                                                 </div>
-                                                
-                                                
-                                             </div>
-                                         </div>
-                                         <div class="row">
-                                            <div class="form-group has-info has-feedback">
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
                                                     <input type="text" name="nombre" id="nombre" class="form-control" required="">
                                                    
                                                 </div>
-                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
-                                                    <label  id="precio">Contacto A:</label>
-                                                    <input type="text" name="contacto" id="contacto" class="form-control" required="">
-                                                    
-                                                </div>
+                                                
+                                             </div>
+                                         </div>
+                                         <div class="row">
+                                            <div class="form-group has-info has-feedback">
+                                                
+                                                
                                                 <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                                                     <label  id="precio">Dirección:</label>
                                                     <input type="text" name="direccion" id="direccion" class="form-control" required="">
                                                 </div>
-
-
-
+                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
+                                                    <label  id="precio">Correo:</label>
+                                                    <input type="text" name="correo" id="correo" class="form-control" required="">
+                                                   
+                                                </div>
+                                                
+                                                <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
+                                                    <label  id="precio">Teléfono:</label>
+                                                    <input type="text" name="telefono" id="telefono" class="form-control" required="">
+                                                </div>
                                             </div>
 
                                          </div>
 
                                         <div class="row">
                                             <div class="form-group has-info has-feedback">
-                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
-                                                    <label  id="precio">Teléfono:</label>
-                                                    <input type="text" name="telefono" id="telefono" class="form-control" required="">
-                                                  </div>
+                                                 
+                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
+                                                    <label  id="precio">Contacto A:</label>
+                                                    <input type="text" name="contacto" id="contacto" class="form-control" required="">
+                                                    
+                                                </div>
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Tipo de Pago:</label>
                                                     <select name="pago" id="pago" class="form-control" required="">
@@ -196,7 +199,7 @@
                                                 <div class="row">
                                                 <label class="col-md-6">IGV:</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="18" readonly="">
+                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="0.18" readonly="">
                                                 </div>
 
                                             </div>
@@ -217,18 +220,18 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button  type="submit" class="btn btn-primary btn-block" onclick="validar_productos('frmcotizacion',0)"><i class="glyphicon glyphicon-save"></i> Aceptar</button>
+                                                    <button  type="submit" class="btn btn-primary btn-block" id="aceptar" onclick="registrar_ajax_cotizacion('frmcotizacion',0)"><i class="glyphicon glyphicon-save"></i> Aceptar</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <div class="row">
 
                                                 <div class="col-md-12">
                                                     <button type="buttton" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-print"></span> Imprimir</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                  </div>
@@ -246,24 +249,16 @@
     </div>
 
     <script type="text/javascript">
-        function validar_productos(form,c){
-//            $(".preciot").each(
-//                function(index, value) {
-//                    importe_total = importe_total + eval($(this).val());
-//                }
-//            );
-                var filas=$("#table-body tr").length;
-                if(filas==0){
-                    $("#warning-title").text('Alerta');
-                    $("#warning-body").text('Seleccion un producto, para continuar con la cotización');
-                    $('#modal-warning').modal('show');
-                }else{
-                    //registrar_ajax(form,c);
-                    
-                }
-        }
         
+                
         $(function(){
+           
+            $("body").on("click","#finalizar",function(){
+               $("#validar").attr("value","no");
+               $("#aceptar").click();
+               
+           });
+            
            $("body").on("keypress","#ruc",function(){
                $("#reloadruc").html('<i class="fa fa-spinner fa-spin"></i>');
            });
@@ -282,11 +277,13 @@
                     $("#nombre").val(datos.nombre_cliente);
                     $("#direccion").val(datos.direccion_cliente);
                     $("#telefono").val(datos.telefono_cliente);
+                    $("#correo").val(datos.correo);
                  }
                  else{
                      $("#nombre").val("");
                     $("#direccion").val("");
                     $("#telefono").val("");
+                    $("#correo").val("");
                  }
                  console.log(data);
              });

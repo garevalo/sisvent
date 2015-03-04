@@ -59,8 +59,6 @@ class ProductosController extends BaseController{
         
         else{
 
-          
-        
             $producto= new Producto(array(
                 "nombre_producto"    	=>    Input::get("producto"),
                 "descripcion_producto"  =>    Input::get("descripcion"),
@@ -116,8 +114,8 @@ class ProductosController extends BaseController{
             $tabla.="<td>".$filas."</td>";
             $tabla.="<td>".$producto->nombre_producto."</td>";
             $tabla.="<td><input type='hidden' name='precio' class='precio' value='".$producto->precio_producto."'>".$producto->precio_producto."</td>";
-            $tabla.="<td><input type='hidden' name='idprod[]' id='idprod' value='".$producto->idproducto."'><input type='number' name='cantidad[]' id='cantidad' class='cantidad'></td>";
-            $tabla.="<td><input type='number' name='preciot[]' id='preciot' class='preciot' readonly=''></td>";
+            $tabla.="<td><input type='hidden' name='idprod[]' id='idprod' value='".$producto->idproducto."'><input type='text' name='cantidad[]' id='cantidad' class='cantidad input-sm' required=''></td>";
+            $tabla.="<td><input type='text' name='preciot[]' id='preciot' class='preciot input-sm' readonly=''></td>";
             $tabla.="<td><a class='eliminar'><span class='glyphicon glyphicon-trash'></span></a></td>";
           $tabla.="</tr>";
           return $tabla;
