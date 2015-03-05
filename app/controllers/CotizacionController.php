@@ -64,15 +64,19 @@ class CotizacionController extends BaseController{
 
 
         $dataUpload = array(
-            "producto"      =>    $ruc,
-            "descripcion"   =>    Input::get("descripcion"),
-            "precio"        =>    Input::get("precio"),
-            "imagen"        =>    $file,//campo foto para validar
-            "categoria"     =>    Input::get("categoria")
+            "ruc"         =>    $ruc,
+            "nombre"      =>    $nombre,
+            "contacto"    =>    $contacto,
+            "direccion"   =>    $direccion,
+            "telefono"    =>    $telefono,
+            "dirdespacho" =>    $dirdespacho,
+            "cantidad"    =>    $cantidad,
+            "correo"      =>    $correo
+
         );
 
         $rules = array(
-            'producto'      => 'required|min:2|max:100|unique:productos,nombre_producto',
+            'ruc'           => 'required|min:11|max:11|numeric',
             'descripcion'   => 'required|min:6|max:100',
             'precio'        => 'required|numeric',
             'imagen'        => 'required|mimes:jpeg,bmp,png|max:20000',
