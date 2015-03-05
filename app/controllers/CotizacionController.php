@@ -9,7 +9,7 @@ class CotizacionController extends BaseController{
         if(count($idcotizacion)>0){$id = ($idcotizacion[0]->idcotizacion)+1;}else{$id="00000001";}
     	
         $data=array("subtitulo"=>"Registrar Cotización","idcotizacion"=>$id);
-	return View::make('cotizacion.crear',$data);
+	      return View::make('cotizacion.crear',$data);
 
     }
     
@@ -77,9 +77,9 @@ class CotizacionController extends BaseController{
 
         $rules = array(
             'ruc'           => 'required|min:11|max:11|numeric',
-            'descripcion'   => 'required|min:6|max:100',
-            'precio'        => 'required|numeric',
-            'imagen'        => 'required|mimes:jpeg,bmp,png|max:20000',
+            'nombre'   => 'required|min:6|max:100',
+            'contacto'        => 'required|numeric',
+            'direccion'        => 'required|mimes:jpeg,bmp,png|max:20000',
             'categoria'     => 'required'
         );
 
@@ -90,8 +90,7 @@ class CotizacionController extends BaseController{
             'max'       => 'El campo :attribute no puede tener más de :min carácteres.',
             'unique'    => 'El producto ingresado ya está registrado',
             'confirmed' => 'Los passwords no coinciden',
-            'numeric'   => 'El campo :attribute debe ser un número',
-            'mimes'     => 'El campo :attribute debe ser una imagen'
+            'numeric'   => 'El campo :attribute debe ser un número'
         );
 
         $validation = Validator::make($dataUpload, $rules, $messages);
