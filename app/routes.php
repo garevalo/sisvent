@@ -49,7 +49,7 @@
     
     
     /***ornden compra**/
-
+    Route::post('clientes/getbyruc', array('uses' => 'ClientesController@getClienteRuc'));
    
 
 
@@ -102,6 +102,6 @@
         Route::get('acreditacion/registrar', array('uses' => 'AcreditacionController@registrarAcreditacion'));
         /**CLientes***/
         
-        Route::post('clientes/getbyruc', array('uses' => 'ClientesController@getClienteRuc'));
+        
         
     });
