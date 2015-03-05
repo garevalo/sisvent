@@ -44,6 +44,7 @@ class CotizacionController extends BaseController{
     
     public function crearCotizacion(){
 
+        $idcotizacion        =   Input::get('codigo');
         $ruc        =   Input::get('ruc');
         $nombre     =   Input::get('nombre');
         $contacto   =   Input::get('contacto');
@@ -145,7 +146,7 @@ class CotizacionController extends BaseController{
 
                 DB::statement("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$correo}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}','{$x}');");
             } 
-            return json_encode( array("dir"=>url("productos"),"mensaje"=>url("cotizacion/reporte")));
+            return json_encode( array("dir"=>url("productos"),"mensaje"=>url("cotizacion/reporte/".$idcotizacion)));
        }
        
   

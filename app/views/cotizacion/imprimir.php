@@ -24,6 +24,10 @@
             background-color: gray;
             color: white;
         }
+        .foot{
+            background-color: #646060;
+            color: white;
+        }
     </style>
 
     <table >
@@ -124,15 +128,18 @@
        }?> 
         
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
+            <td align="center" class="foot">Precio Bruto</td>
             <td align="center"> <b><?= $value->precio_neto ?></b> </td>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
+            <td align="center" class="foot">IGV</td>
             <td align="center"> <b><?= $value->igv ?></b> </td>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2" ></td>
+            <td align="center" class="foot">Precio Neto</td>
             <td align="center"> <b><?= $value->preciototal ?></b> </td>
         </tr>
     
