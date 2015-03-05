@@ -62,9 +62,9 @@ class CotizacionController extends BaseController{
         $validar        =   Input::get('validar');
 
 
-/*
+
         $dataUpload = array(
-            "producto"      =>    Input::get("producto"),
+            "producto"      =>    $ruc,
             "descripcion"   =>    Input::get("descripcion"),
             "precio"        =>    Input::get("precio"),
             "imagen"        =>    $file,//campo foto para validar
@@ -97,7 +97,6 @@ class CotizacionController extends BaseController{
             return Redirect::to('productos/nuevo')->withErrors($validation)->withInput();
         }
 
-*/
        
        if( $validar=="si" ){
            

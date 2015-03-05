@@ -52,15 +52,7 @@ function registrar_ajax_cotizacion(form, c ) {
 
                     else if (datos.dir) {
                         $(".bootbox").modal("hide");
-                        //$(".modal-body").text(datos.mensaje);
-                        //$('#modal-success').modal('show');
-
-//                        $("#ok").click(function() {
-//                            // $("#form")[0].reset();
-//                            window.open('/cotizacion/reporte','popup','width=300,height=400');
-//                            window.location = datos.dir;
-//                            
-//                        });
+     
                         window.open(datos.mensaje,'Imprimir Cotización','width=700,height=600');
                         window.location = datos.dir;
                         //location.reload();
