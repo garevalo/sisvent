@@ -91,7 +91,7 @@
                                                 </div>
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="descripcion">Ruc:</label>
-                                                    <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required=""  pattern='[0-9]'> 
+                                                    <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required="" > 
                                                     <span id="reloadruc"></span>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
@@ -118,7 +118,7 @@
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Teléfono:</label>
-                                                    <input type="text" name="telefono" id="telefono" class="form-control" required=""  pattern='[0-9]' maxlength="9" >
+                                                    <input type="text" name="telefono" id="telefono" class="form-control" required=""   maxlength="9" >
                                                 </div>
                                             </div>
 
