@@ -25,12 +25,10 @@
     });
 
     Route::get('logout',  function ()
-        {
-     
+    {
             Auth::logout();
             return Redirect::to('/')->with('mensaje','¡Has cerrado sesión correctamente!.');
-     
-        });
+    });
     
     Route::get('productos', array('uses' => 'ProductosController@listarProductos'));
     Route::get('api/productos', array('as'=>'api.productos','uses'=>'ProductosController@getDatatable'));
@@ -59,7 +57,7 @@
         /**** Usuarios ****/
         Route::get('dashboard', function()
         {
-            $data=array("subtitulo"=>"<strong>Bienvenido al Menú Principal Del Sistema de Ventas</strong>");
+            $data=array("subtitulo"=>"Bienvenido al Menú Principal Del Sistema de Ventas");
             return View::make('dashboard',$data);
         });
 
@@ -87,12 +85,6 @@
         /****** Orden de Compra *****/
         
         Route::get('ordencompra/nuevo/{id?}', 'OrdenController@nuevaOrden');
-//        Route::get('ordencompra/nuevo/{id?}', function($id=null)
-//        { 
-//            return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra")); 
-//
-//        });
-        
         
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
