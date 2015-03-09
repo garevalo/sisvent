@@ -50,23 +50,23 @@ class OrdenController extends BaseController{
      public function getDatatable()
     {
          $query=DB::table('orden_compra')
+        ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
         ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
-        ->select('idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.estado','idcotizacion as id');
+        ->select('idordencompra','idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.estado','idcotizacion as id');
 
         return Datatable::query($query)
-        ->showColumns('idcotizacion', 'nombre_cliente','ruc','preciototal')
-        ->addColumn('estado',function($model){
-                if($model->estado =='1'){$estado="<span class='label label-danger'>Activo</span>";}
-                elseif($model->estado =='2'){$estado="<span class='label label-success'>En proceso</span>";}
-                else {$estado="<span class='label label-primary'>Cerrado</span>";}
-            return $estado;
-        })                    
-        ->addColumn('id',function($model){
-            if($model->estado =='1'){$estado="";}
+        ->showColumns('idordencompra','idcotizacion', 'nombre_cliente','ruc','preciototal')                    
+        ->addColumn('idordencompra',function($model){
+            if($model->idordencompra ==''){$estado="";}
             else {$estado="disabled='disabled'";}
-            return '<a href="'.url("ordencompra/nuevo/".$model->id).'" '.$estado.' class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Crear Orden Compra</a>';
+            return '<a href="'.url("ordencompra/nuevo/".$model->id).'" '.$estado.' class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
         })
         ->make();
 
+    }
+    
+    public function listaOrdenCompra(){
+        
+        return View::make('ordencompra.listaOrdenCompra');
     }
 }

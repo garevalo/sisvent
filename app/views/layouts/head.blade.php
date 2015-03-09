@@ -46,7 +46,7 @@
                                     <i class="dropdown-icon fa fa-list"></i>
                                     Ver Cotizaciones
                                 </a></li>
-                                <li><a href="{{url('cotizacion', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                <li><a href="{{url('ordencompra', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <i class="dropdown-icon fa fa-list"></i>
                                     Ver Ordenes de Compra
                                 </a></li>

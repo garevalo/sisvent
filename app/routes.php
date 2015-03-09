@@ -74,8 +74,7 @@
 
         /*Productos*/
 
-        Route::get('productos/nuevo', array('uses' => 'ProductosController@nuevoProductos'));
-
+        Route::get('productos/nuevo',  array('uses' => 'ProductosController@nuevoProductos'));
         Route::post('productos/crear', array('uses' => 'ProductosController@crearProductos'));
         
         
@@ -86,6 +85,9 @@
         
         Route::get('ordencompra/nuevo/{id?}', 'OrdenController@nuevaOrden');
         Route::post('ordencompra/crear', array('uses' => 'OrdenController@registrarOrden'));
+        Route::get('api/ordencompra', array('as'=>'api.ordencompra','uses'=>'OrdenController@getDatatable'));
+        Route::get('ordencompra', array('uses' => 'OrdenController@listaOrdenCompra'));
+        
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
         Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));
