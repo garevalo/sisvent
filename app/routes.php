@@ -85,7 +85,7 @@
         /****** Orden de Compra *****/
         
         Route::get('ordencompra/nuevo/{id?}', 'OrdenController@nuevaOrden');
-        
+        Route::post('ordencompra/crear', array('uses' => 'OrdenController@registrarOrden'));
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
         Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));

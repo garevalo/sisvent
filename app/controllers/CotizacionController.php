@@ -31,12 +31,15 @@ class CotizacionController extends BaseController{
         return Datatable::query($query)
         ->showColumns('idcotizacion', 'nombre_cliente','ruc','preciototal')
         ->addColumn('estado',function($model){
-                if($model->estado =='1'){$estado="<span class='label label-danger'>Activo</span>";}  
+                if($model->estado =='1'){$estado="<span class='label label-danger'>Activo</span>";}
+                elseif($model->estado =='2'){$estado="<span class='label label-success'>En proceso</span>";}
                 else {$estado="<span class='label label-primary'>Cerrado</span>";}
             return $estado;
         })                    
         ->addColumn('id',function($model){
-            return '<a href="'.url("ordencompra/nuevo/".$model->id).'"  class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Crear Orden Compra</a>';
+            if($model->estado =='1'){$estado="";}
+            else {$estado="disabled='disabled'";}
+            return '<a href="'.url("ordencompra/nuevo/".$model->id).'" '.$estado.' class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Crear Orden Compra</a>';
         })
         ->make();
 
@@ -136,7 +139,9 @@ class CotizacionController extends BaseController{
                       <div class="row">
                          <label class="col-md-4">Correo:</label>
                          <div class="col-md-6"><div class="alert alert-warning">'.$correo.'</div></div>
-                      </div></div><button  type="button" class="btn btn-primary btn-block" id="finalizar"><i class="glyphicon glyphicon-ok-sign"></i> Continuar ...</button>';
+                      </div>
+                      <div class="alert alert-info">Verifique si la información registrada es correcta. Toda esta información sera enviada al siguiente correo <strong>'.$correo.'</stron></div>
+                      </div><button  type="button" class="btn btn-primary btn-block" id="finalizar"><i class="glyphicon glyphicon-ok-sign"></i> Continuar ...</button>';
             return array("verificar"=>$verificar);
            
        }

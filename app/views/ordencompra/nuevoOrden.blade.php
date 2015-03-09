@@ -14,24 +14,7 @@
 
 @section('content')
 
-<!--    @if(isset($confirm))
-    
-    <div id="modal-success" class="modal modal-message modal-success" style="" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <i class="glyphicon glyphicon-check"></i>
-                    </div>
-                    <div class="modal-title">Success</div>
 
-                    <div class="modal-body">You have done great!</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-                    </div>
-                </div>  / .modal-content 
-            </div>  / .modal-dialog 
-    </div>
-    @endif-->
                		
     <div class="row well">
         <script type="text/javascript">
@@ -44,9 +27,6 @@
                 
                 
             });
-
-
-
       </script>
        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                 <div class="widget">
@@ -56,34 +36,25 @@
                     <div class="widget-body">
                         <div class="collapse in">
 
-                                {{ Form::open(array('url' => 'cotizacion/crear','class'=>"","role"=>"form", 'method' => 'post'))}}
+                                {{ Form::open(array('url' => 'ordencompra/crear',"id"=>"formordencompra",'class'=>"","role"=>"form", 'method' => 'post'))}}
                                         <div class="row">
                                             <div class="form-group has-success has-feedback">
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="producto">Código Cotización:</label>
-                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$cotizacion[0]->idcotizacion}}" disabled="" style="font-size: 20px; color: red;">
-                                                   @if($errors->has('producto'))
-                                                   <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
-                                                   @endif
+                                                    <input type="text" name="codigocotizacion" id="codigocotizacion" class="form-control " value="{{$cotizacion[0]->idcotizacion}}" readonly="" style="font-size: 20px; color: red;">
                                                 </div>
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="producto">Número Orden:</label>
                                                     <input type="hidden" name="idcliente" id="idcliente" value="{{$cotizacion[0]->idclientes}}">
                                                     <input type="text" name="codigo" id="codigo" class="form-control " value="{{$idorden}}" disabled="">
-                                                   @if($errors->has('producto'))
-                                                   <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
-                                                   @endif
                                                 </div>
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="descripcion">Ruc:</label>
                                                     <input type="text" class="form-control" name="ruc" id="ruc" value="{{$cotizacion[0]->ruc}}" disabled="">
-                                                    @if($errors->has('descripcion'))
-                                                   <small class="text-danger">* <?php echo $errors->first('descripcion') ?></small>
-                                                   @endif
                                                 </div>
-                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
+                                                <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
                                                     <input type="text" name="nombre" id="nombre" class="form-control" value="{{$cotizacion[0]->nombre_cliente}}" disabled="">
                                                     @if($errors->has('precio'))
@@ -99,31 +70,26 @@
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Contacto A:</label>
                                                     <input type="text" name="contacto" id="contacto" class="form-control" value="{{$cotizacion[0]->contacto}}" disabled="">
-                                                    @if($errors->has('precio'))
-                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                   @endif
                                                 </div>
-                                                <div class="col-lg-4 col-sm-4 col-md-3 col-xs-12">
+                                                <div class="col-lg-3 col-sm-4 col-md-3 col-xs-12">
                                                     <label  id="precio">Dirección:</label>
                                                     <input type="text" name="direccion" id="direccion" class="form-control" value="{{$cotizacion[0]->direccion_cliente}}" disabled="">
-                                                    @if($errors->has('precio'))
-                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                    @endif
-
                                                 </div>
-                                                <div class="col-lg-2 col-sm-3 col-md-4 col-xs-12">
+                                                <div class="col-lg-2 col-sm-4 col-md-3 col-xs-12">
+                                                    <label  id="precio">Correo:</label>
+                                                    <input type="text" name="correo" id="direccion" class="form-control" value="{{$cotizacion[0]->correo}}" disabled="">
+                                                </div>
+                                                <div class="col-lg-2 col-sm-3 col-md-4 col-xs-12 has-info has-feedback">
                                                     <label  id="precio">Distrito:</label>
                                                     
-                                                    <select name="dirdespacho" id="dirdespacho" class="form-control">
-                                                        <option>Lima</option>
-                                                        <option>Comas</option>
-                                                        <option>Miraflores</option>
-                                                        <option>Comas</option>
-                                                        <option>Los Olivos</option>
+                                                    <select name="distrito" id="distrito" class="form-control" required="">
+                                                        <option value="">Seleccione distrito</option>
+                                                        @foreach($distritos as $dis)
+                                                        <option value="{{$dis->iddistrito}}">{{$dis->nombre_distrito}}</option>
+                                                        
+                                                        @endforeach
                                                     </select>
-                                                    @if($errors->has('precio'))
-                                                   <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                   @endif
+                                                   
                                                 </div>
 
 
@@ -163,7 +129,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                     <label  id="precio">Motivo no despacho:</label>
-                                                    <input type="text" name="motivo" id="motivo" class="form-control">
+                                                    <input type="text" name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
@@ -175,43 +141,65 @@
 
 
                                 <hr>
-                                <div class="row">
-                                   <div class="col-lg-10 col-sm-12 col-md-10 col-xs-12 ">
-                                       <div style="height:200px;" class="well"> 
-                                        <table  class="table table-condensed table-striped table-bordered table-responsive">
-                                             <thead>
-                                                 <th>Id</th>
-                                                 <th>Producto</th>
-                                                 <th>Precio</th>
-                                                 <th>Cantidad Solicitada</th>
-                                                 <th>Stock</th>
-                                                 <th>Precio Total</th>
-                                                 <th>Solicitar</th>
-
-                                             </thead>
-                                             <tbody id="table-body">
-                                                 <?php $contaNoStock="";?>
-                                                 @foreach($cotizacion as $key=>$value)
-                                                 <tr>
-                                                     <td>{{$key+1}}</td>
-                                                     <td>{{$value->nombre_producto}}</td>
-                                                     <td>{{$value->precio_producto}}</td>
-                                                     <td><span></span>{{$value->cantidad}}</td>
-                                                     <td>{{$value->stock}}</td>
-                                                     <td>{{$value->precio}}</td>
-                                                     <td width="5%">
-                                                     <?php  if($value->cantidad > $value->stock){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
-                                                         <button type="button" onclick="solicitar_productos({{$cotizacion[0]->idclientes}});" class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
-                                                     </td>
-                                                 </tr>
-                                                 
-                                                 @endforeach
-                                             </tbody>
-                                         </table>
-                                       </div>
-                                   </div>
-                                </div>
                                 
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-10 col-xs-12">
+                                        <div class="widget">
+                                            <div class="widget-header bg-blue">
+                                                <i class="widget-icon fa fa-arrow-left"></i>
+                                                <span class="widget-caption">Productos Agregados a la Cotización</span>
+<!--                                                <div class="widget-buttons">
+                                                    <a href="#" data-toggle="config">
+                                                        <i class="fa fa-cog"></i>
+                                                    </a>
+                                                    <a href="#" data-toggle="maximize">
+                                                        <i class="fa fa-expand"></i>
+                                                    </a>
+                                                    <a href="#" data-toggle="collapse">
+                                                        <i class="fa fa-minus"></i>
+                                                    </a>
+                                                    <a href="#" data-toggle="dispose">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </div>Widget Buttons-->
+                                            </div><!--Widget Header-->
+                                            <div class="widget-body">
+                                                <table  class="table table-condensed table-striped table-bordered table-responsive">
+                                                    <thead>
+                                                        <th>Id</th>
+                                                        <th>Producto</th>
+                                                        <th>Precio</th>
+                                                        <th width="15%">Cantidad Solicitada</th>
+                                                        <th>Stock</th>
+                                                        <th>Precio Total</th>
+                                                        <th>Solicitar</th>
+
+                                                    </thead>
+                                                    <tbody id="table-body">
+                                                        <?php $contaNoStock="";?>
+                                                        @foreach($cotizacion as $key=>$value)
+                                                        <tr>
+                                                            <td>{{$key+1}}</td>
+                                                            <td>{{$value->nombre_producto}}</td>
+                                                            <td>{{$value->precio_producto}}</td>
+                                                            <td><span></span>{{$value->cantidad}}</td>
+                                                            <td>{{$value->stock}}</td>
+                                                            <td>{{$value->precio}}</td>
+                                                            <td width="5%">
+                                                            <?php  if($value->cantidad > $value->stock){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
+                                                                <button type="button" onclick="solicitar_productos({{$cotizacion[0]->idclientes}});" class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
+                                                            </td>
+                                                        </tr>
+
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div><!--Widget Body-->
+                                        </div><!--Widget-->
+                                    </div>
+
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-2 col-sm-3 col-md-2 col-xs-12">
                                        <div class="form-group has-warning">
@@ -245,7 +233,7 @@
                                     </div>
                                     <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 ">
 
-                                        <div class="form-group has-success has-feedback">
+                                        <div class="form-group has-info has-feedback">
                                                                                         
                                             <div class="row">
                                                 <label class="col-md-6">Precio Bruto:</label>
@@ -258,7 +246,7 @@
                                         </div>
 
 
-                                        <div class="form-group has-success has-feedback">
+                                        <div class="form-group has-info has-feedback">
                                                 <div class="row">
                                                 <label class="col-md-6">IGV:</label>
                                                 <div class="col-md-6">
@@ -270,7 +258,7 @@
                                         </div>
 
 
-                                        <div class="form-group has-success has-feedback">
+                                        <div class="form-group has-info has-feedback">
                                             <div class="row">
                                             <label class="col-md-6">Precio Neto:</label>
                                             <div class="col-md-6">
@@ -286,7 +274,7 @@
                                             <div class="row">
 
                                                 <div class="col-md-12">
-                                                    <button  type="button" class="btn btn-darkorange btn-block" onclick="bootbox.alert('Se guardo correctamente')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                    <button  type="submit" class="btn btn-darkorange btn-block" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
                                             </div>
                                         </div>
