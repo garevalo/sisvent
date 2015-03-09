@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `sistventas` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `sistventas`;
--- MySQL dump 10.13  Distrib 5.6.23, for Linux (i686)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: sistventas
+-- Host: localhost    Database: sistventas
 -- ------------------------------------------------------
--- Server version	5.6.23
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,6 +33,16 @@ CREATE TABLE `categoria` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `categoria`
+--
+
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (1,'Lubricantes',NULL),(2,'Aceites',NULL),(3,'Quimicos',NULL),(4,'Aerosoles',NULL),(5,'Chemaqua',NULL);
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `clientes`
 --
 
@@ -50,8 +60,18 @@ CREATE TABLE `clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idclientes`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clientes`
+--
+
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (0000000001,45345345345,'atix sac','angelica gamarra',453534534,3,'atix@hotmail.com','2015-03-08 03:58:10','2015-03-08 16:14:56'),(0000000002,89347378947,'seundo cliente','balblabl',424234324,1,'balbalablbl','2015-03-08 04:08:41','2015-03-08 04:08:41');
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cotizacion`
@@ -71,12 +91,22 @@ CREATE TABLE `cotizacion` (
   `igv` decimal(9,2) DEFAULT NULL,
   `preciototal` decimal(9,2) DEFAULT NULL,
   `direccion_despacho` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
-  `estado` int(11) DEFAULT NULL,
+  `estado` int(11) DEFAULT NULL COMMENT '1->activo,2->en proceso,3->cerrado',
   PRIMARY KEY (`idcotizacion`),
   KEY `fk_cotizacion_clientes1_idx` (`idclientes`),
-  CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cotizacion`
+--
+
+LOCK TABLES `cotizacion` WRITE;
+/*!40000 ALTER TABLE `cotizacion` DISABLE KEYS */;
+INSERT INTO `cotizacion` VALUES (00000000001,'dfgdfgdf',1,'2015-03-08 03:58:10','2015-03-08 03:58:10',0000000001,1877.60,0.18,2215.57,'fgdfgdf',2),(00000000002,'contacto 2',1,'2015-03-08 04:08:42','2015-03-08 04:08:42',0000000002,1388.00,0.18,1637.84,'direccin despacho 2',1),(00000000003,'asdasdasd',1,'2015-03-08 04:11:22','2015-03-08 04:11:22',0000000001,362.80,0.18,428.10,'asdasdas',1),(00000000004,'juan',1,'2015-03-08 16:14:56','2015-03-08 16:14:56',0000000001,946.40,0.18,1116.75,'los olivos despacho',1);
+/*!40000 ALTER TABLE `cotizacion` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `detalle_cotizacion`
@@ -87,9 +117,8 @@ DROP TABLE IF EXISTS `detalle_cotizacion`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detalle_cotizacion` (
   `iddetalle_cotizacion` int(11) NOT NULL AUTO_INCREMENT,
-  `detalle_cotizacioncol` varchar(45) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `idproducto` int(11) NOT NULL,
   `idcotizacion` int(11) unsigned zerofill NOT NULL,
   `cantidad` int(4) DEFAULT NULL,
@@ -97,10 +126,20 @@ CREATE TABLE `detalle_cotizacion` (
   PRIMARY KEY (`iddetalle_cotizacion`),
   KEY `fk_detalle_cotizacion_productos1_idx` (`idproducto`),
   KEY `fk_detalle_cotizacion_cotizacion1_idx` (`idcotizacion`),
-  CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalle_cotizacion`
+--
+
+LOCK TABLES `detalle_cotizacion` WRITE;
+/*!40000 ALTER TABLE `detalle_cotizacion` DISABLE KEYS */;
+INSERT INTO `detalle_cotizacion` VALUES (1,NULL,NULL,1,00000000001,5,1496.00),(2,NULL,NULL,2,00000000001,6,381.60),(3,NULL,NULL,1,00000000002,3,897.60),(4,NULL,NULL,4,00000000002,4,335.60),(5,NULL,NULL,7,00000000002,4,154.80),(6,'2015-03-08 04:11:22','2015-03-08 04:11:22',1,00000000003,1,299.20),(7,'2015-03-08 04:11:22','2015-03-08 04:11:22',2,00000000003,1,63.60),(8,'2015-03-08 16:14:56','2015-03-08 16:14:56',1,00000000004,2,598.40),(9,'2015-03-08 16:14:56','2015-03-08 16:14:56',8,00000000004,5,154.50),(10,'2015-03-08 16:14:56','2015-03-08 16:14:56',7,00000000004,5,193.50);
+/*!40000 ALTER TABLE `detalle_cotizacion` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `distrito`
@@ -110,11 +149,21 @@ DROP TABLE IF EXISTS `distrito`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `distrito` (
-  `iddistrito` int(11) NOT NULL,
+  `iddistrito` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_distrito` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`iddistrito`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `distrito`
+--
+
+LOCK TABLES `distrito` WRITE;
+/*!40000 ALTER TABLE `distrito` DISABLE KEYS */;
+INSERT INTO `distrito` VALUES (1,'Ancón'),(2,'Ate'),(3,'Barranco'),(4,'Breña'),(5,'Carabayllo'),(6,'Chaclacayo'),(7,'Cieneguilla'),(8,'Comas'),(9,'Chorrillo'),(10,'El Augustino'),(11,'Independencia'),(12,'Jesús María');
+/*!40000 ALTER TABLE `distrito` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ingresos`
@@ -136,6 +185,15 @@ CREATE TABLE `ingresos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `ingresos`
+--
+
+LOCK TABLES `ingresos` WRITE;
+/*!40000 ALTER TABLE `ingresos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ingresos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `orden_compra`
 --
 
@@ -148,16 +206,27 @@ CREATE TABLE `orden_compra` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `despacho` int(11) DEFAULT NULL COMMENT '1->despachado,2->no despachado',
   `motivo_no_despacho` varchar(100) DEFAULT NULL,
-  `distrito` int(11) DEFAULT NULL,
+  `fecha_no_cotizacion` datetime DEFAULT NULL,
+  `fecha_despacho` datetime DEFAULT NULL,
   `iddistrito` int(11) NOT NULL,
   `idcotizacion` int(11) unsigned zerofill NOT NULL,
   PRIMARY KEY (`idorden_compra`),
   KEY `fk_orden_compra_distrito1_idx` (`iddistrito`),
   KEY `fk_orden_compra_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_orden_compra_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_orden_compra_distrito1` FOREIGN KEY (`iddistrito`) REFERENCES `distrito` (`iddistrito`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_orden_distrito` FOREIGN KEY (`iddistrito`) REFERENCES `distrito` (`iddistrito`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orden_compra`
+--
+
+LOCK TABLES `orden_compra` WRITE;
+/*!40000 ALTER TABLE `orden_compra` DISABLE KEYS */;
+INSERT INTO `orden_compra` VALUES (00000000005,'0000-00-00 00:00:00',NULL,NULL,'Motivo no despacho:','0000-00-00 00:00:00',NULL,2,00000000001);
+/*!40000 ALTER TABLE `orden_compra` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `personas`
@@ -178,8 +247,18 @@ CREATE TABLE `personas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idpersonas`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personas`
+--
+
+LOCK TABLES `personas` WRITE;
+/*!40000 ALTER TABLE `personas` DISABLE KEYS */;
+INSERT INTO `personas` VALUES (14,'catherine','reyes','asas',NULL,0,0,'adsdasd','2015-02-15 23:16:47',NULL),(15,'giordan','arevalo','asas',NULL,12345678,0,'gbap0506@hotmail.com','2015-02-15 23:18:42',NULL);
+/*!40000 ALTER TABLE `personas` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `productos`
@@ -205,6 +284,16 @@ CREATE TABLE `productos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `productos`
+--
+
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,'AQUABROM PLUS','AQUABROM PLUS\r  AQUABROM \r ','aquabrom_plus',299.20,1,1,'2015-02-16 02:03:37','2015-02-16 02:03:37'),(2,'CBD-92','63.60\r\n63.60\r\n63.60\r\n63.60\r\n','cbd-92',63.60,2,1,'2015-02-16 02:06:27','2015-02-16 02:06:27'),(3,'CBD-93','CBD-93 CBD-93 CBD-93','cbd-93',63.60,100,5,'2015-02-16 02:07:09','2015-02-16 02:07:09'),(4,'PREMALUBE RED','PREMALUBE RE PREMALUBE RED','premalube_red',83.90,100,3,'2015-02-16 02:07:41','2015-02-16 02:07:41'),(5,'AEROLEX','AEROLEX AEROLEX AEROLEX','aerolex',69.96,100,4,'2015-02-16 02:09:22','2015-02-16 02:09:22'),(6,'FLASH','FLASH FLASH\r\n\r\n','flash',40.23,100,4,'2015-02-16 02:10:40','2015-02-16 02:10:40'),(7,'CHEMAQUA 100','CHEMAQUA 100','chemaqua_100',38.70,100,5,'2015-02-16 02:11:16','2015-02-16 02:11:16'),(8,'CHEMAQUA 777','CHEMAQUA 777\r\n','chemaqua_777',30.90,100,5,'2015-02-16 02:11:39','2015-02-16 02:11:39'),(9,'ELECTRA 221','ELECTRA 221 ELECTRA 221\r\n\r\n','electra_221',109.80,100,2,'2015-02-16 02:12:13','2015-02-16 02:12:13'),(10,'ENFORCE','ENFORCE ENFORCE\r\n\r\n','enforce',36.90,100,3,'2015-02-16 02:12:41','2015-02-16 02:12:41'),(11,'EVERBRITE GERM.','EVERBRITE GERM. EVERBRITE GERM.\r\n\r\n','everbrite_germ.',47.13,100,3,'2015-02-16 02:13:07','2015-02-16 02:13:07');
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ruta`
 --
 
@@ -221,6 +310,15 @@ CREATE TABLE `ruta` (
   CONSTRAINT `fk_ruta_orden_compra1` FOREIGN KEY (`idorden_compra`) REFERENCES `orden_compra` (`idorden_compra`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ruta`
+--
+
+LOCK TABLES `ruta` WRITE;
+/*!40000 ALTER TABLE `ruta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ruta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuarios`
@@ -242,8 +340,18 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   KEY `fk_usuarios_personas1_idx` (`idpersonas`),
   CONSTRAINT `fk_usuarios_personas1` FOREIGN KEY (`idpersonas`) REFERENCES `personas` (`idpersonas`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (2,'admin','$2y$10$6s7qYdutdbfaCg0HAigSc.0bBtBRttO30d34HtckO1U4T6XRTWr3S',1,'2015-02-15 23:16:47','2015-03-08 20:56:36',1,14,'Q8v73GI6pRbsxE98cz7gyEQQKFPYWiWFET9oO9vShavAYuFmk3H5yUX4PEwR'),(3,'giordan','$2y$10$uCzOkTpBh6RFFCV8XL5oF.zAz/56k0njZRijFmaP5FfD9bee4RzZK',1,'2015-02-15 23:18:42',NULL,1,15,NULL);
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'sistventas'
@@ -280,7 +388,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_cotizacion`(
 in vidprod int,
@@ -306,9 +414,9 @@ BEGIN
 
 	if i=0 then
 		
-		select idclientes into id from clientes where ruc=vruc;
+		select idclientes into id from clientes where ruc=vruc limit 1;
 		/* Validacion para verificar si es un cliente nuevo o antiguo*/
-		if id=null then
+		if isnull(id) then 
 			
 			insert into clientes(ruc,nombre_cliente,direccion_cliente,telefono_cliente,acreditacion,correo,created_at,updated_at) 
 			value(vruc,vnombre,vdireccion,vtelefono,1,vcorreo,now(),now());
@@ -389,4 +497,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-06 18:17:39
+-- Dump completed on 2015-03-08 23:27:53
