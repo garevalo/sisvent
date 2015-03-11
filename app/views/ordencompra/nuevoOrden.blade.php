@@ -10,8 +10,6 @@
    Nueva Orden De Compra
 @stop
 
-
-
 @section('content')
 
 
@@ -143,7 +141,7 @@
                                 <hr>
                                 
                                 <div class="row">
-                                    <div class="col-lg-8 col-sm-10 col-xs-12">
+                                    <div class="col-lg-8 col-md-8  col-sm-8  col-xs-12">
                                         <div class="widget">
                                             <div class="widget-header bg-blue">
                                                 <i class="widget-icon fa fa-arrow-left"></i>
@@ -198,10 +196,44 @@
                                         </div><!--Widget-->
                                     </div>
 
-                                </div>
+                                    <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12 ">
 
-                                <div class="row">
-                                    <div class="col-lg-2 col-sm-3 col-md-2 col-xs-12">
+                                        <div class="form-group has-info has-feedback">
+                                                                                        
+                                            <div class="row">
+                                                <label class="col-md-6">Pr. Bruto:</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm" size="5" value="{{$cotizacion[0]->precio_neto}}" disabled="" >
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="form-group has-info has-feedback">
+                                                <div class="row">
+                                                <label class="col-md-6">IGV:</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" id="igv" name="igv" class="input-sm" size="5" value="{{$cotizacion[0]->igv}}" disabled="">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="form-group has-info has-feedback">
+                                            <div class="row">
+                                            <label class="col-md-6">Precio Neto:</label>
+                                            <div class="col-md-6">
+                                                <input type="text" id="precioneto" name="precioneto" class="input-sm" size="5" value="{{$cotizacion[0]->preciototal}}" disabled="">
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                     <div class="col-lg-2 col-sm-12 col-md-2 col-xs-12">
                                        <div class="form-group has-warning">
                                            <div class="row">
                                                <div class="col-md-12">
@@ -231,66 +263,24 @@
                                        </div>
                                       
                                     </div>
-                                    <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 ">
-
-                                        <div class="form-group has-info has-feedback">
-                                                                                        
-                                            <div class="row">
-                                                <label class="col-md-6">Precio Bruto:</label>
-                                                <div class="col-md-6">
-                                                    <input type="text" id="preciobruto" name="preciobruto" class="input-sm form-control" value="{{$cotizacion[0]->precio_neto}}" disabled="">
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="form-group has-info has-feedback">
-                                                <div class="row">
-                                                <label class="col-md-6">IGV:</label>
-                                                <div class="col-md-6">
-                                                    <input type="text" id="igv" name="igv" class="input-sm form-control" value="{{$cotizacion[0]->igv}}" disabled="">
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="form-group has-info has-feedback">
-                                            <div class="row">
-                                            <label class="col-md-6">Precio Neto:</label>
-                                            <div class="col-md-6">
-                                                <input type="text" id="precioneto" name="precioneto" class="input-sm form-control" value="{{$cotizacion[0]->preciototal}}" disabled="">
-                                            </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-lg-2 col-sm-3 col-md-4 col-xs-12">
+                                    
+                                    <div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
                                         
                                         <div class="form-group">
                                             <div class="row">
-
-                                                <div class="col-md-12">
-                                                    <button  type="submit" class="btn btn-darkorange btn-block" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                <div class="col-lg-6">
+                                                    <button  type="submit" class="btn btn-danger btn-block shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-
-                                                <div class="col-md-12">
+                                                <div class="col-lg-6">
                                                     <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
-                                                    <button {{$btndespacho}} type="button" class="btn btn-sky btn-block" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button>
+                                                    <button {{$btndespacho}} type="button" class="btn btn-block btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
                                                 </div>
+     
                                             </div>
                                         </div>
                                     </div>
 
-                                 </div>
-
+                            </div>
                                 {{ Form::close() }}
                         </div>
 

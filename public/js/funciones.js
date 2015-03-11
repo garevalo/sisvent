@@ -53,7 +53,7 @@ function registrar_ajax_cotizacion(form, c ) {
                     else if (datos.dir) {
                         $(".bootbox").modal("hide");
      
-                        window.open(datos.mensaje,'Imprimir Cotización','width=700,height=600');
+                        window.open(datos.mensaje,'Imprimir Cotización','width=900,height=800');
                         window.location = datos.dir;
                         //location.reload();
                     }

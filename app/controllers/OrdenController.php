@@ -38,7 +38,7 @@ class OrdenController extends BaseController{
          
          DB::table('orden_compra')->insert(
              array('idcotizacion'=>$codigocotizacion,'motivo_no_despacho' => $motivo,'iddistrito'=>$distrito,
-                   'fecha_no_cotizacion' => "now()",'created_at'=>"now()"));
+                   'fecha_no_cotizacion' => time(),'created_at'=>  time()));
          
          DB::table('cotizacion')
             ->where('idcotizacion', $codigocotizacion)
@@ -52,12 +52,12 @@ class OrdenController extends BaseController{
          $query=DB::table('orden_compra')
         ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
         ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
-        ->select('idordencompra','idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.estado','idcotizacion as id');
+        ->select('idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.estado','idorden_compra as id');
 
         return Datatable::query($query)
-        ->showColumns('idordencompra','idcotizacion', 'nombre_cliente','ruc','preciototal')                    
-        ->addColumn('idordencompra',function($model){
-            if($model->idordencompra ==''){$estado="";}
+        ->showColumns('idorden_compra','idcotizacion', 'nombre_cliente','ruc','preciototal')                    
+        ->addColumn('id',function($model){
+            if($model->id ==''){$estado="";}
             else {$estado="disabled='disabled'";}
             return '<a href="'.url("ordencompra/nuevo/".$model->id).'" '.$estado.' class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
         })
