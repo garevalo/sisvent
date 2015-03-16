@@ -13,22 +13,8 @@
 
 @section('content')
 
-<!--    <div class=row>
-    	<div class="col-lg-12">
-    		<div class="ibox float-e-margins">
-                 <div class="ibox-title">
-                    <h5>Crear Usuarios </h5> || {{ HTML::link('usuarios', 'volver'); }}
-                 </div>
-
-                 
-       	
-            </div>        
-    		
-    	</div>
-    </div>-->
-
         <div class="row well">
-            <div class="col-lg-3 col-sm-6 col-md-6 col-xs-12">
+            <div class="col-lg-4 col-sm-6 col-md-6 col-xs-12">
                 {{ Form::open(array('url' => 'usuarios/crear','name'=>'form','id'=>'form')) }}
                                 <div class="widget">
                                     <div class="widget-header bordered-top bordered-palegreen">
@@ -42,14 +28,14 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
-                                                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" required="">
+                                                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" required="" autocomplete="off">
                                                         <i class="glyphicon glyphicon-user circular"></i>
                                                     </span>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
-                                                        <input type="text" class="form-control" name="contrasena" id="contrasena" placeholder="contraseña" required="">
+                                                        <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="contraseña" required="">
                                                         <i class="fa fa-lock circular"></i>
                                                     </span>
                                                 </div>
@@ -142,7 +128,7 @@
                             </div>
             {{ Form::close() }}
                             
-            <div class="col-lg-9 col-sm-6 col-md-6 col-xs-12">
+            <div class="col-lg-8 col-sm-6 col-md-6 col-xs-12">
                 <div class="widget">
                         <div class="widget-header bordered-top bordered-palegreen">
                             <span class="widget-caption">Lista de Productos Registrados</span>

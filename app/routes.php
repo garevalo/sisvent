@@ -76,6 +76,8 @@
 
         Route::get('productos/nuevo',  array('uses' => 'ProductosController@nuevoProductos'));
         Route::post('productos/crear', array('uses' => 'ProductosController@crearProductos'));
+        Route::post('productos/editar', array('uses' => 'ProductosController@editarProductos'));
+        Route::get('productos/getproducto',  array('uses' => 'ProductosController@getProductojson'));
         
         
         /****** Fin Productos *****/

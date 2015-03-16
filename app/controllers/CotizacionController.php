@@ -64,45 +64,6 @@ class CotizacionController extends BaseController{
         $correo         =   Input::get('correo');
         $validar        =   Input::get('validar');
 
-
-/*
-        $data = array(
-            "ruc"         =>    $ruc,
-            "nombre"      =>    $nombre,
-            "contacto"    =>    $contacto,
-            "direccion"   =>    $direccion,
-            "telefono"    =>    $telefono,
-            "dirdespacho" =>    $dirdespacho,
-            "correo"      =>    $correo
-
-        );
-
-        $rules = array(
-            'ruc'           => 'required|min:11|max:11|numeric',
-            'nombre'        => 'required|min:6|max:100',
-            'contacto'        => 'required|numeric',
-            'direccion'        => 'required|mimes:jpeg,bmp,png|max:20000',
-            'categoria'     => 'required',
-        );
-
-        $messages = array(
-            'required'  => 'El campo :attribute es obligatorio.',
-            'min'       => 'El campo :attribute no puede tener menos de :min carácteres.',
-            'email'     => 'El campo :attribute debe ser un email válido.',
-            'max'       => 'El campo :attribute no puede tener más de :min carácteres.',
-            'unique'    => 'El producto ingresado ya está registrado',
-            'confirmed' => 'Los passwords no coinciden',
-            'numeric'   => 'El campo :attribute debe ser un número'
-        );
-
-        $validation = Validator::make($data, $rules, $messages);
-  
-        if ($validation->fails())
-        {
-            return Redirect::to('productos/nuevo')->withErrors($validation)->withInput();
-        }
-
-       */
        if( $validar=="si" ){
            
            if($pago==1){ $tp="Crédito";}else{ $tp="Contado"; }

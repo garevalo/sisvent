@@ -91,12 +91,12 @@
                                                 </div>
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="descripcion">Ruc:</label>
-                                                    <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required="" pattern="[0-9]+" title="Ingrese solo números"> 
+                                                    <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required="" pattern="[0-9]+" title="Ingrese solo números" autocomplete="off"> 
                                                     <span id="reloadruc"></span>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Nombre:</label>
-                                                    <input type="text" name="nombre" id="nombre" class="form-control" required="">
+                                                    <input type="text" name="nombre" id="nombre" class="form-control" required="" pattern="[a-zA-Z ]*">
                                                    
                                                 </div>
                                                 

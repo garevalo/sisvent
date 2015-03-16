@@ -77,12 +77,97 @@ class ProductosController extends BaseController{
             }
         }
 
+
+
+        public function editarProductos(){
+
+          
+            $file = Input::file("imagen");
+            $idproducto = Input::get("idproducto");
+            $dataUpload = array(
+                
+                "producto"      =>    Input::get("producto"),
+                "descripcion"   =>    Input::get("descripcion"),
+                "precio"        =>    Input::get("precio"),
+                "imagen"        =>    $file,//campo foto para validar
+                "categoria"     =>    Input::get("categoria")
+            );
+
+            $rules = array(
+                'producto'      => 'required|min:2|max:100',
+                'descripcion'   => 'required|min:2|max:100',
+                'precio'        => 'required|numeric',
+                'imagen'        => 'mimes:jpeg,bmp,png|max:2000',
+                'categoria'     => 'required'
+            );
+
+            $messages = array(
+                'required'  => 'El campo :attribute es obligatorio.',
+                'min'       => 'El campo :attribute no puede tener menos de :min carácteres.',
+                'email'     => 'El campo :attribute debe ser un email válido.',
+                'max'       => 'El campo :attribute no puede tener más de :min carácteres.',
+                'unique'    => 'El producto ingresado ya está registrado',
+                'confirmed' => 'Los passwords no coinciden',
+                'numeric'   => 'El campo :attribute debe ser un número',
+                'mimes'     => 'El campo :attribute debe ser una imagen'
+            );
+
+            $validation = Validator::make($dataUpload, $rules, $messages);
+      
+            if ($validation->fails())
+            {
+                return json_encode(array( "error" => $validation->messages() ));
+            }
+            
+            else{
+                    
+
+                if(empty($file)){
+                   $producto = Producto::find($idproducto);
+                    $producto->nombre_producto = Input::get("producto");
+                    $producto->descripcion_producto = Input::get("descripcion");
+                    $producto->precio_producto = Input::get("precio");
+                    $producto->idcategoria = Input::get("categoria"); 
+                   $producto->save();
+                   return json_encode(array('dir' => url("productos/nuevo"),'mensaje'=> 'Producto moficado Correctamente :D ') );
+                    
+                }
+                else{
+
+                    $producto = Producto::find($idproducto);
+                    $producto->nombre_producto = Input::get("producto");
+                    $producto->descripcion_producto = Input::get("descripcion");
+                    $producto->precio_producto = Input::get("precio");
+                    $producto->idcategoria = Input::get("categoria");
+                    $producto->img_producto = str_replace(" ", "_", strtolower(Input::get("producto")));
+                    
+                    if($producto->save()){
+                        
+                       // File::delete(public_path().$id.'archivo.txt');
+                        $file->move("img/foto_producto",str_replace(" ", "_", strtolower(Input::get("producto"))));
+                                              
+                    }
+
+                    return json_encode(array('dir' => url("productos/nuevo"),'mensaje'=> 'Producto moficado Correctamente :D ') ); 
+                }
+                
+            }
+        }
+
+
+
+
+
+
         public function getDatatable()
         {
-            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto')))
+            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id')))
             ->showColumns('idproducto', 'nombre_producto','precio_producto')
             ->addColumn('img_producto',function($model){
                 return '<img src="'.asset('img/foto_producto')."/".$model->img_producto.'" width="50" />';
+            })
+            ->addColumn('id',function($model){
+                return '<button class="btn btn-primary btn-sm" onclick=editar_producto("'.url('productos/getproducto').'",'.$model->id.');><small  class="glyphicon glyphicon-edit"></small> Editar</button>';
             })        
             ->searchColumns('idproducto','nombre_producto')
             ->orderColumns('idproducto','nombre_producto')
@@ -91,8 +176,7 @@ class ProductosController extends BaseController{
         
         public function getDatatableModal()
         {
-            $url=url('productos/modal', $parameters = array(), null);
-            str_replace("/", ".",  url('productos/modalget', $parameters = array(), null));
+            
             return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id')))
             ->showColumns('idproducto', 'nombre_producto','precio_producto')
             ->addColumn('img_producto',function($model){
@@ -119,6 +203,12 @@ class ProductosController extends BaseController{
             $tabla.="<td><a class='eliminar'><span class='glyphicon glyphicon-trash'></span></a></td>";
           $tabla.="</tr>";
           return $tabla;
+        }
+
+        public function getProductojson(){
+            $id      = Input::get("id");
+            $producto= Producto::find($id)->toJson();
+            return $producto;
         }
         
         
