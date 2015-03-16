@@ -28,21 +28,23 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
-                                                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" required="" autocomplete="off">
+                                                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario"   autocomplete="off" >
                                                         <i class="glyphicon glyphicon-user circular"></i>
                                                     </span>
+                                                    <small class="label label-warning" id="error-usuario"></small>
                                                 </div>
                                                 
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
-                                                        <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="contraseña" required="">
+                                                        <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="contraseña"  >
                                                         <i class="fa fa-lock circular"></i>
                                                     </span>
+                                                    <small class="label label-warning" id="error-contrasena"></small>
                                                 </div>
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
                                                         
-                                                        <select class="form-control" name="tipo" id="tipo" required="">
+                                                        <select class="form-control" name="tipo" id="tipo"  >
                                                             <option value="">Seleccione</option>
                                                             <option value="1">Administrador</option>
                                                             <option value="2">Administrativo</option>
@@ -52,6 +54,7 @@
                                                         </select>
                                                         <i class="fa fa-weibo circular"></i>
                                                     </span>
+                                                    <small class="label label-warning" id="error-tipo"></small>
                                                 </div>
                                                 <div class="form-title">
                                                     Información Personal
@@ -60,17 +63,19 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required="">
+                                                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre"  >
                                                                 <i class="fa fa-user"></i>
                                                             </span>
+                                                            <small class="label label-warning" id="error-nombre"></small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" placeholder="Apellido Paterno" name="apepaterno" id="apepaterno" required="">
+                                                                <input type="text" class="form-control" placeholder="Apellido Paterno" name="apepaterno" id="apepaterno"  >
                                                                 <i class="fa fa-user"></i>
                                                             </span>
+                                                            <small class="label label-warning" id="error-apepaterno"></small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -78,9 +83,10 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" placeholder="Apellido Materno" name="apematerno" id="apematerno" required="">
+                                                                <input type="text" class="form-control" placeholder="Apellido Materno" name="apematerno" id="apematerno"  >
                                                                 <i class="fa fa-user"></i>
                                                             </span>
+                                                            <small class="label label-warning" id="error-apematerno"></small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -89,25 +95,20 @@
                                                                 <input type="text" class="form-control" placeholder="telefono" id="telefono" name="telefono">
                                                                 <i class="glyphicon glyphicon-phone circular"></i>
                                                             </span>
+                                                            <small class="label label-warning" id="error-telefono"></small>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="row">
-<!--                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <span class="input-icon icon-right">
-                                                                <input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="dd-mm-yyyy" placeholder="Birth Date">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>-->
+
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <span class="input-icon icon-right">
-                                                                <input type="text" class="form-control" placeholder="DNI" id="dni" name="dni" required="">
+                                                                <input type="text" class="form-control" placeholder="DNI" id="dni" name="dni"  >
                                                                 <i class="glyphicon glyphicon-user circular"></i>
                                                             </span>
+                                                            <small class="label label-warning" id="error-dni"></small>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -116,11 +117,12 @@
                                                                 <input type="text" class="form-control" placeholder="Correo" name="correo" id="correo">
                                                                 <i class="fa fa-mail-reply-all circular"></i>
                                                             </span>
+                                                            <small class="label label-warning" id="error-correo"></small>
                                                         </div>
                                                     </div>
                                                 </div>
                                                
-                                                <button type="submit" class="btn btn-primary" onclick="registrar_ajax('form',2)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                <button type="submit" class="btn btn-primary" onclick="guardar_usuario_ajax('form')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                             </form>
                                         </div>
                                     </div>
@@ -153,7 +155,7 @@
 
 @section('js')
 	@parent
-        {{  HTML::script('js/funciones.js')  }}
+        {{  HTML::script('js/usuarios.js')  }}
         {{ HTML::script('js/jquery.datatables/jquery.dataTables.js')  }}
         {{ HTML::script('js/jquery.datatables/dataTables.bootstrap.js')  }}
 @stop

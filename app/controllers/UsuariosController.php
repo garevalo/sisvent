@@ -28,7 +28,7 @@ class UsuariosController extends BaseController {
     {
 
         $usuario    = Input::get('usuario');
-        $contrasena = Hash::make(Input::get('contrasena'));
+        $contrasena = Input::get('contrasena');
         $tipo       = Input::get('tipo');
         $nombre     = Input::get('nombre');
         $apepaterno = Input::get('apepaterno');
@@ -37,12 +37,57 @@ class UsuariosController extends BaseController {
         $dni        = Input::get('dni');
         $correo     = Input::get('correo');
 
-        DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}')");
-        
-        $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario registrado correctamente");
-        
-        return json_encode($datos);
+        $data = array(
+                
+                "usuario"    =>    $usuario,
+                "contrasena" =>    $contrasena,
+                "nombre"     =>    $nombre,
+                "apepaterno" =>    $apepaterno,
+                "apematerno" =>    $apematerno,
+                "telefono"   =>    $telefono,
+                "dni"        =>    $dni,
+                "correo"     =>    $correo,
+                "tipo"       =>    $tipo
+            );
 
+            $rules = array(
+                'usuario'       => 'required|min:2|max:100|unique:usuarios,usuario',
+                'contrasena'    => 'min:6|max:100',
+                'nombre'        => 'required|alpha',
+                'apepaterno'    => 'required|alpha',
+                'apematerno'    => 'required|alpha',
+                'telefono'      => 'required|min:7|max:9|numeric',
+                'dni'           => 'required|min:8|max:8|numeric',
+                'correo'        => 'required|email|min:8|max:100',
+                'tipo'          => 'required'
+            );
+
+            $messages = array(
+                'required'  => 'El campo :attribute es obligatorio.',
+                'min'       => 'El campo :attribute no puede tener menos de :min caracteres.',
+                'email'     => 'El campo :attribute debe ser un email válido.',
+                'max'       => 'El campo :attribute no puede tener mas de :max caracteres.',
+                'unique'    => ':attribute ya está registrado',
+                'numeric'   => 'El campo :attribute debe ser un número',
+                'integer'   => 'El campo :attribute debe ser un número'
+            );
+
+            $validation = Validator::make($data, $rules, $messages);
+      
+            if ($validation->fails())
+            {
+                return json_encode(array( "error" => $validation->messages() ));
+            }
+
+            else{
+
+                DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}')");
+                
+                $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario registrado correctamente");
+                
+                return json_encode($datos);
+
+            }
     }
  
      /**
@@ -79,10 +124,25 @@ class UsuariosController extends BaseController {
             return Datatable::query($query)
             ->showColumns('id', 'usuario','nombres','apellido_paterno','id')
             ->addColumn('img_producto',function($model){
-                return '<a href="javascript:void(0);" onclick="'.$model->id.'" class="btn btn-sm btn-success">Editar <i class="fa fa-edit fa-lg"></i></a>';
+                return '<a href="javascript:void(0);" onclick=get_usuario("'.url("usuarios/getusuario").'",'.$model->id.') class="btn btn-sm btn-primary">Editar <i class="fa fa-edit fa-lg"></i></a>';
             })
             ->make();
   
         }
+
+    public function getUsuariojson(){
+
+           $id=Input::get("id"); 
+           $query=DB::table('usuarios')
+            ->join('personas', 'usuarios.idpersonas', '=', 'personas.idpersonas')
+            ->select('usuarios.id','usuarios.usuario','usuarios.idestado','usuarios.idtipo','personas.nombres','personas.dni',
+                     'personas.apellido_paterno','personas.apellido_materno','personas.direccion_persona','personas.telefono',
+                     'personas.correo')
+            ->where('usuarios.id', '=', $id)
+            ->get(); 
+
+            return json_encode($query);
+
+    }    
  
 }

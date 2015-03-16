@@ -66,10 +66,11 @@
         Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
 
         Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
-         
+        
+        Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario')); 
         Route::post('usuarios/crear', array('uses' => 'UsuariosController@crearUsuario'));
-       
-        Route::get('usuarios/{id}', array('uses'=>'UsuariosController@verUsuario'));
+        Route::post('usuarios/editar', array('uses' => 'UsuariosController@editarUsuario'));
+        Route::get('usuarios/getusuario', array('uses'=>'UsuariosController@getUsuariojson'));
         /*** Fin Usuarios ****/
 
         /*Productos*/
