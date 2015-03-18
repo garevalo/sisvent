@@ -4,16 +4,15 @@ function get_usuario(url,id){
 	$.get(url,{id:id},function(data){
 		//var datos=JQuery.
 		console.log(data);
-		/*
-		$("#frm").attr("action","editar");
+		
+		$("#form").attr("action","editar");
 		$("#btnguardar").attr("onclick"," editar_usuario_ajax('frm')");
 		$("#campo_idusuario").html("<input type='hidden' name='idusuario' value='"+id+"'>");
 		$("#producto").val(data.nombre_producto);
 		$("#descripcion").val(data.descripcion_producto);
 		$("#precio").val(data.precio_producto);
-		//$("#imagen").val(data.descripcion_producto);
 		$("#categoria").val(data.idcategoria);
-		*/
+		
 	},"json");
 	
 }
@@ -37,26 +36,13 @@ function guardar_usuario_ajax(form) {
                     	var errores=datos.error;
                         console.log(datos.error);
                        	
-                       	if(typeof errores.usuario !="undefined"){
-							
-							$("#error-usuario").html(errores.usuario[0]);
-                        }
-                        else{$("#error-usuario").html("");}
+                       	if(typeof errores.usuario !="undefined"){$("#error-usuario").html(errores.usuario[0]); } else{$("#error-usuario").html("");}
 
-                        if(typeof errores.contrasena !="undefined"){
-							
-							$("#error-contrasena").html(errores.contrasena[0]);
-                        }
-                        else{$("#error-contrasena").html("");}
+                        if(typeof errores.contrasena !="undefined"){$("#error-contrasena").html(errores.contrasena[0]);} else{$("#error-contrasena").html("");}
 
-                        if(typeof errores.nombre !="undefined"){
-							
-							$("#error-nombre").html(errores.nombre[0]);
-                        }
-                        else{$("#error-nombre").html("");}
+                        if(typeof errores.nombre !="undefined"){$("#error-nombre").html(errores.nombre[0]);} else{$("#error-nombre").html("");}
                         
-                        if(typeof errores.apepaterno !="undefined"){
-							
+                        if(typeof errores.apepaterno !="undefined"){			
 							$("#error-apepaterno").html(errores.apepaterno[0]);
                         }
                         else{$("#error-apepaterno").html("");}

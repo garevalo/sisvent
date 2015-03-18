@@ -56,9 +56,9 @@ class UsuariosController extends BaseController {
                 'nombre'        => 'required|alpha',
                 'apepaterno'    => 'required|alpha',
                 'apematerno'    => 'required|alpha',
-                'telefono'      => 'required|digits_between:7,9|integer',
-                'dni'           => 'required|digits:8|numeric',
-                'correo'        => 'required|email|min:8|max:100',
+                'telefono'      => 'required|digits_between:7,9',
+                'dni'           => 'required|digits:8',
+                'correo'        => 'email|min:8|max:100',
                 'tipo'          => 'required'
             );
 
@@ -70,8 +70,8 @@ class UsuariosController extends BaseController {
                 'unique'    => ':attribute ya está registrado',
                 'numeric'   => 'El campo :attribute debe ser un número',
                 'integer'   => 'El campo :attribute debe ser un número',
-                "digits_between" => "El campo :attribute debe terner entre :min y :max dígitos.",
-                "digits"         => "El campo :attribute debe ser de :digits dígitos.",
+                "digits_between" => "El campo :attribute debe terner entre :min y :max números.",
+                "digits"         => "El campo :attribute debe ser de :digits números.",
             );
 
             $validation = Validator::make($data, $rules, $messages);
