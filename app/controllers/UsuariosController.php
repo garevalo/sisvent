@@ -83,7 +83,7 @@ class UsuariosController extends BaseController {
 
             else{
                 $password = Hash::make($contrasena);
-                DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}')");
+                DB::statement("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}')");
                 
                 $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario creado correctamente");
                 
@@ -153,7 +153,7 @@ class UsuariosController extends BaseController {
 
             else{
                 $password = Hash::make($contrasena);
-DB::select("call sp_editar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}','{$idestado}','{$idusuario}')");
+DB::statement("call sp_editar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}','{$idestado}','{$idusuario}')");
                 
                 $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario modificado correctamente");
                 

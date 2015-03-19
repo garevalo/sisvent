@@ -58,7 +58,7 @@ class OrdenController extends BaseController{
         ->showColumns('idorden_compra','idcotizacion', 'nombre_cliente','ruc','preciototal')                    
         ->addColumn('id',function($model){
             if($model->id ==''){$estado="";}
-            else {$estado="disabled='disabled'";}
+            else {$estado="";}
             return '<a href="'.url("ordencompra/nuevo/".$model->id).'" '.$estado.' class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
         })
         ->make();
