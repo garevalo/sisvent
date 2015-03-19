@@ -90,7 +90,8 @@ class ProductosController extends BaseController{
                 "descripcion"   =>    Input::get("descripcion"),
                 "precio"        =>    Input::get("precio"),
                 "imagen"        =>    $file,//campo foto para validar
-                "categoria"     =>    Input::get("categoria")
+                "categoria"     =>    Input::get("categoria"),
+                "estado"        =>    Input::get("idestado")
             );
 
             $rules = array(
@@ -128,8 +129,9 @@ class ProductosController extends BaseController{
                     $producto->descripcion_producto = Input::get("descripcion");
                     $producto->precio_producto = Input::get("precio");
                     $producto->idcategoria = Input::get("categoria"); 
+                    $producto->estado_producto=Input::get("idestado");
                    $producto->save();
-                   return json_encode(array('dir' => url("productos/nuevo"),'mensaje'=> 'Producto moficado Correctamente :D ') );
+                   return json_encode(array('dir' => url("productos/nuevo"),'mensaje'=> 'Producto moficado Correctamente ') );
                     
                 }
                 else{
@@ -140,7 +142,7 @@ class ProductosController extends BaseController{
                     $producto->precio_producto = Input::get("precio");
                     $producto->idcategoria = Input::get("categoria");
                     $producto->img_producto = str_replace(" ", "_", strtolower(Input::get("producto")));
-                    
+                    $producto->estado_producto=Input::get("idestado");
                     if($producto->save()){
                         
                        // File::delete(public_path().$id.'archivo.txt');
@@ -148,7 +150,7 @@ class ProductosController extends BaseController{
                                               
                     }
 
-                    return json_encode(array('dir' => url("productos/nuevo"),'mensaje'=> 'Producto moficado Correctamente :D ') ); 
+                    return json_encode(array('dir' => url("productos/nuevo"),'mensaje'=> 'Producto moficado Correctamente ') ); 
                 }
                 
             }
@@ -161,11 +163,16 @@ class ProductosController extends BaseController{
 
         public function getDatatable()
         {
-            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id')))
+            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id','estado_producto')))
             ->showColumns('idproducto', 'nombre_producto','precio_producto')
             ->addColumn('img_producto',function($model){
                 return '<img src="'.asset('img/foto_producto')."/".$model->img_producto.'" width="50" />';
             })
+            ->addColumn('estado_producto',function($model){
+                if($model->estado_producto==1){$estado="Activo"; $label="label-success";}
+                else{$estado="Inactivo"; $label="label-warning";}
+                return '<span class="label '.$label.'">'.$estado.'</span>';
+            }) 
             ->addColumn('id',function($model){
                 return '<button class="btn btn-primary btn-sm" onclick=editar_producto("'.url('productos/getproducto').'",'.$model->id.');><small  class="glyphicon glyphicon-edit"></small> Editar</button>';
             })        

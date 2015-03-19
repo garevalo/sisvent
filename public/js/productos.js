@@ -12,7 +12,17 @@ function editar_producto(url,id){
 		$("#descripcion").val(data.descripcion_producto);
 		$("#precio").val(data.precio_producto);
 		//$("#imagen").val(data.descripcion_producto);
+        
 		$("#categoria").val(data.idcategoria);
+        $("#campo-estado").html('<div class="form-group">'+
+                                    '<label>Estado:</label>'+
+                                     '<select name="idestado" id="idestado" class="form-control input-sm">'+
+                                                                   '<option value="1">Activo</option>'+
+                                                                    '<option value="2">Inactivo</option>'+
+                                                                '</select>'+
+                                                                '<small id="error-estado" class="text-danger"></small>'+
+                                                                '</div>' );
+        $("#idestado").val(data.estado_producto);
 		
 	},"json");
 	

@@ -44,7 +44,7 @@ class OrdenController extends BaseController{
             ->where('idcotizacion', $codigocotizacion)
             ->update(array('estado' => 2));
          
-         return json_encode( array("dir"=>url("cotizacion"),"mensaje"=>"La Orden de compra se ha registrado correctamente"));
+         return json_encode( array("dir"=>url("cotizacion"),"mensaje"=>"La Orden de compra se ha registrado correctamente y se ha enviado un correo al cliente por no realizarse el despacho"));
      }
      
      public function getDatatable()

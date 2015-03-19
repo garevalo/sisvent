@@ -85,7 +85,7 @@ class UsuariosController extends BaseController {
                 $password = Hash::make($contrasena);
                 DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}')");
                 
-                $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario creado correctamente :D ");
+                $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario creado correctamente");
                 
                 return json_encode($datos);
 
@@ -106,7 +106,7 @@ class UsuariosController extends BaseController {
         $telefono   = Input::get('telefono');
         $dni        = Input::get('dni');
         $correo     = Input::get('correo');
-
+        $idestado     = Input::get('idestado');
         $data = array(
                 
                 "usuario"    =>    $usuario,
@@ -152,8 +152,8 @@ class UsuariosController extends BaseController {
             }
 
             else{
-
-                DB::select("call sp_editar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}',{$idusuario})");
+                $password = Hash::make($contrasena);
+DB::select("call sp_editar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}','{$idestado}','{$idusuario}')");
                 
                 $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario modificado correctamente");
                 
@@ -194,7 +194,12 @@ class UsuariosController extends BaseController {
             ->select('usuarios.id','usuarios.usuario', 'personas.nombres','personas.apellido_paterno','personas.apellido_materno','usuarios.idestado','usuarios.idtipo');
         
             return Datatable::query($query)
-            ->showColumns('id', 'usuario','nombres','apellido_paterno','id')
+            ->showColumns('id', 'usuario','nombres','apellido_paterno','id','idestado')
+            ->addColumn('idestado',function($model){
+                if($model->idestado==1){$estado="Activo"; $label="label-success";}
+                else{$estado="Inactivo"; $label="label-warning";}
+                return '<span class="label '.$label.'">'.$estado.'</span>';
+            })
             ->addColumn('img_producto',function($model){
                 return '<a href="javascript:void(0);" onclick=get_usuario("'.url("usuarios/getusuario").'",'.$model->id.') class="btn btn-sm btn-primary">Editar <i class="fa fa-edit fa-lg"></i></a>';
             })

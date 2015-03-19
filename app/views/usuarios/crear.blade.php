@@ -124,8 +124,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div id="campo-estado"></div>
+                                                    </div>
+                                                </div>
                                                
                                                 <button id="btnguardar" type="submit" class="btn btn-primary" onclick="guardar_usuario_ajax('form')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                <a href="" class="btn btn-danger">Nuevo</a>
                                             </form>
                                         </div>
                                     </div>
@@ -142,7 +148,7 @@
                             <div class="collapse in">
                               
                                 {{ Datatable::table()
-                                ->addColumn('Id','Usuario','Nombres','Apellido','Accion')       // these are the column headings to be shown
+                                ->addColumn('Id','Usuario','Nombres','Apellido','Estado','Accion')       // these are the column headings to be shown
                                 ->setUrl(route('api.usuarios'))   // this is the route where data will be retrieved
                                 ->render() }}
                             </div>

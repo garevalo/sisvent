@@ -87,9 +87,11 @@
                                                                 @endif
 
                                                             </div>
+                                                            <div id="campo-estado"></div>
 
                                                             <div class="form-group">
                                                                 <input type="submit" value="Guardar" class="btn btn-primary" onclick="" id="btnguardar">
+                                                                <a href="" class="btn btn-danger">Nuevo</a>
                                                             </div>
 
                                                     {{ Form::close() }}
@@ -111,7 +113,7 @@
                             <div class="collapse in">
                               
                                 {{ Datatable::table()
-                                ->addColumn('Id','Producto','Precio','Foto','Editar')       // these are the column headings to be shown
+                                ->addColumn('Id','Producto','Precio','Foto','Estado','Editar')       // these are the column headings to be shown
                                 ->setUrl(route('api.productos'))   // this is the route where data will be retrieved
                                 ->render() }}
                             </div>
