@@ -82,8 +82,8 @@ class UsuariosController extends BaseController {
             }
 
             else{
-
-                DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}')");
+                $password = Hash::make($contrasena);
+                DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$password}','{$tipo}')");
                 
                 $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario creado correctamente :D ");
                 
