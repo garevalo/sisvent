@@ -26,6 +26,9 @@
                                                 <div class="form-title">
                                                     Información de Usuario
                                                 </div>
+                                                <div id="campo_idusuario">
+                                                    
+                                                </div>
                                                 <div class="form-group">
                                                     <span class="input-icon icon-right">
                                                         <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario"   autocomplete="off" >
@@ -122,7 +125,7 @@
                                                     </div>
                                                 </div>
                                                
-                                                <button type="submit" class="btn btn-primary" onclick="guardar_usuario_ajax('form')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                <button id="btnguardar" type="submit" class="btn btn-primary" onclick="guardar_usuario_ajax('form')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                             </form>
                                         </div>
                                     </div>

@@ -4,15 +4,20 @@ function get_usuario(url,id){
 	$.get(url,{id:id},function(data){
 		//var datos=JQuery.
 		console.log(data);
-		
+		var datos = data[0];
 		$("#form").attr("action","editar");
 		$("#btnguardar").attr("onclick"," editar_usuario_ajax('frm')");
-		$("#campo_idusuario").html("<input type='hidden' name='idusuario' value='"+id+"'>");
-		$("#producto").val(data.nombre_producto);
-		$("#descripcion").val(data.descripcion_producto);
-		$("#precio").val(data.precio_producto);
-		$("#categoria").val(data.idcategoria);
-		
+		$("#campo_idusuario").html("<input type='hidden' name='idusuario' id='idusuario' value='"+id+"'>");
+		$("#usuario").val(datos.usuario);
+		$("#contrasena").val("");
+        $("#tipo").val(datos.idtipo);
+        $("#nombre").val(datos.nombres);
+        $("#apepaterno").val(datos.apellido_paterno);
+        $("#apematerno").val(datos.apellido_materno);
+        $("#telefono").val(datos.telefono);
+        $("#dni").val(datos.dni);
+        $("#correo").val(datos.correo);
+       		
 	},"json");
 	
 }

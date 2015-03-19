@@ -85,7 +85,77 @@ class UsuariosController extends BaseController {
 
                 DB::select("call sp_registrar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}')");
                 
-                $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario registrado correctamente");
+                $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario creado correctamente :D ");
+                
+                return json_encode($datos);
+
+            }
+    }
+
+
+
+    public function editarUsuario()
+    {
+        $idusuario  = Input::get('idusuario');
+        $usuario    = Input::get('usuario');
+        $contrasena = Input::get('contrasena');
+        $tipo       = Input::get('tipo');
+        $nombre     = Input::get('nombre');
+        $apepaterno = Input::get('apepaterno');
+        $apematerno = Input::get('apematerno');
+        $telefono   = Input::get('telefono');
+        $dni        = Input::get('dni');
+        $correo     = Input::get('correo');
+
+        $data = array(
+                
+                "usuario"    =>    $usuario,
+                "contrasena" =>    $contrasena,
+                "nombre"     =>    $nombre,
+                "apepaterno" =>    $apepaterno,
+                "apematerno" =>    $apematerno,
+                "telefono"   =>    $telefono,
+                "dni"        =>    $dni,
+                "correo"     =>    $correo,
+                "tipo"       =>    $tipo
+            );
+
+            $rules = array(
+                'usuario'       => 'required|min:2|max:100',
+                'contrasena'    => 'min:6|max:100',
+                'nombre'        => 'required|alpha',
+                'apepaterno'    => 'required|alpha',
+                'apematerno'    => 'required|alpha',
+                'telefono'      => 'required|digits_between:7,9',
+                'dni'           => 'required|digits:8',
+                'correo'        => 'email|min:8|max:100',
+                'tipo'          => 'required'
+            );
+
+            $messages = array(
+                'required'  => 'El campo :attribute es obligatorio.',
+                'min'       => 'El campo :attribute no puede tener menos de :min caracteres.',
+                'email'     => 'El campo :attribute debe ser un email válido.',
+                'max'       => 'El campo :attribute no puede tener mas de :max caracteres.',
+                'unique'    => ':attribute ya está registrado',
+                'numeric'   => 'El campo :attribute debe ser un número',
+                'integer'   => 'El campo :attribute debe ser un número',
+                "digits_between" => "El campo :attribute debe terner entre :min y :max números.",
+                "digits"         => "El campo :attribute debe ser de :digits números.",
+            );
+
+            $validation = Validator::make($data, $rules, $messages);
+      
+            if ($validation->fails())
+            {
+                return json_encode(array( "error" => $validation->messages() ));
+            }
+
+            else{
+
+                DB::select("call sp_editar_usuario('{$nombre}','{$apepaterno}','{$apematerno}','{$dni}','{$telefono}','{$correo}','{$usuario}','{$contrasena}','{$tipo}',{$idusuario})");
+                
+                $datos=array("dir"=>url("usuarios/nuevo"),"mensaje"=>"Usuario modificado correctamente");
                 
                 return json_encode($datos);
 
@@ -143,7 +213,7 @@ class UsuariosController extends BaseController {
             ->where('usuarios.id', '=', $id)
             ->get(); 
 
-            return json_encode($query);
+            return Response::json($query);
 
     }    
  
