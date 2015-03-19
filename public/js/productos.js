@@ -6,6 +6,7 @@ function editar_producto(url,id){
 		console.log(data);
 		$("#frm").attr("action","editar");
 		$("#btnguardar").attr("onclick"," editar_producto_ajax('frm')");
+        $("#btnguardar").attr("value","Modificar");
 		$("#campo_idproducto").html("<input type='hidden' name='idproducto' value='"+id+"'>");
 		$("#producto").val(data.nombre_producto);
 		$("#descripcion").val(data.descripcion_producto);

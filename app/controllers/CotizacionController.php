@@ -38,7 +38,7 @@ class CotizacionController extends BaseController{
         })                    
         ->addColumn('id',function($model){
             if($model->estado =='1'){$estado="";}
-            else {$estado="disabled='disabled'";}
+            else {$estado="disabled=''";}
             return '<a href="'.url("ordencompra/nuevo/".$model->id).'" '.$estado.' class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Crear Orden Compra</a>';
         })
         ->make();

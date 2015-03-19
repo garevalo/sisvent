@@ -7,6 +7,7 @@ function get_usuario(url,id){
 		var datos = data[0];
 		$("#form").attr("action","editar");
 		$("#btnguardar").attr("onclick"," editar_usuario_ajax('frm')");
+        $("#btnguardar").attr("value","Modificar");
 		$("#campo_idusuario").html("<input type='hidden' name='idusuario' id='idusuario' value='"+id+"'>");
 		$("#usuario").val(datos.usuario);
 		$("#contrasena").val("");
