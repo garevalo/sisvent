@@ -271,10 +271,10 @@
                                                 <div class="col-lg-6">
                                                     <button  type="submit" class="btn btn-danger btn-block shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
-                                                <div class="col-lg-6">
+<!--                                                <div class="col-lg-6">
                                                     <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
                                                     <button {{$btndespacho}} type="button" class="btn btn-block btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
-                                                </div>
+                                                </div>-->
      
                                             </div>
                                         </div>
