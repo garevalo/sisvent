@@ -12,7 +12,7 @@ class OrdenController extends BaseController{
             ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
                     'cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
                     'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
-                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','productos.nombre_producto',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','productos.nombre_producto','productos.idproducto',
                     'productos.precio_producto','productos.stock')
             ->where('cotizacion.idcotizacion', '=', $id)
             ->get();
@@ -67,6 +67,19 @@ class OrdenController extends BaseController{
     
     public function listaOrdenCompra(){
         
-        return View::make('ordencompra.listaOrdenCompra');
+        return View::make('ordencompra.listaOrdenCompra',array('subtitulo' => "Lista de pedidos" ));
     }
+
+    public function solicitaProducto(){
+
+      //  print_r($_POST);
+
+        DB::table('detalle_cotizacion')
+            ->where('idproducto', Input::get('idproducto'))
+            ->where('idcotizacion',Input::get('idcotizacion'))
+            ->update(array('pedido' => 1,'estado_pedido'=>1));
+            echo Input::get('idproducto').'-'.Input::get('idcotizacion');
+
+    }
+
 }

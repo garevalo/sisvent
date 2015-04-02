@@ -73,9 +73,21 @@
                         @endif
                         
                         @if( Auth::user()->idtipo==1 )
-                        <li class="">
-                            <a href="#"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Almacén </a>
-                            
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Almacén<span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-purple" role="menu">
+                                
+                                <li>
+                                    <a href="{{url('almacen/pedido', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                        <i class="dropdown-icon fa fa-list"></i> Lista Pedidos de productos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('almacen/pedido', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                        <i class="dropdown-icon fa fa-list"></i> Registrar Ingresos de productos
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         @endif
                     </ul>
@@ -88,8 +100,79 @@
                     <div class="navbar-account">
                         <ul class="account-area">
                            
-                           
                             
+                            
+<li>
+                                <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
+                                    <i class="icon fa fa-envelope"></i>
+                                    <span class="badge">3</span>
+                                </a>
+                                <!--Messages Dropdown-->
+                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
+                                    <li>
+                                        <a href="#">
+                                            <img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
+                                            <div class="message">
+                                                <span class="message-sender">
+                                                    Divyia Austin
+                                                </span>
+                                                <span class="message-time">
+                                                    2 minutes ago
+                                                </span>
+                                                <span class="message-subject">
+                                                    Here's the recipe for apple pie
+                                                </span>
+                                                <span class="message-body">
+                                                    to identify the sending application when the senders image is shown for the main icon
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="assets/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
+                                            <div class="message">
+                                                <span class="message-sender">
+                                                    Bing.com
+                                                </span>
+                                                <span class="message-time">
+                                                    Yesterday
+                                                </span>
+                                                <span class="message-subject">
+                                                    Bing Newsletter: The January Issue‏
+                                                </span>
+                                                <span class="message-body">
+                                                    Discover new music just in time for the Grammy® Awards.
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="assets/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
+                                            <div class="message">
+                                                <span class="message-sender">
+                                                    Nicolas
+                                                </span>
+                                                <span class="message-time">
+                                                    Friday, September 22
+                                                </span>
+                                                <span class="message-subject">
+                                                    New 4K Cameras
+                                                </span>
+                                                <span class="message-body">
+                                                    The 4K revolution has come over the horizon and is reaching the general populous
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--/Messages Dropdown-->
+                            </li>
+
+
+
+
                             <li>
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown">
                                     <div class="avatar" title="View your public profile">

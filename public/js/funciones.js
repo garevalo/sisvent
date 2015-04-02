@@ -368,9 +368,25 @@ function agregar_producto(url,id){
  
 
  
-function solicitar_productos(idcli){
-     $("#modal-body-success").text("Producto solicitado");
-     $('#modal-success').modal('show');
+function solicitar_productos(idcotizacion,idproducto){
+     
+    
+     $.post("http://localhost/sistvent/public/ordencompra/solicitaproducto",{idproducto:idproducto,idcotizacion:idcotizacion},function(data,status){
+
+        if(status==="success"){
+            //alert(data); 
+            $("#modal-body-success").text("Producto solicitado");
+            $('#modal-success').modal('show'); 
+            $("#solicita-producto").prop("disabled","disabled");   
+        }
+        else{
+            alert("error");
+        };
+        console.log(data);
+     });
+
+
+     
 } 
 
 
