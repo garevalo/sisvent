@@ -103,7 +103,8 @@
         /*Almacen*/
         Route::get('api/getpedido', array('as'=>'api.pedido','uses'=>'AlmacenController@getlistaPedidosProductos'));
         Route::get('almacen/pedido', array('uses' => 'AlmacenController@listaPedidosProductos'));
-
+        Route::get('almacen/ingreso', array('uses' => 'AlmacenController@ingresoProductos'));
+        Route::post('almacen/registrar', array('uses' => 'AlmacenController@registrarProductos'));
         
         
         
