@@ -40,17 +40,63 @@ class AlmacenController extends BaseController{
         $idproducto = Input::get("producto");
         $cantidad = Input::get("cantidad");
         
-        /*
-        DB::table('ingresos')->insert(
-             array('idproducto' => $idproducto,'cantidad'=>$cantidad,'created_at'=>  time()));
-         
-         DB::table('productos')
-            ->where('idproducto', $idproducto)
-            ->update(array('stock' => 2));
-         */
-        print_r(Input::all());
+
+        $data = array(
+                
+                "producto"    =>   $idproducto,
+                "cantidad" =>    $cantidad
+            );
+
+            $rules = array(
+                'producto'      => 'required',
+                'cantidad'      => 'required|integer'
+            );
+
+            $messages = array(
+                'required'  => 'El campo :attribute es obligatorio.',
+                'integer'   => 'El campo :attribute debe ser un número'
+            );
+
+            $validation = Validator::make($data, $rules, $messages);
+      
+            if ($validation->fails())
+            {
+                return json_encode(array( "error" => $validation->messages() ));
+            }
+            else{
+
+                DB::table('ingresos')->insert(
+                array('idproducto' => $idproducto,'cantidad'=>$cantidad,'created_at'=>  date("Y-m-d H:i:s") ));
+             
+                $stockprod=DB::table('productos')->select('productos.stock')
+                                                ->where('productos.idproducto','=',$idproducto)
+                                                ->get();
+
+                DB::table('productos')
+                ->where('idproducto', $idproducto)
+                ->update(array('stock' => $stockprod[0]->stock+$cantidad ));
+
+                 $datos=array("dir"=>url("almacen/ingreso"),"mensaje"=>"Se registro correctamente");
+                
+                return json_encode($datos);
+            }
+
+        //print_r(Input::all());
         // return json_encode( array("dir"=>url("almacen/ingreso"),"mensaje"=>"Se actualizó el stock correctamente"));
         
+    }
+
+    public function getListaIngresos(){
+
+        $query=DB::table('ingresos')
+        ->join('productos','ingresos.idproducto','=','productos.idproducto')
+        ->select('ingresos.idingresos','productos.nombre_producto','productos.stock','ingresos.cantidad');
+
+        return Datatable::query($query)
+        ->showColumns('idingresos','nombre_producto','cantidad','stock')
+        ->searchColumns('nombre_producto', 'cantidad')
+        ->make();
+
     }
 
 }

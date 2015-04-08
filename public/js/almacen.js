@@ -17,48 +17,10 @@ function guardar_ajax(form) {
                     	var errores=datos.error;
                         console.log(datos.error);
                        	
-                       	if(typeof errores.usuario !=="undefined"){$("#error-usuario").html(errores.usuario[0]); } else{$("#error-usuario").html("");}
+                       	if(typeof errores.producto !=="undefined"){$("#error-producto").html(errores.producto[0]); } else{$("#error-producto").html("");}
 
-                        if(typeof errores.contrasena !=="undefined"){$("#error-contrasena").html(errores.contrasena[0]);} else{$("#error-contrasena").html("");}
-
-                        if(typeof errores.nombre !=="undefined"){$("#error-nombre").html(errores.nombre[0]);} else{$("#error-nombre").html("");}
-                        
-                        if(typeof errores.apepaterno !=="undefined"){			
-							$("#error-apepaterno").html(errores.apepaterno[0]);
-                        }
-                        else{$("#error-apepaterno").html("");}
-
-                        if(typeof errores.apematerno !=="undefined"){
-							
-							$("#error-apematerno").html(errores.apematerno[0]);
-                        }
-                        else{$("#error-apematerno").html("");}
-
-                        if(typeof errores.telefono !=="undefined"){
-							
-							$("#error-telefono").html(errores.telefono[0]);
-                        }
-                        else{$("#error-telefono").html("");}
-
-                        if(typeof errores.dni !=="undefined"){
-							
-							$("#error-dni").html(errores.dni[0]);
-                        }
-                        else{$("#error-dni").html("");}
-
-                        if(typeof errores.correo !=="undefined"){
-							
-							$("#error-correo").html(errores.correo[0]);
-                        }
-                        else{$("#error-correo").html("");}
-
-                        if(typeof errores.tipo !=="undefined"){
-							
-							$("#error-tipo").html(errores.tipo[0]);
-                        }
-                        else{$("#error-tipo").html("");}
-                        
-                        
+                        if(typeof errores.cantidad !=="undefined"){$("#error-cantidad").html(errores.cantidad[0]);} else{$("#error-cantidad").html("");}
+      
                     }
 
                     else if (datos.dir) {

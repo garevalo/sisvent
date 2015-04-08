@@ -35,24 +35,20 @@
                                     <option value="{{$producto->idproducto}}">{{$producto->nombre_producto}}</option>
                                     @endforeach
                                 </select>
-                               <div id="error-producto">
-                               @if($errors->has('producto'))
-                               <small class="text-danger">* <?php echo $errors->first('producto') ?></small>
-                               @endif
-                                </div>
+                               <div >
+                                <small class="text-danger" id="error-producto"></small>
+                               </div>
                             </div>
                             <div class="form-group">
 
                                 <label >Cantidad:</label>
                                 <input type="text"  name="cantidad" id="cantidad" class="input-sm form-control">
-                                <div id="error-descripcion">
-                                    @if($errors->has('descripcion'))
-                                   <small class="text-danger">* <?php echo $errors->first('descripcion') ?></small>
-                                   @endif
+                                <div >
+                                   <small class="text-danger" id="error-cantidad"></small>
                                </div>
 
                             </div>
-                           <button class="btn btn-success" type="submit" name="guardar" id="guardar"><span class="glyphicon glyphicon-save"></span> Guardar </button>
+                           <button onclick="guardar_ajax('frm');" class="btn btn-success" type="submit" name="guardar" id="guardar"><span class="glyphicon glyphicon-save"></span> Guardar </button>
                            {{Form::close()}}
                             
                         </div>
@@ -69,7 +65,10 @@
                     <div class="widget-body">
                         <div class="collapse in">
                            
-                            Ingresar Productos
+                            {{ Datatable::table()
+                                ->addColumn('ID','Producto','Cantidad Ingresada','Stock Actual del producto') 
+                                ->setUrl(route('api.getingresos'))  
+                                ->render() }}
                             
                         </div>
 
