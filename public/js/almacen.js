@@ -43,3 +43,31 @@ function guardar_ajax(form) {
         });
     
 }
+
+function atender_pedido(url,id,idprod){
+
+    $.post(url,{id:id,idprod:idprod},function(data,status){
+
+        if(status==="success"){
+
+            var datos = jQuery.parseJSON(data);
+            if (datos.dir) {
+                        $("#atender").prop("disabled","disabled");
+                        $(".modal-body").text(datos.mensaje);
+                        $('#modal-success').modal('show');
+
+                        $("#ok").click(function() {
+                            // $("#form")[0].reset();
+                            window.location = datos.dir;
+                        });
+                    }
+                    else if (datos.datos) {
+                        console.log(data);
+                    }
+            console.log(data);
+        }
+
+    });
+
+
+}

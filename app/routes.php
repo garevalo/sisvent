@@ -105,6 +105,7 @@
         Route::get('almacen/pedido', array('uses' => 'AlmacenController@listaPedidosProductos'));
         Route::get('almacen/ingreso', array('uses' => 'AlmacenController@ingresoProductos'));
         Route::post('almacen/registrar', array('uses' => 'AlmacenController@registrarProductos'));
+        Route::post('almacen/atenderpedido', array('uses' => 'AlmacenController@atenderPedido'));
         Route::get('api/getingresos', array('as'=>'api.getingresos','uses'=>'AlmacenController@getListaIngresos'));
         
         

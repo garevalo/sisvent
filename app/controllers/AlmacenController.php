@@ -20,7 +20,7 @@ class AlmacenController extends BaseController{
         ->showColumns('idcotizacion','nombre_producto','cantidad')                    
         ->addColumn('iddetalle_cotizacion',function($model){
             
-            return '<a href="'.url("ordencompra/nuevo/".$model->iddetalle_cotizacion).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Atender Pedido</a>';
+            return '<button id="atender" onclick=atender_pedido("'.url("almacen/atenderpedido").'",'.$model->iddetalle_cotizacion.','.$model->idproducto.') class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Atender Pedido</button>';
         })
         ->searchColumns('nombre_producto', 'cantidad')
         ->make();
@@ -80,9 +80,6 @@ class AlmacenController extends BaseController{
                 
                 return json_encode($datos);
             }
-
-        //print_r(Input::all());
-        // return json_encode( array("dir"=>url("almacen/ingreso"),"mensaje"=>"Se actualizó el stock correctamente"));
         
     }
 
@@ -96,6 +93,25 @@ class AlmacenController extends BaseController{
         ->showColumns('idingresos','nombre_producto','cantidad','stock')
         ->searchColumns('nombre_producto', 'cantidad')
         ->make();
+
+    }
+
+    public function atenderPedido(){
+
+        $id=Input::get('id');
+        $idprod=Input::get('idprod');
+
+
+                DB::table('detalle_cotizacion')
+                ->where('iddetalle_cotizacion', $id)
+                ->where('idproducto', $idprod)
+                ->update(array('estado_pedido' => 2 ));
+
+                 $datos=array("dir"=>url("almacen/pedido"),"mensaje"=>"Pedido se atendio correctamente");
+                
+                return json_encode($datos);
+
+        
 
     }
 

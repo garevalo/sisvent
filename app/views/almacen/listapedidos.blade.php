@@ -53,5 +53,5 @@
 	@parent
         {{ HTML::script('js/jquery.datatables/jquery.dataTables.js')  }}
         {{ HTML::script('js/jquery.datatables/dataTables.bootstrap.js')  }}
-        {{ HTML::script('js/funciones.js')  }}  
+        {{ HTML::script('js/almacen.js')  }}  
 @stop
