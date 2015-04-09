@@ -52,14 +52,14 @@ function atender_pedido(url,id,idprod){
 
             var datos = jQuery.parseJSON(data);
             if (datos.dir) {
-                        $("#atender").prop("disabled","disabled");
+                        $("#atender"+id).prop("disabled","disabled");
                         $(".modal-body").text(datos.mensaje);
                         $('#modal-success').modal('show');
 
-                        $("#ok").click(function() {
+                       // $("#ok").click(function() {
                             // $("#form")[0].reset();
-                            window.location = datos.dir;
-                        });
+                         //   window.location = datos.dir;
+                        //});
                     }
                     else if (datos.datos) {
                         console.log(data);

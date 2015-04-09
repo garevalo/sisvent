@@ -13,14 +13,21 @@ class AlmacenController extends BaseController{
         ->join('cotizacion','cotizacion.idcotizacion','=','detalle_cotizacion.idcotizacion')
         ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
         ->select('detalle_cotizacion.idcotizacion','detalle_cotizacion.iddetalle_cotizacion',
-                'productos.idproducto','productos.nombre_producto','detalle_cotizacion.cantidad')
+                'productos.idproducto','productos.nombre_producto','detalle_cotizacion.cantidad','detalle_cotizacion.estado_pedido')
         ->where('detalle_cotizacion.pedido',1);
 
         return Datatable::query($query)
         ->showColumns('idcotizacion','nombre_producto','cantidad')                    
         ->addColumn('iddetalle_cotizacion',function($model){
             
-            return '<button id="atender" onclick=atender_pedido("'.url("almacen/atenderpedido").'",'.$model->iddetalle_cotizacion.','.$model->idproducto.') class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Atender Pedido</button>';
+            if($model->estado_pedido==2){
+
+                    $btndisabled="disabled=''";
+
+            }
+            else{ $btndisabled="";}
+
+            return '<button '.$btndisabled.' id="atender'.$model->iddetalle_cotizacion.'" onclick=atender_pedido("'.url("almacen/atenderpedido").'",'.$model->iddetalle_cotizacion.','.$model->idproducto.') class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Atender Pedido</button>';
         })
         ->searchColumns('nombre_producto', 'cantidad')
         ->make();
