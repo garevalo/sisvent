@@ -45,7 +45,7 @@
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label id="producto">Número Orden:</label>
                                                     <input type="hidden" name="idcliente" id="idcliente" value="{{$cotizacion[0]->idclientes}}">
-                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$idorden}}" disabled="">
+                                                    <input type="text" name="codigo" id="codigo" class="form-control " value="{{$cotizacion[0]->idorden_compra}}" disabled="">
                                                 </div>
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
@@ -80,10 +80,11 @@
                                                 <div class="col-lg-2 col-sm-3 col-md-4 col-xs-12 has-info has-feedback">
                                                     <label  id="precio">Distrito:</label>
                                                     
-                                                    <select name="distrito" id="distrito" class="form-control" required="">
+                                                    <select name="distrito" id="distrito" class="form-control" required="" disabled="">
                                                         <option value="">Seleccione distrito</option>
                                                         @foreach($distritos as $dis)
-                                                        <option value="{{$dis->iddistrito}}">{{$dis->nombre_distrito}}</option>
+                                                        <?php if($dis->iddistrito==$cotizacion[0]->iddistrito){$select='selected=""';}else{$select='';} ?>
+                                                        <option value="{{$dis->iddistrito}}" {{$select}}>{{$dis->nombre_distrito}}</option>
                                                         
                                                         @endforeach
                                                     </select>
@@ -146,20 +147,7 @@
                                             <div class="widget-header bg-blue">
                                                 <i class="widget-icon fa fa-arrow-left"></i>
                                                 <span class="widget-caption">Productos Agregados a la Cotización</span>
-<!--                                                <div class="widget-buttons">
-                                                    <a href="#" data-toggle="config">
-                                                        <i class="fa fa-cog"></i>
-                                                    </a>
-                                                    <a href="#" data-toggle="maximize">
-                                                        <i class="fa fa-expand"></i>
-                                                    </a>
-                                                    <a href="#" data-toggle="collapse">
-                                                        <i class="fa fa-minus"></i>
-                                                    </a>
-                                                    <a href="#" data-toggle="dispose">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </div>Widget Buttons-->
+
                                             </div><!--Widget Header-->
                                             <div class="widget-body">
                                                 <table  class="table table-condensed table-striped table-bordered table-responsive">
