@@ -91,6 +91,7 @@
         Route::get('api/ordencompra', array('as'=>'api.ordencompra','uses'=>'OrdenController@getDatatable'));
         Route::get('ordencompra', array('uses' => 'OrdenController@listaOrdenCompra'));
         Route::post('ordencompra/solicitaproducto', array('uses' => 'OrdenController@solicitaProducto'));
+        Route::get('ordencompra/ver/{id?}', array('uses' => 'OrdenController@verOrdenCompra'));
         
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
