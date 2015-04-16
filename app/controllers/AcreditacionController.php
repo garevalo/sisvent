@@ -10,7 +10,7 @@ class AcreditacionController extends BaseController{
        $idcotizacion= Input::get('idcotizacion');
        
        DB::update('UPDATE clientes SET acreditacion = ? WHERE idclientes = ? ', array( '2', $idcliente));
-       return json_encode(array( "dir" =>  url("ordencompra/nuevo/".$idcotizacion),"mensaje"=>"Acreditacion Enviada"));
+       return json_encode(array( "mensaje"=>"Acreditacion Enviada"));
     }
     
     public function registrarAcreditacion(){
