@@ -128,7 +128,7 @@
                                                 </div>
                                                 <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                     <label  id="precio">Motivo no despacho:</label>
-                                                    <input type="text" name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
+                                                    <input value="{{$cotizacion[0]->motivo_no_despacho}}" type="text" name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
                                                     @if($errors->has('precio'))
                                                    <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
                                                    @endif
@@ -158,6 +158,8 @@
                                                         <th width="15%">Cantidad Solicitada</th>
                                                         <th>Stock</th>
                                                         <th>Precio Total</th>
+                                                        <th>Pedido</th>
+                                                        <th>Est.Pedido</th>
                                                         <th>Solicitar</th>
 
                                                     </thead>
@@ -171,6 +173,8 @@
                                                             <td><span></span>{{$value->cantidad}}</td>
                                                             <td>{{$value->stock}}</td>
                                                             <td>{{$value->precio}}</td>
+                                                            <td><?php if($value->pedido==1){echo "Si";}else{echo "No";} ?></td>
+                                                            <td><?php if($value->estado_pedido==1){echo "En Proceso";}elseif($value->estado_pedido==2){echo "Atendido";}else{echo "--";} ?></td>
                                                             <td width="5%">
                                                             <?php  if($value->cantidad > $value->stock ){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
                                                             <?php  if($value->pedido==1){$disable="disabled=''";} ?>

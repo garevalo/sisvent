@@ -55,7 +55,7 @@ class OrdenController extends BaseController{
          */
          DB::table('orden_compra')
             ->where('idcotizacion', $codigocotizacion)
-            ->update(array('motivo_no_despacho' => $motivo,'fecha_no_cotizacion' => date("Y-m-d H:m:s" ,time())));
+            ->update(array('motivo_no_despacho' => $motivo,'despacho'=>1,'fecha_no_cotizacion' => date("Y-m-d H:m:s" ,time())));
          
          return json_encode( array("dir"=>url("cotizacion"),"mensaje"=>"La Orden de compra se ha registrado correctamente y se ha enviado un correo al cliente por no realizarse el despacho"));
      }
@@ -94,8 +94,8 @@ class OrdenController extends BaseController{
             ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
                     'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
                     'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
-                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','productos.nombre_producto','productos.idproducto',
-                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra')
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho')
             ->where('orden_compra.idorden_compra', '=', $idoc)
             ->get();
        $distrito=Distrito::all();
