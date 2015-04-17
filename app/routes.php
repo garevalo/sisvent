@@ -91,6 +91,7 @@
         Route::get('api/ordencompra', array('as'=>'api.ordencompra','uses'=>'OrdenController@getDatatable'));
         Route::get('ordencompra', array('uses' => 'OrdenController@listaOrdenCompra'));
         Route::post('ordencompra/solicitaproducto', array('uses' => 'OrdenController@solicitaProducto'));
+        Route::get('ordencompra/ver/{id?}', array('uses' => 'OrdenController@verOrdenCompra'));
         
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
@@ -103,8 +104,10 @@
         /*Almacen*/
         Route::get('api/getpedido', array('as'=>'api.pedido','uses'=>'AlmacenController@getlistaPedidosProductos'));
         Route::get('almacen/pedido', array('uses' => 'AlmacenController@listaPedidosProductos'));
-
-        
+        Route::get('almacen/ingreso', array('uses' => 'AlmacenController@ingresoProductos'));
+        Route::post('almacen/registrar', array('uses' => 'AlmacenController@registrarProductos'));
+        Route::post('almacen/atenderpedido', array('uses' => 'AlmacenController@atenderPedido'));
+        Route::get('api/getingresos', array('as'=>'api.getingresos','uses'=>'AlmacenController@getListaIngresos'));
         
         
     });

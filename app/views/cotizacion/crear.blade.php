@@ -99,6 +99,11 @@
                                                     <input type="text" name="nombre" id="nombre" class="form-control" required="" pattern="[a-zA-Z ]*">
                                                    
                                                 </div>
+                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
+                                                    <label  id="precio">Correo:</label>
+                                                    <input type="email" name="correo" id="correo" class="form-control" required="" title="Ingresa un correo adecuado">
+                                                   
+                                                </div>
                                                 
                                              </div>
                                          </div>
@@ -110,15 +115,23 @@
                                                     <label  id="precio">Dirección:</label>
                                                     <input type="text" name="direccion" id="direccion" class="form-control" required="">
                                                 </div>
-                                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
-                                                    <label  id="precio">Correo:</label>
-                                                    <input type="email" name="correo" id="correo" class="form-control" required="" title="Ingresa un correo adecuado">
-                                                   
-                                                </div>
+                                                
                                                 
                                                 <div class="col-lg-2 col-sm-3 col-md-3 col-xs-12">
                                                     <label  id="precio">Teléfono:</label>
                                                     <input type="text" name="telefono" id="telefono" class="form-control" required=""   maxlength="9"  pattern="[0-9]+">
+                                                </div>
+                                                <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12 has-info has-feedback">
+                                                    <label  id="precio">Distrito:</label>
+                                                    
+                                                    <select name="distrito" id="distrito" class="form-control" required="">
+                                                        <option value="">Seleccione distrito</option>
+                                                        @foreach($distritos as $dis)
+                                                        <option value="{{$dis->iddistrito}}">{{$dis->nombre_distrito}}</option>
+                                                        
+                                                        @endforeach
+                                                    </select>
+                                                   
                                                 </div>
                                             </div>
 

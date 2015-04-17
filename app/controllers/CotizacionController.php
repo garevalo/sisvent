@@ -7,8 +7,9 @@ class CotizacionController extends BaseController{
 
         $idcotizacion=  DB::select("select idcotizacion  from cotizacion order by idcotizacion desc limit 1");
         if(count($idcotizacion)>0){$id = ($idcotizacion[0]->idcotizacion)+1;}else{$id="00000001";}
-    	
-        $data=array("subtitulo"=>"Registrar Cotización","idcotizacion"=>$id);
+    	  
+        $distrito=Distrito::all();
+        $data=array("subtitulo"=>"Registrar Cotización","idcotizacion"=>$id,'distritos'=>$distrito);
 	      return View::make('cotizacion.crear',$data);
 
     }
@@ -63,6 +64,8 @@ class CotizacionController extends BaseController{
         $precioneto     =   Input::get('precioneto');
         $correo         =   Input::get('correo');
         $validar        =   Input::get('validar');
+        $distrito       =   Input::get('distrito');
+        
 
        if( $validar=="si" ){
            
@@ -111,7 +114,7 @@ class CotizacionController extends BaseController{
         
             for($x=0;$x<$cant;$x++){
 
-                DB::statement("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$correo}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}','{$x}');");
+                DB::statement("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$correo}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}','{$distrito}','{$x}');");
             } 
             return json_encode( array("dir"=>url("productos"),"mensaje"=>url("cotizacion/reporte/".$idcotizacion)));
        }
