@@ -13,6 +13,8 @@ class OrdenController extends BaseController{
            ->where('idcotizacion', $id)
            ->update(array('estado' => 2)); 
         */
+        
+        
        DB::statement("call sp_crear_orden_ruta({$id});");
         
        $cotizacion= DB::table('cotizacion')
