@@ -178,7 +178,7 @@
                                                             <td width="5%">
                                                             <?php  if($value->cantidad > $value->stock ){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
                                                             <?php  if($value->pedido==1){$disable="disabled=''";} ?>
-                                                                <button id="solicita-producto" type="button" onclick="solicitar_productos({{$cotizacion[0]->idcotizacion}},{{$value->idproducto}});" class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
+                                                                <button id="solicita-producto" type="button" onclick=solicitar_productos({{$cotizacion[0]->idcotizacion}},{{$value->idproducto}},"<?= url("ordencompra/solicitaproducto")?>") class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
                                                             </td>
                                                         </tr>
 

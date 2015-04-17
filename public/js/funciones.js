@@ -368,10 +368,10 @@ function agregar_producto(url,id){
  
 
  
-function solicitar_productos(idcotizacion,idproducto){
+function solicitar_productos(idcotizacion,idproducto,url){
      
     
-     $.post("http://localhost:10/sistvent/public/ordencompra/solicitaproducto",{idproducto:idproducto,idcotizacion:idcotizacion},function(data,status){
+     $.post(url,{idproducto:idproducto,idcotizacion:idcotizacion},function(data,status){
 
         if(status==="success"){
             //alert(data); 
