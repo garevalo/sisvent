@@ -5,14 +5,15 @@ class OrdenController extends BaseController{
     
     public function nuevaOrden($id){
        
-        
+        /*
         DB::table('orden_compra')->insert(
              array('idcotizacion'=>$id,'created_at'=>  date("Y-m-d H:m:s" ,time()) ));
                     
         DB::table('cotizacion')
            ->where('idcotizacion', $id)
            ->update(array('estado' => 2)); 
-        
+        */
+       DB::statement("call sp_crear_orden_ruta({$id});");
         
        $cotizacion= DB::table('cotizacion')
             ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
