@@ -6,16 +6,16 @@ class OrdenController extends BaseController{
     public function nuevaOrden($id){
        
         
-        DB::table('orden_compra')->insert(
+        /*DB::table('orden_compra')->insert(
              array('idcotizacion'=>$id,'created_at'=>  date("Y-m-d H:m:s" ,time()) ));
                     
         DB::table('cotizacion')
            ->where('idcotizacion', $id)
            ->update(array('estado' => 2)); 
         
+        */
         
-        
-       //DB::statement("call sp_crear_orden_ruta({$id});");
+       DB::statement("call sp_crear_orden_ruta({$id});");
         
        $cotizacion= DB::table('cotizacion')
             ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
@@ -60,7 +60,7 @@ class OrdenController extends BaseController{
             ->where('idcotizacion', $codigocotizacion)
             ->update(array('motivo_no_despacho' => $motivo,'despacho'=>1,'fecha_no_cotizacion' => date("Y-m-d H:m:s" ,time())));
          
-         return json_encode( array("dir"=>url("cotizacion"),"mensaje"=>"La Orden de compra se ha registrado correctamente y se ha enviado un correo al cliente por no realizarse el despacho"));
+         return json_encode( array("dir"=>url("ordencompra"),"mensaje"=>"La Orden de compra se ha registrado correctamente y se ha enviado un correo al cliente por no realizarse el despacho"));
      }
      
      public function getDatatable()
@@ -117,6 +117,26 @@ class OrdenController extends BaseController{
             ->update(array('pedido' => 1,'estado_pedido'=>1));
             echo Input::get('idproducto').'-'.Input::get('idcotizacion');
 
+    }
+    
+    public function modalRuta(){
+            
+            return View::make('rutas.verRutaModal');
+     }
+    
+    public function getRutasDatatable(){
+        
+        
+         $query=DB::table('ruta')
+        ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
+        ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
+        ->orderBy('ruta.precio', 'des')
+        ->take(15);
+
+        return Datatable::query($query)
+        ->showColumns('idorden_compra','nombre_distrito', 'precio','fecha_creacion')                    
+        ->make();
+        
     }
 
 }

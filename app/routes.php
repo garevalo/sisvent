@@ -93,6 +93,9 @@
         Route::post('ordencompra/solicitaproducto', array('uses' => 'OrdenController@solicitaProducto'));
         Route::get('ordencompra/ver/{id?}', array('uses' => 'OrdenController@verOrdenCompra'));
         
+        Route::get('ordencompra/modalruta', array('uses' => 'OrdenController@modalRuta'));
+        Route::get('api/getruta', array('as'=>'api.getruta','uses'=>'OrdenController@getRutasDatatable'));
+        
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
         Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));

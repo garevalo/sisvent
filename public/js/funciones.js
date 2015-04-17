@@ -323,9 +323,9 @@ function seg(id,idasig,url) {
     var ruc=$("#ruc").val();
     var nombre=$("#nombre").val();
     var precio=$("#precioneto").val();
-      console.log(idcliente);
-    $.get(form,{ruc:ruc,"nombre":nombre,"precio":precio,"idcliente":idcliente,"idcotizacion":idcotizacion},function(data){
 
+    console.log(idcliente);
+    $.get(form,{ruc:ruc,"nombre":nombre,"precio":precio,"idcliente":idcliente,"idcotizacion":idcotizacion},function(data){
 
         bootbox.dialog({
                    title: titulo,
@@ -337,7 +337,20 @@ function seg(id,idasig,url) {
  
  }
  
+function form_modal_rutas(titulo,form){
+   
 
+    $.get(form,function(data){
+
+        bootbox.dialog({
+                   title: titulo,
+                   message: data
+               }
+           );
+
+    });
+ 
+ }
  
 function agregar_producto(url,id){
     var filas = ($("#table-body tr").length)+1;

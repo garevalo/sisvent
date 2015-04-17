@@ -245,7 +245,7 @@
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     
                                                     <button type="button" class="btn btn-success btn-sm btn-block shiny " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
-                                                        <i class="glyphicon glyphicon-road"></i> Acreditación</button>
+                                                        <i class="glyphicon glyphicon-bell"></i> Acreditación</button>
                                                 </div>
 
                                             </div>

@@ -249,10 +249,21 @@
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                     
                                                     <button type="button" class="btn btn-success btn-sm btn-block shiny " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
-                                                        <i class="glyphicon glyphicon-road"></i> Acreditación</button>
+                                                        <i class="glyphicon glyphicon-bell"></i> Acreditación</button>
+                                                </div>
+                                                
+                                            </div>
+                                           
+                                           <div class="row">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                
+                                                    <button type="button" class="btn btn-primary btn-sm btn-block shiny "  onclick="form_modal_rutas('Rutas','{{url("ordencompra/modalruta")}}')">
+                                                    <i class="glyphicon glyphicon-road"></i> Ver Rutas</button>
                                                 </div>
 
                                             </div>
+
+                                           
                                        </div>
                                       
                                     </div>
@@ -264,10 +275,10 @@
                                                 <div class="col-lg-6">
                                                     <button  type="submit" class="btn btn-danger btn-block shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                 </div>
-<!--                                                <div class="col-lg-6">
+                                                <div class="col-lg-6">
                                                     <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
                                                     <button {{$btndespacho}} type="button" class="btn btn-block btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
-                                                </div>-->
+                                                </div>
      
                                             </div>
                                         </div>
