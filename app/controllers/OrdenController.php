@@ -15,7 +15,7 @@ class OrdenController extends BaseController{
         
         
         
-      // DB::statement("call sp_crear_orden_ruta({$id});");
+       //DB::statement("call sp_crear_orden_ruta({$id});");
         
        $cotizacion= DB::table('cotizacion')
             ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
