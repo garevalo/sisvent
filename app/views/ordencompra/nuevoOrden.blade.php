@@ -266,6 +266,16 @@
                                                 </div>-->
      
                                             </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                
+                                                    <button type="button" class="btn btn-primary btn-sm btn-block shiny "  onclick="form_modal_rutas('Rutas','{{url("ordencompra/modalruta")}}')">
+                                                    <i class="glyphicon glyphicon-road"></i> Ver Rutas</button>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -278,8 +288,6 @@
                                         
                     </div>
         </div>
-
-      
     </div>
 
 
