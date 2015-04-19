@@ -83,7 +83,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{url('almacen/pedido', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <a href="{{url('almacen/ingreso', $parameters = array(), $secure = null);}}" tabindex="-1">
                                         <i class="dropdown-icon fa fa-list"></i> Registrar Ingresos de productos
                                     </a>
                                 </li>
