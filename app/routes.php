@@ -92,6 +92,7 @@
         Route::get('ordencompra', array('uses' => 'OrdenController@listaOrdenCompra'));
         Route::post('ordencompra/solicitaproducto', array('uses' => 'OrdenController@solicitaProducto'));
         Route::get('ordencompra/ver/{id?}', array('uses' => 'OrdenController@verOrdenCompra'));
+        Route::get('ordencompra/cantidadrutas', array('uses' => 'OrdenController@getCantidadRutas'));
         
         Route::get('ordencompra/modalruta', array('uses' => 'OrdenController@modalRuta'));
         Route::get('api/getruta', array('as'=>'api.getruta','uses'=>'OrdenController@getRutasDatatable'));

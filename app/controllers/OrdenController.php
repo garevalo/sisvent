@@ -131,13 +131,28 @@ class OrdenController extends BaseController{
          $query=DB::table('ruta')
         ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
         ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
-        ->orderBy('ruta.precio', 'des')
+        ->orderBy('ruta.precio', 'desc')
         ->take(15);
 
         return Datatable::query($query)
         ->showColumns('idorden_compra','nombre_distrito', 'precio','fecha_creacion')                    
         ->make();
         
+    }
+
+    public function getCantidadRutas(){
+
+        $query=DB::table('ruta')
+        ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
+        ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
+        ->orderBy('ruta.precio', 'desc')
+        ->orderBy('ruta.fecha_creacion', 'asc')
+        ->orderBy('ruta.iddistrito', 'desc')
+        ->where('estado','=',1)
+        ->take(15);
+
+        print_r($query);
+
     }
 
 }
