@@ -122,6 +122,16 @@ class CotizacionController extends BaseController{
   
     }
     
+
+    public function correo(){
+      Mail::send('cotizacion.imprimir',  array('id' => 1 );, function ($message){
+
+            $message->subject('Aquí va el mensaje del asunto del email ');
+
+            $message->to('gbap0506@hotmail.com');
+
+        });
+    }
     
     public function reporteCotizacion($id){
 

@@ -141,7 +141,7 @@ class OrdenController extends BaseController{
     }
 
     public function getCantidadRutas(){
-
+        /*
         $query=DB::table('ruta')
         ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
         ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
@@ -150,8 +150,29 @@ class OrdenController extends BaseController{
         ->orderBy('ruta.iddistrito', 'desc')
         ->where('estado','=',1)
         ->take(15);
+        */
+        $data['id']=1;
+        $cotizacion= DB::table('cotizacion')
+            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
+            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
+                    'cotizacion.direccion_despacho','cotizacion.created_at as fechacotizacion','clientes.acreditacion','clientes.idclientes',
+                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','productos.nombre_producto',
+                    'productos.precio_producto','productos.stock')
+            ->where('cotizacion.idcotizacion', '=', 1)
+            ->get();
 
-        print_r($query);
+
+        Mail::send('cotizacion.imprimir',  array("cotizacion"=>$cotizacion),function ($message){
+
+            $message->subject('Aquí va el mensaje del asunto del email ');
+
+            $message->to('gbap0506@hotmail.com');
+
+        });
+        //print_r($query);
 
     }
 
