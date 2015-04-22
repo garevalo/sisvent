@@ -176,4 +176,8 @@ class OrdenController extends BaseController{
 
     }
 
+    public function registrarDespacho(){
+        
+    }
+
 }
