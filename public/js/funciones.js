@@ -400,7 +400,31 @@ function solicitar_productos(idcotizacion,idproducto,url){
 
 
      
-} 
+}
+
+    function despacho(ruta,idoc){
+
+        $.get(ruta,{idoc:idoc},function(data,status){
+            
+            if(status==="success"){
+                var datos = jQuery.parseJSON(data);
+                if (datos.ok) {
+                    $(".modal-body").text(datos.ok);
+                    $('#modal-success').modal('show');
+                    $('#btn-despacho').prop("disabled","disabled");
+                }
+                else if(datos.error){
+                    $(".modal-body").text(datos.error);
+                    $('#modal-danger').modal('show');
+                }
+            }
+            
+        });
+
+    //alert(ruta);
+    }
+
+
 
 
 

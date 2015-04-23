@@ -60,7 +60,7 @@ CREATE TABLE `clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idclientes`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (0000000001,20123458741,'atix sac','la encalada surco',123547896,3,'atix@hotmail.com','2015-04-16 22:58:43','2015-04-16 22:58:43'),(0000000002,20456456456,'atix sac','asdasdas',546456456,3,'atix@hotmail.com','2015-04-17 07:16:27','2015-04-17 07:16:27');
+INSERT INTO `clientes` VALUES (0000000001,20123458741,'atix sac','la encalada surco',123547896,3,'atix@hotmail.com','2015-04-16 22:58:43','2015-04-16 22:58:43'),(0000000002,20456456456,'atix sac','asdasdas',546456456,3,'atix@hotmail.com','2015-04-17 07:16:27','2015-04-17 07:16:27'),(0000000003,89564545621,'juniro','asdasd',342432423,3,'asdas@gmail.com','2015-04-22 12:23:38','2015-04-22 12:23:38'),(0000000004,67568798797,'htrretert','sdfgfgfg',455345345,1,'retert@gmail.com','2015-04-23 03:38:36','2015-04-23 03:38:36');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `cotizacion` (
   PRIMARY KEY (`idcotizacion`),
   KEY `fk_cotizacion_clientes1_idx` (`idclientes`),
   CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `cotizacion` (
 
 LOCK TABLES `cotizacion` WRITE;
 /*!40000 ALTER TABLE `cotizacion` DISABLE KEYS */;
-INSERT INTO `cotizacion` VALUES (00000000001,'Marcos',1,'2015-04-16 22:58:43','2015-04-16 22:58:43',0000000001,2446.00,0.18,2886.28,3,'la encalda 259 surco',2),(00000000002,'asdasdas',1,'2015-04-17 07:16:27','2015-04-17 07:16:27',0000000002,837.10,0.18,987.78,5,'asdasdasdasd',2);
+INSERT INTO `cotizacion` VALUES (00000000001,'Marcos',1,'2015-04-16 22:58:43','2015-04-16 22:58:43',0000000001,2446.00,0.18,2886.28,3,'la encalda 259 surco',3),(00000000002,'asdasdas',1,'2015-04-17 07:16:27','2015-04-17 07:16:27',0000000002,837.10,0.18,987.78,5,'asdasdasdasd',2),(00000000003,'ertertert',1,'2015-04-22 12:23:38','2015-04-22 12:23:38',0000000003,635.80,0.18,750.24,9,'ertertertert',2),(00000000004,'dgffdgfdg',2,'2015-04-23 03:38:36','2015-04-23 03:38:36',0000000004,1614.60,0.18,1905.23,12,'dfgdfgdfg',2);
 /*!40000 ALTER TABLE `cotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `detalle_cotizacion` (
   KEY `fk_detalle_cotizacion_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `detalle_cotizacion` (
 
 LOCK TABLES `detalle_cotizacion` WRITE;
 /*!40000 ALTER TABLE `detalle_cotizacion` DISABLE KEYS */;
-INSERT INTO `detalle_cotizacion` VALUES (1,'2015-04-16 22:58:43','2015-04-16 22:58:43',1,00000000001,5,2252.50,1,2),(2,'2015-04-16 22:58:43','2015-04-16 22:58:43',7,00000000001,5,193.50,1,2),(3,'2015-04-17 07:16:27','2015-04-17 07:16:27',4,00000000002,5,419.50,1,2),(4,'2015-04-17 07:16:27','2015-04-17 07:16:27',7,00000000002,6,232.20,1,2),(5,'2015-04-17 07:16:27','2015-04-17 07:16:27',8,00000000002,6,185.40,1,2);
+INSERT INTO `detalle_cotizacion` VALUES (1,'2015-04-16 22:58:43','2015-04-16 22:58:43',1,00000000001,5,2252.50,1,2),(2,'2015-04-16 22:58:43','2015-04-16 22:58:43',7,00000000001,5,193.50,1,2),(3,'2015-04-17 07:16:27','2015-04-17 07:16:27',4,00000000002,5,419.50,1,2),(4,'2015-04-17 07:16:27','2015-04-17 07:16:27',7,00000000002,6,232.20,1,2),(5,'2015-04-17 07:16:27','2015-04-17 07:16:27',8,00000000002,6,185.40,1,2),(6,'2015-04-22 12:23:38','2015-04-22 12:23:38',4,00000000003,5,419.50,NULL,NULL),(7,'2015-04-22 12:23:38','2015-04-22 12:23:38',8,00000000003,7,216.30,NULL,NULL),(8,'2015-04-23 03:38:36','2015-04-23 03:38:36',10,00000000004,34,1254.60,NULL,NULL),(9,'2015-04-23 03:38:36','2015-04-23 03:38:36',11,00000000004,12,360.00,NULL,NULL);
 /*!40000 ALTER TABLE `detalle_cotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `orden_compra` (
   `idorden_compra` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `despacho` int(11) DEFAULT NULL COMMENT '1->despachado,2->no despachado',
+  `despacho` int(11) DEFAULT NULL COMMENT '1->no despachado,2-> despachado',
   `motivo_no_despacho` varchar(100) DEFAULT NULL,
   `fecha_no_cotizacion` datetime DEFAULT NULL,
   `fecha_despacho` datetime DEFAULT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE `orden_compra` (
   PRIMARY KEY (`idorden_compra`),
   KEY `fk_orden_compra_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_orden_compra_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `orden_compra` (
 
 LOCK TABLES `orden_compra` WRITE;
 /*!40000 ALTER TABLE `orden_compra` DISABLE KEYS */;
-INSERT INTO `orden_compra` VALUES (00000000004,'2015-04-17 06:07:47',NULL,1,'no acreditado','2015-04-18 19:04:01',NULL,00000000001),(00000000005,'2015-04-17 07:16:35',NULL,1,'no hay productos, cliente no acreditado','2015-04-17 02:04:26',NULL,00000000002);
+INSERT INTO `orden_compra` VALUES (00000000004,'2015-04-17 06:07:47',NULL,2,'no acreditado','2015-04-18 19:04:01','2015-04-23 02:28:24',00000000001),(00000000005,'2015-04-17 07:16:35',NULL,1,'no hay productos, cliente no acreditado','2015-04-17 02:04:26',NULL,00000000002),(00000000006,'2015-04-22 12:24:03',NULL,NULL,NULL,NULL,NULL,00000000003),(00000000007,'2015-04-23 04:45:34',NULL,NULL,NULL,NULL,NULL,00000000004);
 /*!40000 ALTER TABLE `orden_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,13 +309,13 @@ CREATE TABLE `ruta` (
   `iddistrito` int(11) DEFAULT NULL,
   `idorden_compra` int(11) unsigned zerofill NOT NULL,
   `precio` decimal(9,3) DEFAULT NULL,
-  `estado` int(1) DEFAULT NULL,
+  `estado` int(1) DEFAULT NULL COMMENT '1->activo , 2->cerrado',
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_salida` datetime DEFAULT NULL,
   PRIMARY KEY (`idruta`),
   KEY `fk_ruta_orden_compra1_idx` (`idorden_compra`),
   CONSTRAINT `fk_ruta_orden_compra1` FOREIGN KEY (`idorden_compra`) REFERENCES `orden_compra` (`idorden_compra`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +324,7 @@ CREATE TABLE `ruta` (
 
 LOCK TABLES `ruta` WRITE;
 /*!40000 ALTER TABLE `ruta` DISABLE KEYS */;
-INSERT INTO `ruta` VALUES (1,NULL,3,00000000004,2886.280,1,'2015-04-17 01:07:48',NULL),(2,NULL,5,00000000005,987.780,1,'2015-04-17 02:16:35',NULL);
+INSERT INTO `ruta` VALUES (1,NULL,3,00000000004,2886.280,2,'2015-04-17 01:07:48','2015-04-23 02:28:24'),(2,NULL,5,00000000005,987.780,1,'2015-04-17 02:16:35',NULL),(3,NULL,9,00000000006,750.240,1,'2015-04-22 07:24:03',NULL),(4,NULL,12,00000000007,1905.230,1,'2015-04-22 23:45:35',NULL);
 /*!40000 ALTER TABLE `ruta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -505,30 +505,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sp_prueba` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_prueba`(
-in nombre varchar(100),
-in descripcion varchar(100)
-)
-BEGIN
-
-insert into productos (nombre_producto,img_producto,descripcion_producto,precio_producto,created_at,updated_at,idcategoria) values(nombre,descripcion,'dsfsdfsd','15',now(),now(),1);
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_cotizacion` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -598,6 +574,35 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_despacho` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_despacho`(in idoc int)
+BEGIN
+
+declare idcoti int;
+
+update orden_compra set despacho = 2, fecha_despacho = now() where idorden_compra=idoc;
+update ruta set estado = 2, fecha_salida = now() where idorden_compra=idoc;
+
+select idcotizacion into idcoti from orden_compra where idorden_compra=idoc;
+
+update cotizacion set estado=3 where idcotizacion=idcoti;
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_usuario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -647,4 +652,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-19 12:54:51
+-- Dump completed on 2015-04-23  2:53:18

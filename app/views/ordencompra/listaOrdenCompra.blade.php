@@ -24,7 +24,7 @@
                         <div class="collapse in">
                            
                             {{ Datatable::table()
-                                ->addColumn('OC','Cotización','Cliente','RUC','Precio','Acción') 
+                                ->addColumn('OC','Cotización','Cliente','RUC','Precio','Estado','Acción') 
                                 ->setUrl(route('api.ordencompra'))  
                                 ->render() }}
                             

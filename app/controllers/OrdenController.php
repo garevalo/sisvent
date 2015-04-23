@@ -38,7 +38,7 @@ class OrdenController extends BaseController{
         //return $id;
         //return View::make('ordencompra.nuevoOrden',array("subtitulo"=>"Registrar Orden de Compra","idorden"=>$id,'cotizacion'=>$cotizacion,'distritos'=>$distrito));
         
-        return View::make('ordencompra.verOrdenCompra',array('subtitulo' => "Orden Compra",'cotizacion'=>$cotizacion,'distritos'=>$distrito ));
+        return View::make('ordencompra.nuevoOrden',array('subtitulo' => "Orden Compra",'cotizacion'=>$cotizacion,'distritos'=>$distrito ));
     }
     
      public function modalAcreditacion(){
@@ -69,15 +69,20 @@ class OrdenController extends BaseController{
          $query=DB::table('orden_compra')
         ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
         ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
-        ->select('idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.estado','idorden_compra as id');
+        ->select('idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','idorden_compra as id');
 
         return Datatable::query($query)
-        ->showColumns('idorden_compra','idcotizacion', 'nombre_cliente','ruc','preciototal')                    
+        ->showColumns('idorden_compra','idcotizacion', 'nombre_cliente','ruc','preciototal')   
+        ->addColumn('despacho',function($model){
+            if($model->despacho =='1'){$estado="<span class='label label-info'>No Despachado</span>";}
+            elseif($model->despacho =='2'){$estado="<span class='label label-success'>Despachado</span>";}
+            else{$estado="<span class='label label-info'>No Despachado</span>";}
+            return $estado;
+        })        
         ->addColumn('id',function($model){
-            if($model->id ==''){$estado="";}
-            else {$estado="";}
-            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
+            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a> <button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-list-alt"></span> Factura</button> <button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-list-alt"></span> Guía de Remisión</button>';
         })
+        
         ->make();
 
     }
@@ -132,6 +137,9 @@ class OrdenController extends BaseController{
         ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
         ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
         ->orderBy('ruta.precio', 'desc')
+        ->orderBy('ruta.fecha_creacion', 'asc')
+        ->orderBy('ruta.iddistrito', 'desc')
+        ->where('ruta.estado','=',1)
         ->take(15);
 
         return Datatable::query($query)
@@ -141,42 +149,35 @@ class OrdenController extends BaseController{
     }
 
     public function getCantidadRutas(){
-        /*
-        $query=DB::table('ruta')
+        
+        $cant=DB::table('ruta')
         ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
         ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
         ->orderBy('ruta.precio', 'desc')
         ->orderBy('ruta.fecha_creacion', 'asc')
         ->orderBy('ruta.iddistrito', 'desc')
         ->where('estado','=',1)
-        ->take(15);
-        */
-        $data['id']=1;
-        $cotizacion= DB::table('cotizacion')
-            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
-            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
-            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
-            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
-                    'cotizacion.direccion_despacho','cotizacion.created_at as fechacotizacion','clientes.acreditacion','clientes.idclientes',
-                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente',
-                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','productos.nombre_producto',
-                    'productos.precio_producto','productos.stock')
-            ->where('cotizacion.idcotizacion', '=', 1)
-            ->get();
-
-
-        Mail::send('cotizacion.imprimir',  array("cotizacion"=>$cotizacion),function ($message){
-
-            $message->subject('Aquí va el mensaje del asunto del email ');
-
-            $message->to('gbap0506@hotmail.com');
-
-        });
-        //print_r($query);
+        ->take(15)                
+        ->count();
+        
+        return $cant;
 
     }
 
     public function registrarDespacho(){
+       $idoc = Input::get('idoc');
+        
+        $cantrutas=$this->getCantidadRutas();
+        
+        if($cantrutas<=15){
+            
+            DB::statement("call sp_registrar_despacho({$idoc});");
+            
+            return json_encode(array("ok"=>"Se registro Correctamente","dir"=>""));
+        }
+        else{
+            return json_encode(array("error"=>"No hay rutas disponibles"));
+        }
         
     }
 

@@ -284,8 +284,9 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-lg-12">
+                                                    
                                                     <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
-                                                    <button {{$btndespacho}} type="button" class="btn btn-block btn-sm btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
+                                                    <button {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-sky" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
                                                 </div>
      
                                             </div>

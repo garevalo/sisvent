@@ -19,7 +19,7 @@
                 <div class="modal-header">
                     <i class="glyphicon glyphicon-fire"></i>
                 </div>
-                <div class="modal-title">Alert</div>
+                <div class="modal-title">Alerta</div>
 
                 <div class="modal-body">You'vd done bad!</div>
                 <div class="modal-footer">
