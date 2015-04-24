@@ -66,7 +66,7 @@
                         <div class="collapse in">
                            
                             {{ Datatable::table()
-                                ->addColumn('ID','Producto','Cantidad Ingresada','Stock Actual del producto') 
+                                ->addColumn('ID','Producto','Cantidad Registrada','Fecha Registro','Stock Actual del producto') 
                                 ->setUrl(route('api.getingresos'))  
                                 ->render() }}
                             

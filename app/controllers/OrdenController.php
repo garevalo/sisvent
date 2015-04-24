@@ -80,9 +80,7 @@ class OrdenController extends BaseController{
             return $estado;
         })        
         ->addColumn('id',function($model){
-            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a> 
-                    <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-list-alt"></span> Factura</button> 
-                    <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-list-alt"></span> Guía de Remisión</button>';
+            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
         })
         
         ->make();
@@ -106,7 +104,7 @@ class OrdenController extends BaseController{
                     'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
                     'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
                     'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
-                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho')
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho','orden_compra.despacho')
             ->where('orden_compra.idorden_compra', '=', $idoc)
             ->get();
        $distrito=Distrito::all();
@@ -171,16 +169,77 @@ class OrdenController extends BaseController{
         
         $cantrutas=$this->getCantidadRutas();
         
+        $correo= DB::table('cotizacion')
+            ->Join('orden_compra', 'orden_compra.idcotizacion', '=', 'cotizacion.idcotizacion')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->where('orden_compra.idorden_compra', '=', $idoc)
+            ->pluck('clientes.correo');
+
         if($cantrutas<=15){
             
             DB::statement("call sp_registrar_despacho({$idoc});");
             
-            return json_encode(array("ok"=>"Se registro Correctamente","dir"=>""));
+            return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <string>".$correo."</string></p>","dir"=>""));
         }
         else{
             return json_encode(array("error"=>"No hay rutas disponibles"));
         }
         
     }
+
+    public function generarFactura($idoc){
+
+
+        
+
+        $cotizacion= DB::table('cotizacion')
+            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
+            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->leftJoin('orden_compra', 'orden_compra.idcotizacion', '=', 'cotizacion.idcotizacion')   
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
+                    'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
+                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho')
+            ->where('orden_compra.idorden_compra', '=', $idoc)
+            ->get();    
+
+        // set document information
+        PDF::SetCreator(PDF_CREATOR);
+        PDF::SetAuthor('Cotizacion');
+        PDF::SetTitle('NCH PERU');
+        PDF::SetSubject('NCH PERU');
+        PDF::SetKeywords('TCPDF, PDF, Cotizacion');
+
+       
+        PDF::setPrintHeader(false);
+        PDF::setPrintFooter(false);
+
+        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
+        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
+        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // set image scale factor
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        PDF::SetFont('helvetica', '', 10);
+
+        PDF::AddPage();
+
+        $datos=array("cotizacion"=>$cotizacion);   
+        $html = View::make('ordencompra.factura',$datos);
+
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output('Cotizacion.pdf', 'I');
+    }
+
 
 }

@@ -30,7 +30,7 @@
                         <div class="collapse in">
                            
                             {{ Datatable::table()
-                                ->addColumn('Cotización','Producto','Cantidad Solicitada','Acción') 
+                                ->addColumn('OC','Producto','Cantidad Solicitada','Acción') 
                                 ->setUrl(route('api.pedido'))  
                                 ->render() }}
                             

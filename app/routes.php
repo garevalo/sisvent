@@ -94,6 +94,8 @@
         Route::get('ordencompra/ver/{id?}', array('uses' => 'OrdenController@verOrdenCompra'));
         Route::get('ordencompra/cantidadrutas', array('uses' => 'OrdenController@getCantidadRutas'));
         Route::get('ordencompra/despacho', array('uses' => 'OrdenController@registrarDespacho'));
+
+        Route::get('factura/crear/{id?}', array('uses' => 'OrdenController@generarFactura'));
         
         Route::get('ordencompra/modalruta', array('uses' => 'OrdenController@modalRuta'));
         Route::get('api/getruta', array('as'=>'api.getruta','uses'=>'OrdenController@getRutasDatatable'));

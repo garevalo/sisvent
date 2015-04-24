@@ -409,9 +409,10 @@ function solicitar_productos(idcotizacion,idproducto,url){
             if(status==="success"){
                 var datos = jQuery.parseJSON(data);
                 if (datos.ok) {
-                    $(".modal-body").text(datos.ok);
+                    $(".modal-body").html(datos.ok);
                     $('#modal-success').modal('show');
                     $('#btn-despacho').prop("disabled","disabled");
+                    //window.location = datos.dir;
                 }
                 else if(datos.error){
                     $(".modal-body").text(datos.error);

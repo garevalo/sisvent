@@ -11,13 +11,14 @@ class AlmacenController extends BaseController{
 
          $query=DB::table('detalle_cotizacion')
         ->join('cotizacion','cotizacion.idcotizacion','=','detalle_cotizacion.idcotizacion')
+        ->join('orden_compra','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
         ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
-        ->select('detalle_cotizacion.idcotizacion','detalle_cotizacion.iddetalle_cotizacion',
+        ->select('orden_compra.idorden_compra','detalle_cotizacion.idcotizacion','detalle_cotizacion.iddetalle_cotizacion',
                 'productos.idproducto','productos.nombre_producto','detalle_cotizacion.cantidad','detalle_cotizacion.estado_pedido')
         ->where('detalle_cotizacion.pedido',1);
 
         return Datatable::query($query)
-        ->showColumns('idcotizacion','nombre_producto','cantidad')                    
+        ->showColumns('idorden_compra','nombre_producto','cantidad')                    
         ->addColumn('iddetalle_cotizacion',function($model){
             
             if($model->estado_pedido==2){
@@ -94,10 +95,10 @@ class AlmacenController extends BaseController{
 
         $query=DB::table('ingresos')
         ->join('productos','ingresos.idproducto','=','productos.idproducto')
-        ->select('ingresos.idingresos','productos.nombre_producto','productos.stock','ingresos.cantidad');
+        ->select('ingresos.idingresos','productos.nombre_producto','productos.stock','ingresos.created_at','ingresos.cantidad');
 
         return Datatable::query($query)
-        ->showColumns('idingresos','nombre_producto','cantidad','stock')
+        ->showColumns('idingresos','nombre_producto','cantidad','created_at','stock')
         ->searchColumns('nombre_producto', 'cantidad')
         ->make();
 
