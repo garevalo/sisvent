@@ -69,10 +69,10 @@ class OrdenController extends BaseController{
          $query=DB::table('orden_compra')
         ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
         ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
-        ->select('idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','idorden_compra as id');
+        ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id');
 
         return Datatable::query($query)
-        ->showColumns('idorden_compra','idcotizacion', 'nombre_cliente','ruc','preciototal')   
+        ->showColumns('idorden_compra','nombre_cliente','ruc','preciototal')   
         ->addColumn('despacho',function($model){
             if($model->despacho =='1'){$estado="<span class='label label-info'>No Despachado</span>";}
             elseif($model->despacho =='2'){$estado="<span class='label label-success'>Despachado</span>";}
@@ -80,7 +80,9 @@ class OrdenController extends BaseController{
             return $estado;
         })        
         ->addColumn('id',function($model){
-            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a> <button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-list-alt"></span> Factura</button> <button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-list-alt"></span> Guía de Remisión</button>';
+            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a> 
+                    <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-list-alt"></span> Factura</button> 
+                    <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-list-alt"></span> Guía de Remisión</button>';
         })
         
         ->make();
