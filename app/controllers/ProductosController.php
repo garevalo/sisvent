@@ -163,8 +163,8 @@ class ProductosController extends BaseController{
 
         public function getDatatable()
         {
-            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id','estado_producto')))
-            ->showColumns('idproducto', 'nombre_producto','precio_producto')
+            return Datatable::collection(Producto::all(array('idproducto','nombre_producto','precio_producto','img_producto','idproducto as id','stock','estado_producto')))
+            ->showColumns('idproducto', 'nombre_producto','precio_producto','stock')
             ->addColumn('img_producto',function($model){
                 return '<img src="'.asset('img/foto_producto')."/".$model->img_producto.'" width="50" />';
             })

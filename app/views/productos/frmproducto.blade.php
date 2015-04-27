@@ -113,7 +113,7 @@
                             <div class="collapse in">
                               
                                 {{ Datatable::table()
-                                ->addColumn('Id','Producto','Precio','Foto','Estado','Editar')       // these are the column headings to be shown
+                                ->addColumn('Id','Producto','Precio','Stock','Foto','Estado','Editar')       // these are the column headings to be shown
                                 ->setUrl(route('api.productos'))   // this is the route where data will be retrieved
                                 ->render() }}
                             </div>

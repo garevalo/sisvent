@@ -99,6 +99,10 @@
         
         Route::get('ordencompra/modalruta', array('uses' => 'OrdenController@modalRuta'));
         Route::get('api/getruta', array('as'=>'api.getruta','uses'=>'OrdenController@getRutasDatatable'));
+
+        /****REPORTES***/
+        Route::get('reporte/reporte1', array('uses' => 'OrdenController@modalRuta'));
+
         
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
