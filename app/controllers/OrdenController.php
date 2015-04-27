@@ -241,5 +241,9 @@ class OrdenController extends BaseController{
         PDF::Output('Cotizacion.pdf', 'I');
     }
 
+    public function reporte(){
+
+       return View::make('reportes.reporte');
+    }
 
 }
