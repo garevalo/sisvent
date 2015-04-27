@@ -7,7 +7,7 @@
 @stop
 
 @section('title')
-   Lista de Cotizaciones
+   Lista de Pedidos
 @stop
 
 

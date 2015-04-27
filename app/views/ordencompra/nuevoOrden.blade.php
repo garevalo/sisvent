@@ -29,7 +29,7 @@
        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             <div class="row">
                 
-                <div class="col-md-2">
+                <div class="col-md-2" id="alerta-acreditacion">
                     @if($cotizacion[0]->acreditacion==1)
                      <div class="alert alert-danger">Cliente No Acreditado <span class="fa fa-times"></span></div>
                     @elseif($cotizacion[0]->acreditacion==2)
@@ -194,7 +194,7 @@
                                                                     <td width="5%">
                                                                     <?php  if($value->cantidad > $value->stock ){ $contaNoStock++; $disable="";} else{$disable="disabled=''";}?>
                                                                     <?php  if($value->pedido==1){$disable="disabled=''";} ?>
-                                                                        <button id="solicita-producto" type="button" onclick=solicitar_productos({{$cotizacion[0]->idcotizacion}},{{$value->idproducto}},"<?= url("ordencompra/solicitaproducto")?>") class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
+                                                                        <button id="solicita-producto{{$value->idproducto}}" type="button" onclick=solicitar_productos({{$cotizacion[0]->idcotizacion}},{{$value->idproducto}},"<?= url("ordencompra/solicitaproducto")?>") class="btn btn-success btn-sm" {{$disable}}><i class="glyphicon glyphicon-share"></i></button>
                                                                     </td>
                                                                 </tr>
 
@@ -252,7 +252,7 @@
                                                     ?>
                                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 
-                                                        <button type="button" class="btn btn-sm btn-primary btn-block " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
+                                                        <button id="btn-acreditacion" type="button" class="btn btn-sm btn-primary btn-block " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
                                                             <i class="glyphicon glyphicon-bell"></i> Acreditación</button>
                                                     </div>
 

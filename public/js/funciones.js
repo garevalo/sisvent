@@ -151,12 +151,14 @@ function registrar_modal(form, c) {
 
                     else if (datos.dir) {
 
-                        $('.bootbox ').modal('hide');
-                        
+
                     }
                     else if (datos.datos) {
                         console.log(data);
                     }
+                    $('.bootbox ').modal('hide');
+                    $("#btn-acreditacion").prop("disabled","disabled");
+                    $("#alerta-acreditacion").html('<div class="alert alert-info">En proceso de Acreditación <span class="fa fa-check"></span></div>'); 
                     $(".modal-body").text(datos.mensaje);
                     $('#modal-success').modal('show');
                 }
@@ -390,7 +392,7 @@ function solicitar_productos(idcotizacion,idproducto,url){
             //alert(data); 
             $("#modal-body-success").text("Producto solicitado");
             $('#modal-success').modal('show'); 
-            $("#solicita-producto").prop("disabled","disabled");   
+            $("#solicita-producto"+idproducto).prop("disabled","disabled");   
         }
         else{
             alert("error");
