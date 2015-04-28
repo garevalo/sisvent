@@ -1,1 +1,0 @@
-reporte2.blade.php

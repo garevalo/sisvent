@@ -1,5 +1,18 @@
 
 
+ $(function(){
+            $(".date").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true ,
+                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiebre", "Octubre", "Noviembre", "Diciembre" ],
+                monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+                dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ]
+            });
+                        
+                        
+
+ }); 
 
 function contador_input(form) {
 

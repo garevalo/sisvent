@@ -246,4 +246,31 @@ class OrdenController extends BaseController{
        return View::make('reportes.reporte');
     }
 
+    public function reporteAjax1(){
+
+        $fecha= $this->convertir_fecha(Input::get('fecha'));
+
+
+
+
+       $despachados = DB::select('select count(*) cantidad from orden_compra where date(fecha_despacho) = ?', array($fecha));
+
+       $nodespachados = DB::select('select count(*) cantidad from orden_compra where date(fecha_no_cotizacion) = ?', array($fecha));
+      
+        return View::make('reportes.graficoReporte1',array("fecha"=>$fecha,"despachados"=>$despachados,"nodespachados"=>$nodespachados,"fecha_format"=>Input::get('fecha')));
+
+    }
+
+
+    function convertir_fecha($fecha){
+        
+        $date   =   explode('/',$fecha);
+        $dia   =   $date[0];
+        $mes    =   $date[1];
+        $anio    =   $date[2];
+        
+        return $anio.'-'.$mes.'-'.$dia; 
+        
+    }
+
 }

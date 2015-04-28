@@ -102,6 +102,7 @@
 
         /****REPORTES***/
         Route::get('reportes/reporte', array('uses' => 'OrdenController@reporte'));
+        Route::post('reportes/ajaxreporte1', array('uses' => 'OrdenController@reporteAjax1'));
 
         
          //Acreditacion
