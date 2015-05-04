@@ -60,7 +60,7 @@ CREATE TABLE `clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idclientes`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (0000000001,20123458741,'atix sac','la encalada surco',123547896,3,'atix@hotmail.com','2015-04-16 22:58:43','2015-04-16 22:58:43'),(0000000002,20456456456,'atix sac','asdasdas',546456456,3,'atix@hotmail.com','2015-04-17 07:16:27','2015-04-17 07:16:27'),(0000000003,89564545621,'juniro','asdasd',342432423,3,'asdas@gmail.com','2015-04-22 12:23:38','2015-04-22 12:23:38'),(0000000004,67568798797,'htrretert','sdfgfgfg',455345345,1,'retert@gmail.com','2015-04-23 03:38:36','2015-04-23 03:38:36');
+INSERT INTO `clientes` VALUES (0000000001,20123458741,'atix sac','la encalada surco',123547896,3,'atix@hotmail.com','2015-04-16 22:58:43','2015-04-16 22:58:43'),(0000000002,20456456456,'atix sac','asdasdas',546456456,3,'atix@hotmail.com','2015-04-17 07:16:27','2015-04-17 07:16:27'),(0000000003,89564545621,'juniro','asdasd',342432423,3,'asdas@gmail.com','2015-04-22 12:23:38','2015-04-22 12:23:38'),(0000000004,67568798797,'htrretert','sdfgfgfg',455345345,3,'retert@gmail.com','2015-04-23 03:38:36','2015-04-26 23:46:34'),(0000000005,44456564645,'fsdfsdf','asdasd',242342342,3,'sdfsdfsd@hotmail.com','2015-04-27 01:53:21','2015-04-27 01:53:21');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `cotizacion` (
   PRIMARY KEY (`idcotizacion`),
   KEY `fk_cotizacion_clientes1_idx` (`idclientes`),
   CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `cotizacion` (
 
 LOCK TABLES `cotizacion` WRITE;
 /*!40000 ALTER TABLE `cotizacion` DISABLE KEYS */;
-INSERT INTO `cotizacion` VALUES (00000000001,'Marcos',1,'2015-04-16 22:58:43','2015-04-16 22:58:43',0000000001,2446.00,0.18,2886.28,3,'la encalda 259 surco',3),(00000000002,'asdasdas',1,'2015-04-17 07:16:27','2015-04-17 07:16:27',0000000002,837.10,0.18,987.78,5,'asdasdasdasd',2),(00000000003,'ertertert',1,'2015-04-22 12:23:38','2015-04-22 12:23:38',0000000003,635.80,0.18,750.24,9,'ertertertert',2),(00000000004,'dgffdgfdg',2,'2015-04-23 03:38:36','2015-04-23 03:38:36',0000000004,1614.60,0.18,1905.23,12,'dfgdfgdfg',2);
+INSERT INTO `cotizacion` VALUES (00000000001,'Marcos',1,'2015-04-16 22:58:43','2015-04-16 22:58:43',0000000001,2446.00,0.18,2886.28,3,'la encalda 259 surco',3),(00000000002,'asdasdas',1,'2015-04-17 07:16:27','2015-04-17 07:16:27',0000000002,837.10,0.18,987.78,5,'asdasdasdasd',3),(00000000003,'ertertert',1,'2015-04-22 12:23:38','2015-04-22 12:23:38',0000000003,635.80,0.18,750.24,9,'ertertertert',3),(00000000004,'dgffdgfdg',2,'2015-04-23 03:38:36','2015-04-23 03:38:36',0000000004,1614.60,0.18,1905.23,12,'dfgdfgdfg',3),(00000000005,'asdasdasd',1,'2015-04-26 23:46:34','2015-04-26 23:46:34',0000000004,2486.00,0.18,2933.48,5,'fsdfsdfsdfsdfsdf',3),(00000000006,'sdfsdf',1,'2015-04-27 01:53:21','2015-04-27 01:53:21',0000000005,1541.00,0.18,1818.38,6,'sdfsdfsdf',3);
 /*!40000 ALTER TABLE `cotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `detalle_cotizacion` (
   KEY `fk_detalle_cotizacion_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `detalle_cotizacion` (
 
 LOCK TABLES `detalle_cotizacion` WRITE;
 /*!40000 ALTER TABLE `detalle_cotizacion` DISABLE KEYS */;
-INSERT INTO `detalle_cotizacion` VALUES (1,'2015-04-16 22:58:43','2015-04-16 22:58:43',1,00000000001,5,2252.50,1,2),(2,'2015-04-16 22:58:43','2015-04-16 22:58:43',7,00000000001,5,193.50,1,2),(3,'2015-04-17 07:16:27','2015-04-17 07:16:27',4,00000000002,5,419.50,1,2),(4,'2015-04-17 07:16:27','2015-04-17 07:16:27',7,00000000002,6,232.20,1,2),(5,'2015-04-17 07:16:27','2015-04-17 07:16:27',8,00000000002,6,185.40,1,2),(6,'2015-04-22 12:23:38','2015-04-22 12:23:38',4,00000000003,5,419.50,NULL,NULL),(7,'2015-04-22 12:23:38','2015-04-22 12:23:38',8,00000000003,7,216.30,NULL,NULL),(8,'2015-04-23 03:38:36','2015-04-23 03:38:36',10,00000000004,34,1254.60,NULL,NULL),(9,'2015-04-23 03:38:36','2015-04-23 03:38:36',11,00000000004,12,360.00,NULL,NULL);
+INSERT INTO `detalle_cotizacion` VALUES (1,'2015-04-16 22:58:43','2015-04-16 22:58:43',1,00000000001,5,2252.50,1,2),(2,'2015-04-16 22:58:43','2015-04-16 22:58:43',7,00000000001,5,193.50,1,2),(3,'2015-04-17 07:16:27','2015-04-17 07:16:27',4,00000000002,5,419.50,1,2),(4,'2015-04-17 07:16:27','2015-04-17 07:16:27',7,00000000002,6,232.20,1,2),(5,'2015-04-17 07:16:27','2015-04-17 07:16:27',8,00000000002,6,185.40,1,2),(6,'2015-04-22 12:23:38','2015-04-22 12:23:38',4,00000000003,5,419.50,NULL,NULL),(7,'2015-04-22 12:23:38','2015-04-22 12:23:38',8,00000000003,7,216.30,NULL,NULL),(8,'2015-04-23 03:38:36','2015-04-23 03:38:36',10,00000000004,34,1254.60,NULL,NULL),(9,'2015-04-23 03:38:36','2015-04-23 03:38:36',11,00000000004,12,360.00,NULL,NULL),(10,'2015-04-26 23:46:34','2015-04-26 23:46:34',4,00000000005,10,839.00,NULL,NULL),(11,'2015-04-26 23:46:34','2015-04-26 23:46:34',9,00000000005,15,1647.00,NULL,NULL),(12,'2015-04-27 01:53:21','2015-04-27 01:53:21',2,00000000006,10,905.00,1,1),(13,'2015-04-27 01:53:21','2015-04-27 01:53:21',3,00000000006,10,636.00,1,1);
 /*!40000 ALTER TABLE `detalle_cotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,8 +154,9 @@ DROP TABLE IF EXISTS `distrito`;
 CREATE TABLE `distrito` (
   `iddistrito` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_distrito` varchar(45) DEFAULT NULL,
+  `sector` int(11) DEFAULT NULL COMMENT '1->lima centro 2->moderna  3->norte  4->sur  5->este  6->callao',
   PRIMARY KEY (`iddistrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +165,7 @@ CREATE TABLE `distrito` (
 
 LOCK TABLES `distrito` WRITE;
 /*!40000 ALTER TABLE `distrito` DISABLE KEYS */;
-INSERT INTO `distrito` VALUES (1,'Ancón'),(2,'Ate'),(3,'Barranco'),(4,'Breña'),(5,'Carabayllo'),(6,'Chaclacayo'),(7,'Cieneguilla'),(8,'Comas'),(9,'Chorrillo'),(10,'El Augustino'),(11,'Independencia'),(12,'Jesús María');
+INSERT INTO `distrito` VALUES (1,'Ancón',3),(2,'Ate',5),(3,'Barranco',5),(4,'Breña',2),(5,'Carabayllo',3),(6,'Chaclacayo',5),(7,'Cieneguilla',5),(8,'Comas',3),(9,'Chorrillo',5),(10,'El Augustino',5),(11,'Independencia',3),(12,'Jesús María',2),(13,'Surco',4),(14,'San Juan de Lurigancho',5);
 /*!40000 ALTER TABLE `distrito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,13 +180,12 @@ CREATE TABLE `ingresos` (
   `idingresos` int(11) NOT NULL AUTO_INCREMENT,
   `idproducto` int(11) NOT NULL,
   `cantidad` int(4) DEFAULT NULL,
-  `idorde_compra` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idingresos`),
   KEY `fk_ingresos_productos1_idx` (`idproducto`),
   CONSTRAINT `fk_ingresos_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +194,7 @@ CREATE TABLE `ingresos` (
 
 LOCK TABLES `ingresos` WRITE;
 /*!40000 ALTER TABLE `ingresos` DISABLE KEYS */;
-INSERT INTO `ingresos` VALUES (1,1,50,NULL,'2015-04-17 06:41:21',NULL),(2,8,50,NULL,'2015-04-17 06:41:33',NULL),(3,4,10,NULL,'2015-04-17 07:20:19',NULL),(4,8,10,NULL,'2015-04-17 07:20:32',NULL),(5,7,10,NULL,'2015-04-17 07:20:40',NULL),(6,1,5,NULL,'2015-04-19 00:33:52',NULL);
+INSERT INTO `ingresos` VALUES (1,1,50,'2015-04-17 06:41:21',NULL),(2,8,50,'2015-04-17 06:41:33',NULL),(3,4,10,'2015-04-17 07:20:19',NULL),(4,8,10,'2015-04-17 07:20:32',NULL),(5,7,10,'2015-04-17 07:20:40',NULL),(6,1,5,'2015-04-19 00:33:52',NULL),(7,1,1,'2015-04-24 03:53:07',NULL),(8,1,1,'2015-04-24 03:53:43',NULL),(9,2,10,'2015-05-04 03:52:11',NULL),(10,3,10,'2015-05-04 03:52:20',NULL);
 /*!40000 ALTER TABLE `ingresos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +217,7 @@ CREATE TABLE `orden_compra` (
   PRIMARY KEY (`idorden_compra`),
   KEY `fk_orden_compra_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_orden_compra_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `orden_compra` (
 
 LOCK TABLES `orden_compra` WRITE;
 /*!40000 ALTER TABLE `orden_compra` DISABLE KEYS */;
-INSERT INTO `orden_compra` VALUES (00000000004,'2015-04-17 06:07:47',NULL,2,'no acreditado','2015-04-18 19:04:01','2015-04-23 02:28:24',00000000001),(00000000005,'2015-04-17 07:16:35',NULL,1,'no hay productos, cliente no acreditado','2015-04-17 02:04:26',NULL,00000000002),(00000000006,'2015-04-22 12:24:03',NULL,NULL,NULL,NULL,NULL,00000000003),(00000000007,'2015-04-23 04:45:34',NULL,NULL,NULL,NULL,NULL,00000000004);
+INSERT INTO `orden_compra` VALUES (00000000004,'2015-04-17 06:07:47',NULL,2,'no acreditado','2015-04-18 19:04:01','2015-04-23 23:42:59',00000000001),(00000000005,'2015-04-17 07:16:35',NULL,2,'no hay productos, cliente no acreditado','2015-04-17 02:04:26','2015-04-24 00:09:36',00000000002),(00000000006,'2015-04-22 12:24:03',NULL,2,NULL,NULL,'2015-04-26 18:44:11',00000000003),(00000000007,'2015-04-23 04:45:34',NULL,2,'fhfghgf','2015-04-26 20:04:35','2015-04-26 20:47:31',00000000004),(00000000008,'2015-04-27 01:55:03',NULL,2,NULL,NULL,'2015-05-03 22:51:27',00000000005),(00000000009,'2015-04-27 01:55:16',NULL,2,NULL,NULL,'2015-05-03 23:02:12',00000000006);
 /*!40000 ALTER TABLE `orden_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +292,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,'AQUABROM SUPER PLUS','AQUABROM SUPER','aquabrom_plus',300.00,56,1,'2015-02-16 07:03:37','2015-04-19 00:16:45',2),(2,'CBD-92 ','Descripción CBD-92','cbd-94',90.50,6,1,'2015-02-16 07:06:27','2015-03-16 04:24:18',1),(3,'CBD-93','CBD-93 CBD-93 CBD-93','cbd-93',63.60,2,2,'2015-02-16 07:07:09','2015-03-19 12:31:18',2),(4,'PREMALUBE RED','PREMALUBE RE PREMALUBE RED','premalube_red',83.90,12,3,'2015-02-16 07:07:41','2015-02-16 07:07:41',1),(5,'AEROLEX','AEROLEX AEROLEX AEROLEX','aerolex',69.96,2,4,'2015-02-16 07:09:22','2015-03-25 07:29:36',2),(6,'FLASH','FLASH FLASH\r\n\r\n','flash',40.23,2,4,'2015-02-16 07:10:40','2015-02-16 07:10:40',1),(7,'CHEMAQUA 100','CHEMAQUA 100','chemaqua_100',38.70,12,5,'2015-02-16 07:11:16','2015-02-16 07:11:16',1),(8,'CHEMAQUA 777','CHEMAQUA 777\r\n','chemaqua_777',30.90,62,5,'2015-02-16 07:11:39','2015-02-16 07:11:39',1),(9,'ELECTRA 221','ELECTRA 221 ELECTRA 221\r\n\r\n','electra_221',109.80,2,2,'2015-02-16 07:12:13','2015-02-16 07:12:13',1),(10,'ENFORCE','ENFORCE ENFORCE\r\n\r\n','enforce',36.90,100,3,'2015-02-16 07:12:41','2015-02-16 07:12:41',1),(11,'EVERBRITE GERM.','EVERBRITE GERM. EVERBRITE GERM.\r\n\r\n','everbrite_germ.',30.00,100,3,'2015-02-16 07:13:07','2015-03-19 12:35:41',2),(12,'producto de prueba','AQUABROM PLUS AQUABROM \r\n ','cdcdscsd',299.20,NULL,1,'2015-03-16 02:31:46','2015-03-30 02:16:37',1);
+INSERT INTO `productos` VALUES (1,'AQUABROM SUPER PLUS','AQUABROM SUPER','aquabrom_plus',300.00,58,1,'2015-02-16 07:03:37','2015-04-19 00:16:45',2),(2,'CBD-92 ','Descripción CBD-92','cbd-94',90.50,16,1,'2015-02-16 07:06:27','2015-03-16 04:24:18',1),(3,'CBD-93','CBD-93 CBD-93 CBD-93','cbd-93',63.60,12,2,'2015-02-16 07:07:09','2015-03-19 12:31:18',2),(4,'PREMALUBE RED','PREMALUBE RE PREMALUBE RED','premalube_red',83.90,12,3,'2015-02-16 07:07:41','2015-02-16 07:07:41',1),(5,'AEROLEX','AEROLEX AEROLEX AEROLEX','aerolex',69.96,2,4,'2015-02-16 07:09:22','2015-03-25 07:29:36',2),(6,'FLASH','FLASH FLASH\r\n\r\n','flash',40.23,2,4,'2015-02-16 07:10:40','2015-02-16 07:10:40',1),(7,'CHEMAQUA 100','CHEMAQUA 100','chemaqua_100',38.70,12,5,'2015-02-16 07:11:16','2015-02-16 07:11:16',1),(8,'CHEMAQUA 777','CHEMAQUA 777\r\n','chemaqua_777',30.90,62,5,'2015-02-16 07:11:39','2015-02-16 07:11:39',1),(9,'ELECTRA 221','ELECTRA 221 ELECTRA 221\r\n\r\n','electra_221',109.80,20,2,'2015-02-16 07:12:13','2015-02-16 07:12:13',1),(10,'ENFORCE','ENFORCE ENFORCE\r\n\r\n','enforce',36.90,100,3,'2015-02-16 07:12:41','2015-02-16 07:12:41',1),(11,'EVERBRITE GERM.','EVERBRITE GERM. EVERBRITE GERM.\r\n\r\n','everbrite_germ.',30.00,100,3,'2015-02-16 07:13:07','2015-03-19 12:35:41',2),(12,'producto de prueba','AQUABROM PLUS AQUABROM \r\n ','cdcdscsd',299.20,NULL,1,'2015-03-16 02:31:46','2015-03-30 02:16:37',1);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,13 +309,13 @@ CREATE TABLE `ruta` (
   `iddistrito` int(11) DEFAULT NULL,
   `idorden_compra` int(11) unsigned zerofill NOT NULL,
   `precio` decimal(9,3) DEFAULT NULL,
-  `estado` int(1) DEFAULT NULL COMMENT '1->activo , 2->cerrado',
+  `estado` int(1) DEFAULT NULL COMMENT '1->activo , 2->despacho, 3->cerrado',
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_salida` datetime DEFAULT NULL,
   PRIMARY KEY (`idruta`),
   KEY `fk_ruta_orden_compra1_idx` (`idorden_compra`),
   CONSTRAINT `fk_ruta_orden_compra1` FOREIGN KEY (`idorden_compra`) REFERENCES `orden_compra` (`idorden_compra`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +324,7 @@ CREATE TABLE `ruta` (
 
 LOCK TABLES `ruta` WRITE;
 /*!40000 ALTER TABLE `ruta` DISABLE KEYS */;
-INSERT INTO `ruta` VALUES (1,NULL,3,00000000004,2886.280,2,'2015-04-17 01:07:48','2015-04-23 02:28:24'),(2,NULL,5,00000000005,987.780,1,'2015-04-17 02:16:35',NULL),(3,NULL,9,00000000006,750.240,1,'2015-04-22 07:24:03',NULL),(4,NULL,12,00000000007,1905.230,1,'2015-04-22 23:45:35',NULL);
+INSERT INTO `ruta` VALUES (1,NULL,3,00000000004,2886.280,2,'2015-04-17 01:07:48','2015-04-23 23:42:59'),(2,NULL,5,00000000005,987.780,2,'2015-04-17 02:16:35','2015-04-24 00:09:36'),(3,NULL,9,00000000006,750.240,2,'2015-04-22 07:24:03','2015-04-26 18:44:11'),(4,NULL,12,00000000007,1905.230,2,'2015-04-22 23:45:35','2015-04-26 20:47:31'),(5,NULL,5,00000000008,2933.480,2,'2015-04-26 20:55:03','2015-05-03 22:51:27'),(6,NULL,6,00000000009,1818.380,2,'2015-04-26 20:55:16','2015-05-03 23:02:12');
 /*!40000 ALTER TABLE `ruta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,37 +383,52 @@ in vidcot int
 )
 BEGIN
 
-declare viddistrito ,vidoc,cant,cantruta int;
+declare viddistrito ,vidoc,cant,cantruta,vidprod,vcantprod int;
 declare vprecio decimal(9,3);
-
+declare done boolean default false;
+DECLARE cur CURSOR FOR select idproducto , cantidad from detalle_cotizacion where idcotizacion=vidcot;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=true;
 -- select count(idorden_compra) into cant from cotizacion where idcotizacion = vidcot;
  
-select count(oc.idorden_compra) into cant  from cotizacion c 
- inner join orden_compra oc on c.idcotizacion=oc.idcotizacion 
- where oc.idcotizacion = vidcot;
+select count(oc.idorden_compra) into cant from cotizacion c
+inner join orden_compra oc ON c.idcotizacion = oc.idcotizacion
+where oc.idcotizacion = vidcot;
 
-select oc.idorden_compra into vidoc  from cotizacion c 
- inner join orden_compra oc on c.idcotizacion=oc.idcotizacion 
- where oc.idcotizacion = vidcot;
+select oc.idorden_compra into vidoc from cotizacion c 
+inner join orden_compra oc ON c.idcotizacion = oc.idcotizacion
+where oc.idcotizacion = vidcot;
 
 if cant=0 then
 
   insert into orden_compra (idcotizacion,created_at) values(vidcot,now());
  
-  update cotizacion set estado=2 where idcotizacion = vidcot;
+update cotizacion set   estado = 2 where idcotizacion = vidcot;
 
-  select c.iddistrito,c.preciototal into viddistrito,vprecio from cotizacion c 
-  where c.idcotizacion = vidcot;
+select  c.iddistrito, c.preciototal into viddistrito , vprecio from cotizacion c
+where c.idcotizacion = vidcot;
 
-  select c.iddistrito,c.preciototal,oc.idorden_compra into viddistrito,vprecio,vidoc  from cotizacion c 
-  inner join orden_compra oc on c.idcotizacion=oc.idcotizacion 
-  where oc.idcotizacion = vidcot;
+select c.iddistrito, c.preciototal, oc.idorden_compra into viddistrito , vprecio , vidoc from cotizacion c
+inner join orden_compra oc ON c.idcotizacion = oc.idcotizacion where oc.idcotizacion = vidcot;
 
 
- -- if cantruta=0  then
-	insert into ruta (iddistrito,idorden_compra,precio,estado,fecha_creacion) values(viddistrito,vidoc,vprecio,1,now());
- -- end if;
- 
+ -- crea la ruta
+ insert into ruta (iddistrito,idorden_compra,precio,estado,fecha_creacion) values(viddistrito,vidoc,vprecio,1,now());
+
+-- RESTAR PRODUCTOS QUE SALEN
+
+	open cur;
+
+	cur_loop:LOOP
+
+		fetch cur into vidprod,vcantprod;
+		if done then leave cur_loop; end if;
+		
+		update producto set stock=(select stock from producto where idproducto=vidprod) - vcantprod  where idproducto=vidprod;
+		
+
+	end loop cur_loop;
+	close cur;
+
 
 end if;
 
@@ -652,4 +667,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-23  2:53:18
+-- Dump completed on 2015-05-04  7:46:31

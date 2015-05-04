@@ -35,6 +35,12 @@
                                     Registrar Usuarios
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{url('distrito/nuevo', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-wrench"></i>
+                                    Registrar Distritos
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         

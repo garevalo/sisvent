@@ -427,7 +427,10 @@ function solicitar_productos(idcotizacion,idproducto,url){
                     $(".modal-body").html(datos.ok);
                     $('#modal-success').modal('show');
                     $('#btn-despacho').prop("disabled","disabled");
-                    //window.location = datos.dir;
+                    $("#ok").click(function() {
+                            // $("#form")[0].reset();
+                            window.location = datos.dir;
+                        });
                 }
                 else if(datos.error){
                     $(".modal-body").text(datos.error);

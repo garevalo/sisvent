@@ -127,7 +127,42 @@ class OrdenController extends BaseController{
     
     public function modalRuta(){
             
-            return View::make('rutas.verRutaModal');
+            $query=DB::table('ruta')
+        ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
+        ->select(DB::raw("sum(ruta.precio) monto, ruta.idorden_compra,distrito.nombre_distrito,ruta.precio,ruta.fecha_creacion,distrito.sector, 
+                    case distrito.sector when 1 then 'Lima Centro'
+                                when 2 then 'Lima Moderna'
+                                when 3 then 'Lima Norte'
+                                when 4 then 'Lima Sur'
+                                when 5 then 'Lima Este'
+                                when 6 then 'Callao'
+                                else '-' end sector_nombre"))
+        ->groupBy('distrito.sector')
+        ->orderBy('monto', 'desc')
+        ->where('ruta.estado','=',2)
+        ->take(15)->get();
+
+
+           $query2=DB::table('ruta')
+        ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
+        ->select(DB::raw("ruta.idorden_compra,distrito.nombre_distrito,ruta.precio,ruta.fecha_creacion,distrito.sector,
+                    case distrito.sector when 1 then 'Lima Centro'
+                                when 2 then 'Lima Moderna'
+                                when 3 then 'Lima Norte'
+                                when 4 then 'Lima Sur'
+                                when 5 then 'Lima Este'
+                                when 6 then 'Callao'
+                                else '-' end sector_nombre"))
+        ->orderBy('ruta.precio', 'desc')
+        ->orderBy('ruta.fecha_creacion', 'asc')
+        ->orderBy('ruta.iddistrito', 'desc')
+        ->where('ruta.estado','=',2)
+        ->take(15)->get();   
+
+
+
+
+            return View::make('rutas.verRutaModal',array('datos'=>$query,'datos2'=>$query2));
      }
     
     public function getRutasDatatable(){
@@ -135,16 +170,26 @@ class OrdenController extends BaseController{
         
          $query=DB::table('ruta')
         ->join('distrito','distrito.iddistrito','=','ruta.iddistrito')
-        ->select('ruta.idorden_compra','distrito.nombre_distrito', 'ruta.precio','ruta.fecha_creacion')
+        ->select(DB::raw("ruta.idorden_compra,distrito.nombre_distrito,ruta.precio,ruta.fecha_creacion, 
+                    case distrito.sector when 1 then 'Lima Centro'
+                                when 2 then 'Lima Moderna'
+                                when 3 then 'Lima Norte'
+                                when 4 then 'Lima Sur'
+                                when 5 then 'Lima Este'
+                                when 6 then 'Callao'
+                                else '-' end sector"))
+        ->orderBy('distrito.sector', 'asc')
         ->orderBy('ruta.precio', 'desc')
         ->orderBy('ruta.fecha_creacion', 'asc')
         ->orderBy('ruta.iddistrito', 'desc')
-        ->where('ruta.estado','=',1)
+        ->where('ruta.estado','=',2)
         ->take(15);
 
         return Datatable::query($query)
-        ->showColumns('idorden_compra','nombre_distrito', 'precio','fecha_creacion')                    
+        ->showColumns('idorden_compra','nombre_distrito', 'precio','sector','fecha_creacion')                    
         ->make();
+
+        return View::make("rutas.verRutaModal",array("datos"=>$query));
         
     }
 
@@ -179,7 +224,7 @@ class OrdenController extends BaseController{
             
             DB::statement("call sp_registrar_despacho({$idoc});");
             
-            return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <string>".$correo."</string></p>","dir"=>""));
+            return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <string>".$correo."</string></p>","dir"=>url("ordencompra")));
         }
         else{
             return json_encode(array("error"=>"No hay rutas disponibles"));

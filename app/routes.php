@@ -121,5 +121,13 @@
         Route::post('almacen/atenderpedido', array('uses' => 'AlmacenController@atenderPedido'));
         Route::get('api/getingresos', array('as'=>'api.getingresos','uses'=>'AlmacenController@getListaIngresos'));
         
+
+
+        /*PRODUCTOS*/
+        Route::get('distrito/nuevo', array('uses' => 'DistritoController@nuevoDistrito'));
+        Route::post('distrito/crear', array('uses' => 'DistritoController@crearDistrito'));
+        Route::post('distrito/editar', array('uses' => 'DistritoController@editarDistrito'));
+        Route::get('api/getdistritos', array('as'=>'api.getdistritos','uses'=>'DistritoController@getListaDistrito'));
+        Route::post('distrito/getdistrito', array('uses' => 'DistritoController@getDistritoJson'));    
         
     });
