@@ -96,7 +96,7 @@
         Route::get('ordencompra/despacho', array('uses' => 'OrdenController@registrarDespacho'));
 
         Route::get('factura/crear/{id?}', array('uses' => 'OrdenController@generarFactura'));
-        
+        Route::get('guia/crear/{id?}', array('uses' => 'OrdenController@generarGuia'));
         Route::get('ordencompra/modalruta', array('uses' => 'OrdenController@modalRuta'));
         Route::get('api/getruta', array('as'=>'api.getruta','uses'=>'OrdenController@getRutasDatatable'));
 

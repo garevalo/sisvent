@@ -82,7 +82,7 @@ class OrdenController extends BaseController{
         ->addColumn('id',function($model){
             return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>
                     <a href="'.url("factura/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Factura</a>
-                    <a href="'.url("ordencompra/ver/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
+                    <a href="'.url("guia/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
         })
         
         ->make();
@@ -288,6 +288,62 @@ class OrdenController extends BaseController{
 
         PDF::Output('Factura.pdf', 'I');
     }
+
+    public function generarGuia($idoc){
+
+
+        
+
+        $cotizacion= DB::table('cotizacion')
+            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
+            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->leftJoin('orden_compra', 'orden_compra.idcotizacion', '=', 'cotizacion.idcotizacion')   
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
+                    'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
+                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho','orden_compra.fecha_despacho')
+            ->where('orden_compra.idorden_compra', '=', $idoc)
+            ->get();   
+
+      
+        // set document information
+        PDF::SetCreator(PDF_CREATOR);
+        PDF::SetAuthor('Cotizacion');
+        PDF::SetTitle('NCH PERU');
+        PDF::SetSubject('NCH PERU');
+        PDF::SetKeywords('TCPDF, PDF, Cotizacion');
+
+       
+        PDF::setPrintHeader(false);
+        PDF::setPrintFooter(true);
+
+        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
+        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
+        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // set image scale factor
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        PDF::SetFont('helvetica', '', 10);
+
+        PDF::AddPage();
+
+        $datos=array("cotizacion"=>$cotizacion);   
+        $html = View::make('ordencompra.guiaRemision',$datos);
+
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output('Guia.pdf', 'I');
+    }
+
 
     public function reporte(){
 
