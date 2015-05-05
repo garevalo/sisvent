@@ -107,10 +107,14 @@
         
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
-        Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));
         Route::get('api/getclientesacreditacion', array('as'=>'api.clientesacreditacion','uses'=>'ClientesController@getClientesAcreditacion'));
-        Route::get('acreditacion/lista', array('uses' => 'AcreditacionController@listaClientesAcreditacion'));
-        Route::get('acreditacion/registrar', array('uses' => 'AcreditacionController@registrarAcreditacion'));
+
+        Route::group(array('before' => 'acceso_acreditacion'), function()
+        {
+            Route::post('acreditacion/enviar', array('uses' => 'AcreditacionController@enviarParaAcreditacion'));
+            Route::get('acreditacion/lista', array('uses' => 'AcreditacionController@listaClientesAcreditacion'));
+            Route::get('acreditacion/registrar', array('uses' => 'AcreditacionController@registrarAcreditacion'));
+        });
         /**CLientes***/
 
         /*Almacen*/
@@ -129,5 +133,9 @@
         Route::post('distrito/editar', array('uses' => 'DistritoController@editarDistrito'));
         Route::get('api/getdistritos', array('as'=>'api.getdistritos','uses'=>'DistritoController@getListaDistrito'));
         Route::post('distrito/getdistrito', array('uses' => 'DistritoController@getDistritoJson'));    
+        
+
+        /*DESPACHO*/
+
         
     });
