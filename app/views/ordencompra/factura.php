@@ -1,18 +1,28 @@
 
     <style>
-        .first{
+        table.first{
             border-style: solid;
             border-color: #000;
             border-width: 5px 5px 5px 5px;
+            right: 10px;
             
         }
-         .second{
+         table.second{
             border-style: solid;
             border-color: #000;
             border-width: 1px 1px 1px 1px;
             padding: 15px 15px 15px 15px;
             
         }
+
+        td.borde{
+            border-style: solid;
+            border-color: #000;
+            border-width: 0px 0px 2px 0px;
+            padding: 15px 15px 15px 15px;
+            
+        }
+
         .third td{
             padding: 15px 15px 15px 15px;
         }
@@ -32,71 +42,81 @@
 
     <table >
         <tr>
-            <td width="10%"></td>
+            
             <td colspan="2" width="50%">
                 <table>
-                    <tr>
-                        <td align="center">NCH PERÚ SAC</td>
-                    </tr>
+                    
                      <tr>
-                         <td align="center">Soluciones Integrales de mantenimiento industrial<br>
+                         <td align="">
+                            <div align="left">
+                                <img src="<?= asset('images/logo.png'); ?>" width="400"><br>
+                            NCH PERÚ SAC<br>    
+                            Soluciones Integrales de mantenimiento industrial<br>
                             Av. Los Eucaliptos Mz.E Lte 7<br>
                             Urbanización Santa Genoveva-Lurín<br>
                             511 614-3500<br>
-                            ventas@nchperu.com.pe
+                            ventas@nchperu.com.pe</div>
                         </td>
                     </tr>
                 </table>
                 
             </td>
-            <td width="5%"></td>
+            <td width="15%"></td>
             <td width="40%" >
                 <table  class="first">
                     <tr>
                         <td align="center" >
                             <p style="font-size: 50px;">
+                                <h2>R.U.C: 20388203111</h2>
                                 <b >FACTURA</b><br>
-                                <?= $cotizacion[0]->idcotizacion ?>  <br>
+                                <?=  str_pad($cotizacion[0]->idorden_compra, 10, "0", STR_PAD_LEFT)   ?>  <br>
                             </p>
                         </td>
                     </tr>
-                    <tr>
-                        <td  align="center">
-                            <img src="<?= asset('images/logo.png'); ?>" width="400">
-                        </td>
-                    </tr>
+                    
                 </table>
             </td>
         </tr>
     </table>
     
     <br><br><br>
-    <table  border="0" class="second">
+    <table   class="second">
         <tr>
-            <td width="550"><b>RUC:</b></td>
-            <td width="820"><?= $cotizacion[0]->ruc ?></td><td><?= $cotizacion[0]->fechacotizacion ?></td>
+            <td  class="borde" colspan="" width="70%"><b> Factura a:</b></td>
+            
         </tr>
         <tr>
-            <td><b>Nombre:</b></td><td><?= $cotizacion[0]->nombre_cliente ?></td>
+            <td>
+                <?= $cotizacion[0]->ruc ?><br>
+                <?= $cotizacion[0]->nombre_cliente ?><br>
+                <?= $cotizacion[0]->direccion_cliente?>
+
+            </td>
         </tr>
-        <tr>
-            <td><b>Dirección:</b></td><td> <?= $cotizacion[0]->direccion_cliente ?></td>
-        </tr>
-        <tr>
-            <td><b>Correo:</b></td><td><?= $cotizacion[0]->nombre_cliente ?></td>
-        </tr>
-        <tr>
-            <td><b>Tipo de Pago:</b></td><td><?= $cotizacion[0]->tipo_pago ?></td>
-        </tr>
-        <tr>
-            <td><b>Dirección de Despacho:</b></td><td><?= $cotizacion[0]->direccion_despacho ?></td>
-        </tr>
+        
     </table>
-   
-    <h2>Cotización Electrónica</h2>
+    <br><br><br>
+    <table border="1">
+        <tr class="cabecera">
+            <td> Fecha</td>
+            <td> Cod.Cliente</td>
+            <td> Forma de Pago</td>
+            <td> Número de Orden</td>
+            <td> Número de Guía</td>
+        </tr>
+        <tr>
+            <td> <?= date("d/m/Y", strtotime($cotizacion[0]->fecha_despacho)) ?></td>
+            <td> <?=  str_pad($cotizacion[0]->idclientes, 10, "0", STR_PAD_LEFT)  ?></td>
+            <td> <?=  ($cotizacion[0]->tipo_pago==1)? "Crédito" :"Contado"  ?></td>
+            <td> <?= $cotizacion[0]->idorden_compra?></td>
+            <td> </td>
+        </tr>
+
+    </table>
+    <br> <br> <br>
     <table border="1" cellpadding="2" cellspacing="0" class="third">
         <tr class="cabecera">
-            <td align="center" width="580" >Producto</td>
+            <td align="center" width="30%" >Producto</td>
             <td align="center">Precio</td>
             <td align="center">Cantidad</td>
             <td align="center">PrecioTotal</td>
@@ -109,39 +129,74 @@
             <td align="center"><?= $value->precio ?></td>
         </tr>
        <?php } ?>
-       
-       <?php 
-        $cantidadfilas=25;
-       if( count($cotizacion) < $cantidadfilas){  $completar= $cantidadfilas - count($cotizacion);
 
-                for ($i=0; $i < $completar; $i++) { 
-        ?>
-           <tr>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-           </tr>
-        <?php
-                }
-
-       }?> 
-        
-        <tr>
-            <td colspan="2"></td>
-            <td align="center" class="foot">Precio Bruto</td>
-            <td align="center"> <b><?= $value->precio_neto ?></b> </td>
-        </tr>
-        <tr>
-            <td colspan="2"></td>
-            <td align="center" class="foot">IGV</td>
-            <td align="center"> <b><?= $value->igv ?></b> </td>
-        </tr>
-        <tr>
-            <td colspan="2" ></td>
-            <td align="center" class="foot">Precio Neto</td>
-            <td align="center"> <b><?= $value->preciototal ?></b> </td>
-        </tr>
     
     </table>
+    <br><br>
+    <table >
+        
+    </table>
+    <table >
+
+        <tr>
+            <td width="70%"></td>
+            <td>
+                <table class="first">
+
+                    <tr>
+            
+                        <td width="20%" align="center" >Sub Total</td>
+                        <td align="center"> <b><?= $value->precio_neto ?></b> </td>
+                    </tr>
+                    <tr>
+                        
+                        <td align="center" class="">Total IGV</td>
+                        <td align="center"> <b><?= $value->igv * $value->precio_neto ?></b> </td>
+                    </tr>
+                    <tr>
+                        
+                        <td align="center" class="">Total</td>
+                        <td align="center"> <b><?= $value->preciototal ?></b> </td>
+                    </tr>
+
+                </table>    
+            </td>
+        </tr>
+
+
+    </table>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <table>
+        <tr>
+            <td width="30%">
+                <table class="first">
+                    <tr>
+                        <td class="borde">Fecha de Vencimiento</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+
+                </table>
+            </td>
+            <td width="10%"></td>
+            <td width="60%">
+
+                <table class="first">
+                    <tr>
+                        <td class="borde">Orbservación</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+
+                </table>    
+
+
+            </td>
+        </tr>
+        
+    </table>
+
 

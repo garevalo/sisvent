@@ -80,7 +80,9 @@ class OrdenController extends BaseController{
             return $estado;
         })        
         ->addColumn('id',function($model){
-            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
+            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>
+                    <a href="'.url("factura/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Factura</a>
+                    <a href="'.url("ordencompra/ver/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
         })
         
         ->make();
@@ -246,10 +248,11 @@ class OrdenController extends BaseController{
                     'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
                     'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
                     'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
-                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho')
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho','orden_compra.fecha_despacho')
             ->where('orden_compra.idorden_compra', '=', $idoc)
-            ->get();    
+            ->get();   
 
+      
         // set document information
         PDF::SetCreator(PDF_CREATOR);
         PDF::SetAuthor('Cotizacion');
@@ -259,7 +262,7 @@ class OrdenController extends BaseController{
 
        
         PDF::setPrintHeader(false);
-        PDF::setPrintFooter(false);
+        PDF::setPrintFooter(true);
 
         PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
@@ -283,7 +286,7 @@ class OrdenController extends BaseController{
 
         PDF::writeHTML($html, true, false, true, false, '');
 
-        PDF::Output('Cotizacion.pdf', 'I');
+        PDF::Output('Factura.pdf', 'I');
     }
 
     public function reporte(){
