@@ -96,10 +96,11 @@
         
     </table>
     <br><br><br>
-    <table border="1">
+    <table border="1" cellpadding="2" cellspacing="0">
         <tr class="cabecera">
             <td> Fecha</td>
             <td> Cod.Cliente</td>
+            <td> Repr.de Venta</td>
             <td> Forma de Pago</td>
             <td> Número de Orden</td>
             <td> Número de Guía</td>
@@ -107,8 +108,9 @@
         <tr>
             <td> <?= date("d/m/Y", strtotime($cotizacion[0]->fecha_despacho)) ?></td>
             <td> <?=  str_pad($cotizacion[0]->idclientes, 10, "0", STR_PAD_LEFT)  ?></td>
+            <td></td>
             <td> <?=  ($cotizacion[0]->tipo_pago==1)? "Crédito" :"Contado"  ?></td>
-            <td> <?= $cotizacion[0]->idorden_compra?></td>
+            <td> <?= str_pad($cotizacion[0]->idorden_compra, 10, "0", STR_PAD_LEFT) ?></td>
             <td> </td>
         </tr>
 
@@ -117,16 +119,25 @@
     <table border="1" cellpadding="2" cellspacing="0" class="third">
         <tr class="cabecera">
             <td align="center" width="30%" >Producto</td>
-            <td align="center">Precio</td>
-            <td align="center">Cantidad</td>
-            <td align="center">PrecioTotal</td>
+            <td align="center" width="10%">Cantidad</td>
+            <td align="center" width="10%">Presentación</td>
+            <td align="center" width="10%">Precio Unitario</td>
+            <td align="center" width="10%">Importe</td>
+            <td align="center" width="10%">%IGV</td>
+            <td align="center" width="10%">IGV</td>
+            <td align="center" width="10%">Imp.Bruto</td>
         </tr>
         <?php  foreach ($cotizacion as $key => $value) { ?>
         <tr>
             <td ><?= $value->nombre_producto ?></td>
-            <td align="center"><?= $value->precio_producto ?></td>
             <td align="center"><?= $value->cantidad ?></td>
+            <td></td>
             <td align="center"><?= $value->precio ?></td>
+            <td align="center"><?= $value->precio ?></td>
+            <td align="center">18.0%</td>
+            <td align="center"><?= $value->precio*0.18 ?></td>
+            <td align="center"><?= $value->precio_producto ?></td>
+            
         </tr>
        <?php } ?>
 
@@ -139,8 +150,8 @@
     <table >
 
         <tr>
-            <td width="70%"></td>
-            <td>
+            <td width="65%"></td>
+            <td  width="50%">
                 <table class="first">
 
                     <tr>
@@ -166,16 +177,24 @@
 
     </table>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br>
+    <div><b>
+        Favor de girar cheque NO NEGOCIABLE a nombre de :NCH PERU S.A<br>
+        o abonar en CTA. CTE U$$ No 192-1405352-1-84 BCO. CREDITO DEL PERU<br>
+        o abonar en CTA. CTE S/. No 192-1400611-0-85 CREDITO DEL PERU<br>
+        NO PAGAR EN EFECTIVO AL VENDEDOR
+</b>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
     <table>
         <tr>
             <td width="30%">
                 <table class="first">
                     <tr>
-                        <td class="borde">Fecha de Vencimiento</td>
+                        <td  class="borde">Fecha de Vencimiento</td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td><br><br><br></td>
                     </tr>
 
                 </table>
@@ -188,7 +207,7 @@
                         <td class="borde">Orbservación</td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td><br><br><br></td>
                     </tr>
 
                 </table>    

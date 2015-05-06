@@ -81,53 +81,72 @@
     </table>
     
     <br><br><br>
-    <table   class="second">
+    <table >
         <tr>
-            <td  class="borde" colspan="" width="70%"><b> Factura a:</b></td>
-            
+            <td width="60%"><b> Domicilio de partida:</b></td>
+            <td width="10%"></td>
+            <td width="30%">Pedido: <?= "PE - ".str_pad($cotizacion[0]->idcotizacion, 10, "0", STR_PAD_LEFT)?></td>
+        </tr>
+        <tr>
+            <td width="60%">
+                Av. Los Eucaliptos Mz.E Lte 7<br>
+                Urbanización Santa Genoveva-Lurín<br>
+
+            </td>
+            <td width="10%"></td>
+            <td width="30%">Motivo de Traslado: VENTA</td>
+        </tr>
+        <tr>
+            <td  class="" colspan="" width="60%"><b> Dirección de despacho:</b></td>
+            <td></td>
+            <td>Referencia:</td>
         </tr>
         <tr>
             <td>
-                <?= $cotizacion[0]->ruc ?><br>
-                <?= $cotizacion[0]->nombre_cliente ?><br>
-                <?= $cotizacion[0]->direccion_cliente?>
-
+                <?= $cotizacion[0]->direccion_despacho?>
+                
             </td>
-        </tr>
+            <td></td>
+            <td>Inicio de Traslado:</td>
+        </tr>        
         
     </table>
     <br><br><br>
     <table border="1">
         <tr class="cabecera">
-            <td> Fecha</td>
-            <td> Cod.Cliente</td>
-            <td> Forma de Pago</td>
-            <td> Número de Orden</td>
-            <td> Número de Guía</td>
+            
+            <td width="20%"> Cod.Cliente</td>
+            <td width="20%"> Terminos</td>
+            <td width="20%"> Orden Compra</td>
+            <td width="20%"> Repr. Venta</td>
+            <td width="20%"> Fecha Emisión</td>
+            
         </tr>
         <tr>
-            <td> <?= date("d/m/Y", strtotime($cotizacion[0]->fecha_despacho)) ?></td>
-            <td> <?=  str_pad($cotizacion[0]->idclientes, 10, "0", STR_PAD_LEFT)  ?></td>
-            <td> <?=  ($cotizacion[0]->tipo_pago==1)? "Crédito" :"Contado"  ?></td>
-            <td> <?= $cotizacion[0]->idorden_compra?></td>
+            <td> <?= str_pad($cotizacion[0]->idclientes, 10, "0", STR_PAD_LEFT) ?></td>
             <td> </td>
+            <td> <?=  ($cotizacion[0]->tipo_pago==1)? "Crédito" :"Contado"  ?></td>
+            <td> </td>
+            <td> <?= date("d/m/Y", strtotime($cotizacion[0]->fecha_despacho))  ?></td>
         </tr>
 
     </table>
-    <br> <br> <br>
+    <br> <br>
     <table border="1" cellpadding="2" cellspacing="0" class="third">
         <tr class="cabecera">
-            <td align="center" width="30%" >Producto</td>
-            <td align="center">Precio</td>
-            <td align="center">Cantidad</td>
-            <td align="center">PrecioTotal</td>
+            <td align="center" width="40%" >Descripción</td>
+            <td align="center" width="10%">Lote</td>
+            <td align="center" width="20%">Serie</td>
+            <td align="center" width="20%">Presentación</td>
+            <td align="center" width="10%">Enviado</td>
         </tr>
         <?php  foreach ($cotizacion as $key => $value) { ?>
         <tr>
             <td ><?= $value->nombre_producto ?></td>
-            <td align="center"><?= $value->precio_producto ?></td>
+            <td align="center"></td>
+            <td align="center"></td>
+            <td align="center"></td>
             <td align="center"><?= $value->cantidad ?></td>
-            <td align="center"><?= $value->precio ?></td>
         </tr>
        <?php } ?>
 
@@ -137,43 +156,14 @@
     <table >
         
     </table>
-    <table >
-
-        <tr>
-            <td width="70%"></td>
-            <td>
-                <table class="first">
-
-                    <tr>
-            
-                        <td width="20%" align="center" >Sub Total</td>
-                        <td align="center"> <b><?= $value->precio_neto ?></b> </td>
-                    </tr>
-                    <tr>
-                        
-                        <td align="center" class="">Total IGV</td>
-                        <td align="center"> <b><?= $value->igv * $value->precio_neto ?></b> </td>
-                    </tr>
-                    <tr>
-                        
-                        <td align="center" class="">Total</td>
-                        <td align="center"> <b><?= $value->preciototal ?></b> </td>
-                    </tr>
-
-                </table>    
-            </td>
-        </tr>
-
-
-    </table>
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <table>
         <tr>
             <td width="30%">
-                <table class="first">
+                <table class="">
                     <tr>
-                        <td class="borde">Fecha de Vencimiento</td>
+                        <td class=""></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -182,20 +172,7 @@
                 </table>
             </td>
             <td width="10%"></td>
-            <td width="60%">
-
-                <table class="first">
-                    <tr>
-                        <td class="borde">Orbservación</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-
-                </table>    
-
-
-            </td>
+            
         </tr>
         
     </table>
