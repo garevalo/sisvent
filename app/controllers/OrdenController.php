@@ -88,6 +88,34 @@ class OrdenController extends BaseController{
         ->make();
 
     }
+
+
+     public function getDatatableDespacho()
+        {
+             $query=DB::table('orden_compra')
+            ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
+            ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
+            ->where("orden_compra.despacho","2")
+            ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id');
+
+            return Datatable::query($query)
+            ->showColumns('idorden_compra','nombre_cliente','ruc','preciototal')   
+            ->addColumn('despacho',function($model){
+                if($model->despacho =='1'){$estado="<span class='label label-info'>No Despachado</span>";}
+                elseif($model->despacho =='2'){$estado="<span class='label label-success'>Despachado</span>";}
+                else{$estado="<span class='label label-info'>No Despachado</span>";}
+                return $estado;
+            })        
+            ->addColumn('id',function($model){
+                return '<a href="'.url("factura/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Factura</a>
+                        <a href="'.url("guia/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
+            })
+            
+            ->make();
+
+        }
+
+
     
     public function listaOrdenCompra(){
         
@@ -95,6 +123,13 @@ class OrdenController extends BaseController{
         return View::make('ordencompra.listaOrdenCompra',array('subtitulo' => "Lista de pedidos" ));
     }
     
+
+    public function listaDespacho(){
+        
+        
+        return View::make('ordencompra.listaDespacho',array('subtitulo' => "Lista de pedidos" ));
+    }
+
     public function verOrdenCompra($idoc){
         
         $cotizacion= DB::table('cotizacion')

@@ -100,6 +100,9 @@
         Route::get('ordencompra/modalruta', array('uses' => 'OrdenController@modalRuta'));
         Route::get('api/getruta', array('as'=>'api.getruta','uses'=>'OrdenController@getRutasDatatable'));
 
+
+        Route::get('despacho', array('uses' => 'OrdenController@listaDespacho'));
+        Route::get('api/despacho', array('as'=>'api.despacho','uses'=>'OrdenController@getDatatableDespacho'));
         /****REPORTES***/
         Route::get('reportes/reporte', array('uses' => 'OrdenController@reporte'));
         Route::post('reportes/ajaxreporte1', array('uses' => 'OrdenController@reporteAjax1'));

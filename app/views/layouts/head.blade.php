@@ -96,6 +96,11 @@
                             </ul>
                         </li>
                         @endif
+
+                        <li class="">
+                            <a href="{{url('despacho', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Despacho </a>
+                            
+                        </li>
                     </ul>
                 </div>
                  
