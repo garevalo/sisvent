@@ -124,8 +124,8 @@
         </tr>
         <tr>
             <td> <?= str_pad($cotizacion[0]->idclientes, 10, "0", STR_PAD_LEFT) ?></td>
-            <td> </td>
-            <td> <?=  ($cotizacion[0]->tipo_pago==1)? "Crédito" :"Contado"  ?></td>
+            <td><?=  ($cotizacion[0]->tipo_pago==1)? "Crédito" :"Contado"  ?> </td>
+            <td><?= str_pad($cotizacion[0]->idorden_compra, 10, "0", STR_PAD_LEFT) ?></td>
             <td> </td>
             <td> <?= date("d/m/Y", strtotime($cotizacion[0]->fecha_despacho))  ?></td>
         </tr>
@@ -160,18 +160,27 @@
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <table>
         <tr>
-            <td width="30%">
-                <table class="">
-                    <tr>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-
-                </table>
-            </td>
+            <td width="40%"> </td>
             <td width="10%"></td>
+            <td width="40%">Nombre del Conductor:</td>
+            
+        </tr>
+        <tr>
+            <td width="40%"> </td>
+            <td width="10%"></td>
+            <td width="40%">Nro Licencia Conducir:</td>
+            
+        </tr>
+        <tr>
+            <td width="40%"></td>
+            <td width="10%"></td>
+            <td width="40%">Modelo Vehículo:</td>
+            
+        </tr>
+        <tr>
+            <td width="40%"></td>
+            <td width="10%"></td>
+            <td width="40%">Placa Vehículo:</td>
             
         </tr>
         
