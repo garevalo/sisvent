@@ -401,6 +401,69 @@ class OrdenController extends BaseController{
     }
 
 
+    public function reportePorDiaOC(){
+
+        return View::make('reportes.reporteOCdia');
+
+    }
+
+    public function reportePorDiaOCajax(){
+
+         $cotizacion= DB::table('cotizacion')
+            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
+            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
+            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
+            ->leftJoin('orden_compra', 'orden_compra.idcotizacion', '=', 'cotizacion.idcotizacion')   
+            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
+                    'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
+                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
+                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho','orden_compra.fecha_despacho')
+      
+            ->get();   
+
+      
+        // set document information
+        PDF::SetCreator(PDF_CREATOR);
+        PDF::SetAuthor('Cotizacion');
+        PDF::SetTitle('NCH PERU');
+        PDF::SetSubject('NCH PERU');
+        PDF::SetKeywords('TCPDF, PDF, Cotizacion');
+
+       
+        PDF::setPrintHeader(false);
+        PDF::setPrintFooter(true);
+
+        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
+        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
+        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // set image scale factor
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        PDF::SetFont('helvetica', '', 10);
+
+        PDF::AddPage();
+
+        $datos=array("cotizacion"=>$cotizacion);   
+        $html = View::make('reportes.reporteOCdiaAjax',$datos);
+
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output(public_path().'/data.pdf', 'F');
+     
+       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+      echo '<object width="1000" height="800" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+    }
+
+
+
     function convertir_fecha($fecha){
         
         $date   =   explode('/',$fecha);

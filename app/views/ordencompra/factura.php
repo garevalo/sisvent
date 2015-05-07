@@ -132,11 +132,11 @@
             <td ><?= $value->nombre_producto ?></td>
             <td align="center"><?= $value->cantidad ?></td>
             <td></td>
-            <td align="center"><?= $value->precio ?></td>
+            <td align="center"><?= $value->precio / $value->cantidad ?></td>
             <td align="center"><?= $value->precio ?></td>
             <td align="center">18.0%</td>
             <td align="center"><?= $value->precio*0.18 ?></td>
-            <td align="center"><?= $value->precio_producto ?></td>
+            <td align="center"><?= $value->precio+($value->precio*0.18) ?></td>
             
         </tr>
        <?php } ?>

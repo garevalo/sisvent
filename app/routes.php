@@ -106,8 +106,8 @@
         /****REPORTES***/
         Route::get('reportes/reporte', array('uses' => 'OrdenController@reporte'));
         Route::post('reportes/ajaxreporte1', array('uses' => 'OrdenController@reporteAjax1'));
-
-        
+        Route::get('reportes/reporteocxdia', array('uses' => 'OrdenController@reportePorDiaOC'));
+        Route::post('reportes/ajaxreporteocxdia', array('uses' => 'OrdenController@reportePorDiaOCajax'));
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));
         Route::get('api/getclientesacreditacion', array('as'=>'api.clientesacreditacion','uses'=>'ClientesController@getClientesAcreditacion'));

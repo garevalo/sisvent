@@ -45,7 +45,7 @@
                         </li>
                         
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-book"></i> Orden Compra <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-clipboard"></i> Orden Compra <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
                                 
                                 <li><a href="{{url('cotizacion', $parameters = array(), $secure = null);}}" tabindex="-1">
@@ -60,12 +60,16 @@
                         </li>
                         
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Reportes <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-file-text"></i> Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
                                 
                                 <li><a href="{{url('reportes/reporte', $parameters = array(), $secure = null);}}" tabindex="-1">
-                                    <i class="dropdown-icon fa fa-list"></i>
+                                    <i class="dropdown-icon fa  fa-bar-chart-o "></i>
                                     Reporte de Ordenes Despachadas vs No Despachadas
+                                </a></li>
+                                <li><a href="{{url('reportes/reporteocxdia', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-file-text-o"></i>
+                                    Reportes de Ordenes de Compra por dia
                                 </a></li>
                             </ul>
                         </li>
@@ -73,14 +77,14 @@
                         
                         @if( Auth::user()->idtipo==4 || Auth::user()->idtipo==1 )
                         <li class="">
-                            <a href="{{url('acreditacion/lista', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Acreditación </a>
+                            <a href="{{url('acreditacion/lista', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-paperclip"></i> Acreditación </a>
                             
                         </li>
                         @endif
                         
                         @if( Auth::user()->idtipo==1 )
                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Almacén<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-folder-open"></i> Almacén<span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
                                 
                                 <li>
@@ -98,7 +102,7 @@
                         @endif
 
                         <li class="">
-                            <a href="{{url('despacho', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-list"></i> Despacho </a>
+                            <a href="{{url('despacho', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-truck"></i> Despacho </a>
                             
                         </li>
                     </ul>
