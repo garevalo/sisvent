@@ -67,11 +67,14 @@
     <table class="tabla" border="" cellpadding="8" cellspacing="0">
         <tr class="" style="background-color:#5cb85c ;color:#fff; font-size: 45px;">
             
-            <td> Nro.Orden</td>
-            <td> Empresa</td>
-            <td> Productos</td>
-            <td> Precio</td>
-            <td> Zona Despacho</td>
+            <td width="10%"> Nro.Orden</td>
+            <td width="20%"> Empresa</td>
+            <td width="20%"> Productos</td>
+            <td width="10%"> Prec.Uni</td>
+            <td width="10%"> Cantidad</td>
+            <td width="10%"> Precio</td>
+            <td width="10%"> T.Pago</td>
+            <td width="10%"> Zona Despacho</td>
         </tr>
         <?php $i=0; foreach ($ordencompra as $key=> $value) { ?>
         <tr style="background-color:#fcf8e3;">
@@ -79,7 +82,10 @@
             <td><?=  str_pad($value->idorden_compra, 10, "0", STR_PAD_LEFT)  ?></td>
             <td><?= $value->nombre_cliente?></td>
             <td><?= $value->nombre_producto?></td>
+            <td><?= $value->precio / $value->cantidad?></td>
+            <td><?= $value->cantidad?></td>
             <td><?= $value->precio?></td>
+            <td><?= $value->pago?></td>
             <td><?= $value->sector_nombre?></td>
         </tr>
         <?php  $i++;} ?>

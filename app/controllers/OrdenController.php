@@ -411,13 +411,15 @@ class OrdenController extends BaseController{
 
         $fecha= $this->convertir_fecha(Input::get('fecha'));
 
-        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,case dis.sector when 1 then 'Lima Centro'
+        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,dc.cantidad,
+                                                                        case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago,
+                                                                        case dis.sector when 1 then 'Lima Centro'
                                                                         when 2 then 'Lima Moderna'
                                                                         when 3 then 'Lima Norte'
                                                                         when 4 then 'Lima Sur'
                                                                         when 5 then 'Lima Este'
                                                                         when 6 then 'Callao'
-                                                                        else '-' end sector_nombre  from orden_compra o
+                                                                        else '-' end sector_nombre from orden_compra o
                                         inner join cotizacion c on o.idcotizacion=c.idcotizacion
                                         inner join clientes cl on cl.idclientes=c.idclientes
                                         inner join detalle_cotizacion dc on dc.idcotizacion=c.idcotizacion
