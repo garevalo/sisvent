@@ -80,9 +80,7 @@ class OrdenController extends BaseController{
             return $estado;
         })        
         ->addColumn('id',function($model){
-            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>
-                    <a href="'.url("factura/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Factura</a>
-                    <a href="'.url("guia/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
+            return '<a href="'.url("ordencompra/ver/".$model->id).'" class="btn btn-sm btn-primary"><i class="fa fa-edit fa-lg"></i> Ver Orden Compra</a>';
         })
         
         ->make();
@@ -481,7 +479,10 @@ class OrdenController extends BaseController{
 
         $fecha= $this->convertir_fecha(Input::get('fecha'));
 
-        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,case dis.sector when 1 then 'Lima Centro'
+        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,
+                                                                        dc.cantidad,
+                                                                        case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago,                
+                                                                        case dis.sector when 1 then 'Lima Centro'
                                                                         when 2 then 'Lima Moderna'
                                                                         when 3 then 'Lima Norte'
                                                                         when 4 then 'Lima Sur'
