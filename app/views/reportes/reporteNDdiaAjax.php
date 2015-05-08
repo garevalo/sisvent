@@ -62,7 +62,7 @@
     </table>
     
     <br><br>
-    <h2  align="center">Reporte de Ordenes de Compra despachadas por día</h2>
+    <h2  align="center">Reporte de Ordenes de Compra No Despachadas por día</h2>
     
     <table class="tabla" border="" cellpadding="8" cellspacing="0">
         <tr class="" style="background-color:#5cb85c ;color:#fff; font-size: 45px;">
@@ -71,7 +71,7 @@
             <td> Empresa</td>
             <td> Productos</td>
             <td> Precio</td>
-            <td> Zona Despacho</td>
+            <td> Motivo No Despacho</td>
         </tr>
         <?php $i=0; foreach ($ordencompra as $key=> $value) { ?>
         <tr style="background-color:#fcf8e3;">
@@ -80,7 +80,7 @@
             <td><?= $value->nombre_cliente?></td>
             <td><?= $value->nombre_producto?></td>
             <td><?= $value->precio?></td>
-            <td><?= $value->sector_nombre?></td>
+            <td><?= $value->motivo_no_despacho?></td>
         </tr>
         <?php  $i++;} ?>
     </table>

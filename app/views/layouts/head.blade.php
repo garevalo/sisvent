@@ -71,6 +71,11 @@
                                     <i class="dropdown-icon fa fa-file-text-o"></i>
                                     Reportes de Ordenes de Compra por dia
                                 </a></li>
+
+                                <li><a href="{{url('reportes/reportendxdia', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-file-text-o"></i>
+                                    Reportes de Ordenes de Compra No Despachadas por dia
+                                </a></li>
                             </ul>
                         </li>
                         @endif

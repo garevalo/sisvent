@@ -394,7 +394,7 @@ class OrdenController extends BaseController{
 
        $despachados = DB::select('select count(*) cantidad from orden_compra where date(fecha_despacho) = ?', array($fecha));
 
-       $nodespachados = DB::select('select count(*) cantidad from orden_compra where date(fecha_no_cotizacion) = ?', array($fecha));
+       $nodespachados = DB::select( DB::raw("select count(*) cantidad from orden_compra where date(fecha_no_cotizacion) = '$fecha' and date(fecha_no_cotizacion)!=date(fecha_despacho)"));
       
         return View::make('reportes.graficoReporte1',array("fecha"=>$fecha,"despachados"=>$despachados,"nodespachados"=>$nodespachados,"fecha_format"=>Input::get('fecha')));
 
@@ -409,18 +409,21 @@ class OrdenController extends BaseController{
 
     public function reportePorDiaOCajax(){
 
-         $cotizacion= DB::table('cotizacion')
-            ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
-            ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
-            ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
-            ->leftJoin('orden_compra', 'orden_compra.idcotizacion', '=', 'cotizacion.idcotizacion')   
-            ->select('cotizacion.idcotizacion', 'cotizacion.contacto', 'cotizacion.tipo_pago','cotizacion.precio as precio_neto','cotizacion.igv','cotizacion.preciototal',
-                    'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
-                    'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
-                    'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','detalle_cotizacion.estado_pedido','productos.nombre_producto','productos.idproducto',
-                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.motivo_no_despacho','orden_compra.fecha_despacho')
-      
-            ->get();   
+        $fecha= $this->convertir_fecha(Input::get('fecha'));
+
+        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,case dis.sector when 1 then 'Lima Centro'
+                                                                        when 2 then 'Lima Moderna'
+                                                                        when 3 then 'Lima Norte'
+                                                                        when 4 then 'Lima Sur'
+                                                                        when 5 then 'Lima Este'
+                                                                        when 6 then 'Callao'
+                                                                        else '-' end sector_nombre  from orden_compra o
+                                        inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                        inner join clientes cl on cl.idclientes=c.idclientes
+                                        inner join detalle_cotizacion dc on dc.idcotizacion=c.idcotizacion
+                                        inner join productos pr on pr.idproducto = dc.idproducto
+                                        inner join distrito dis on dis.iddistrito=c.iddistrito
+                                        where o.despacho=2 and date(o.fecha_despacho)='$fecha'") );    
 
       
         // set document information
@@ -451,7 +454,7 @@ class OrdenController extends BaseController{
 
         PDF::AddPage();
 
-        $datos=array("cotizacion"=>$cotizacion);   
+        $datos=array("ordencompra"=>$ordencompra);   
         $html = View::make('reportes.reporteOCdiaAjax',$datos);
 
         PDF::writeHTML($html, true, false, true, false, '');
@@ -459,8 +462,88 @@ class OrdenController extends BaseController{
         PDF::Output(public_path().'/data.pdf', 'F');
      
        //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
-      echo '<object width="1000" height="800" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+      echo '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
     }
+
+
+
+    /******************/
+
+     public function reportePorDiaND(){
+
+        return View::make('reportes.reporteNDdia');
+
+    }
+
+    public function reportePorDiaNDajax(){
+
+        $fecha= $this->convertir_fecha(Input::get('fecha'));
+
+        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,case dis.sector when 1 then 'Lima Centro'
+                                                                        when 2 then 'Lima Moderna'
+                                                                        when 3 then 'Lima Norte'
+                                                                        when 4 then 'Lima Sur'
+                                                                        when 5 then 'Lima Este'
+                                                                        when 6 then 'Callao'
+                                                                        else '-' end sector_nombre,o.motivo_no_despacho  from orden_compra o
+                                        inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                        inner join clientes cl on cl.idclientes=c.idclientes
+                                        inner join detalle_cotizacion dc on dc.idcotizacion=c.idcotizacion
+                                        inner join productos pr on pr.idproducto = dc.idproducto
+                                        inner join distrito dis on dis.iddistrito=c.iddistrito
+                                        where  date(o.fecha_no_cotizacion)='$fecha' and date(o.fecha_no_cotizacion)!= date(o.fecha_despacho)")  );    
+
+      
+        // set document information
+        PDF::SetCreator(PDF_CREATOR);
+        PDF::SetAuthor('Cotizacion');
+        PDF::SetTitle('NCH PERU');
+        PDF::SetSubject('NCH PERU');
+        PDF::SetKeywords('TCPDF, PDF, Cotizacion');
+
+       
+        PDF::setPrintHeader(false);
+        PDF::setPrintFooter(true);
+
+        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
+        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
+        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // set image scale factor
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        PDF::SetFont('helvetica', '', 10);
+
+        PDF::AddPage();
+
+        $datos=array("ordencompra"=>$ordencompra);   
+        $html = View::make('reportes.reporteNDdiaAjax',$datos);
+
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output(public_path().'/data.pdf', 'F');
+     
+       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+      echo '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+    }
+
+    /*****************/
+
+
+
+
+
+
+
+
+
+
 
 
 
