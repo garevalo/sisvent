@@ -67,14 +67,14 @@
     <table class="tabla" border="" cellpadding="8" cellspacing="0">
         <tr class="" style="background-color:#5cb85c ;color:#fff; font-size: 45px;">
             
-            <td> Nro.Orden</td>
-            <td> Empresa</td>
-            <td> Productos</td>
+            <td width="10%"> Nro.Orden</td>
+            <td width="10%"> Empresa</td>
+            <td width="20%"> Productos</td>
             <td width="10%"> Prec.Uni</td>
             <td width="10%"> Cantidad</td>
             <td width="10%"> Precio</td>
             <td width="10%"> T.Pago</td>
-            <td> Motivo No Despacho</td>
+            <td width="20%"> Motivo No Despacho</td>
         </tr>
         <?php $i=0; foreach ($ordencompra as $key=> $value) { ?>
         <tr style="background-color:#fcf8e3;">
