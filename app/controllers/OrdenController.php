@@ -26,7 +26,7 @@ class OrdenController extends BaseController{
                     'cotizacion.iddistrito','cotizacion.direccion_despacho','clientes.acreditacion','clientes.idclientes',
                     'clientes.ruc','clientes.nombre_cliente','clientes.direccion_cliente','clientes.telefono_cliente','clientes.correo',
                     'detalle_cotizacion.cantidad','detalle_cotizacion.precio','detalle_cotizacion.pedido','productos.nombre_producto','productos.idproducto',
-                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra')
+                    'productos.precio_producto','productos.stock','orden_compra.idorden_compra','orden_compra.despacho')
             ->where('cotizacion.idcotizacion', '=', $id)
             ->get();
        $distrito=Distrito::all();
@@ -392,7 +392,7 @@ class OrdenController extends BaseController{
 
        $despachados = DB::select('select count(*) cantidad from orden_compra where date(fecha_despacho) = ?', array($fecha));
 
-       $nodespachados = DB::select( DB::raw("select count(*) cantidad from orden_compra where date(fecha_no_cotizacion) = '$fecha' and date(fecha_no_cotizacion)!=date(fecha_despacho)"));
+       $nodespachados = DB::select( DB::raw("select count(*) cantidad from orden_compra where date(fecha_no_cotizacion) = '".$fecha."' and (date(fecha_no_cotizacion)!=date(fecha_despacho) or isnull(fecha_despacho))"));
       
         return View::make('reportes.graficoReporte1',array("fecha"=>$fecha,"despachados"=>$despachados,"nodespachados"=>$nodespachados,"fecha_format"=>Input::get('fecha')));
 
@@ -479,23 +479,21 @@ class OrdenController extends BaseController{
 
         $fecha= $this->convertir_fecha(Input::get('fecha'));
 
-        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,
-                                                                        dc.cantidad,
-                                                                        case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago,                
-                                                                        case dis.sector when 1 then 'Lima Centro'
-                                                                        when 2 then 'Lima Moderna'
-                                                                        when 3 then 'Lima Norte'
-                                                                        when 4 then 'Lima Sur'
-                                                                        when 5 then 'Lima Este'
-                                                                        when 6 then 'Callao'
-                                                                        else '-' end sector_nombre,o.motivo_no_despacho  from orden_compra o
+        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,c.idcotizacion,c.precio,case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago, o.motivo_no_despacho  
+                                            from orden_compra o
+                                            inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                            inner join clientes cl on cl.idclientes=c.idclientes
+                                            inner join distrito dis on dis.iddistrito=c.iddistrito
+                                            where  date(o.fecha_no_cotizacion)='$fecha' and (date(o.fecha_no_cotizacion)!= date(o.fecha_despacho) or isnull(fecha_despacho))") ); 
+
+
+        $productos = DB::select( DB::raw("select pr.nombre_producto,dc.precio, dc.cantidad,c.idcotizacion from orden_compra o
                                         inner join cotizacion c on o.idcotizacion=c.idcotizacion
                                         inner join clientes cl on cl.idclientes=c.idclientes
                                         inner join detalle_cotizacion dc on dc.idcotizacion=c.idcotizacion
                                         inner join productos pr on pr.idproducto = dc.idproducto
                                         inner join distrito dis on dis.iddistrito=c.iddistrito
-                                        where  date(o.fecha_no_cotizacion)='$fecha' and date(o.fecha_no_cotizacion)!= date(o.fecha_despacho)")  );    
-
+                                        where  date(o.fecha_no_cotizacion)='$fecha' and (date(o.fecha_no_cotizacion)!= date(o.fecha_despacho) or isnull(fecha_despacho))") ); 
       
         // set document information
         PDF::SetCreator(PDF_CREATOR);
@@ -506,14 +504,14 @@ class OrdenController extends BaseController{
 
        
         PDF::setPrintHeader(false);
-        PDF::setPrintFooter(true);
+        PDF::setPrintFooter(false);
 
         PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
         // set margins
         PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
-        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
-        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+        PDF::SetHeaderMargin(5);
+        PDF::SetFooterMargin(5);
 
         // set auto page breaks
         PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -525,29 +523,17 @@ class OrdenController extends BaseController{
 
         PDF::AddPage();
 
-        $datos=array("ordencompra"=>$ordencompra);   
+        $datos=array("ordencompra"=>$ordencompra,"productos"=>$productos);   
         $html = View::make('reportes.reporteNDdiaAjax',$datos);
 
         PDF::writeHTML($html, true, false, true, false, '');
 
         PDF::Output(public_path().'/data.pdf', 'F');
-     
-       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
-      echo '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+        
+        return '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
     }
 
     /*****************/
-
-
-
-
-
-
-
-
-
-
-
 
 
     function convertir_fecha($fecha){
@@ -559,6 +545,24 @@ class OrdenController extends BaseController{
         
         return $anio.'-'.$mes.'-'.$dia; 
         
+    }
+
+    function reporte_zonas_mes(){
+
+        return View::make('reportes.reporteZonasMes');
+
+    }
+
+    function reporte_zonas_mes_ajax(){
+
+        $sector = DB::select( DB::raw("select month(fecha_despacho),d.sector,d.iddistrito,count(*) FROM orden_compra o 
+                                            inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                            inner join distrito d on d.iddistrito=c.iddistrito
+                                            where year(o.fecha_despacho)=2015
+                                            group by month(fecha_despacho),d.sector") ); 
+
+        return View::make('reportes.reporteZonasMesAjax',array("sector"=>$sector));
+
     }
 
 }

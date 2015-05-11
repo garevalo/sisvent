@@ -65,6 +65,8 @@
         {{ HTML::script('js/funciones.js')  }}
         {{ HTML::script('js/reportes.js')  }}
         {{ HTML::script('js/charts/highcharts/js/highcharts.js')  }}
+        {{ HTML::script('js/charts/highcharts/js/modules/exporting.js')  }}
         {{ HTML::script('js/charts/highcharts/js/highcharts-3d.js')  }}
+        
         
 @stop

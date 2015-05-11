@@ -27,6 +27,7 @@ class CotizacionController extends BaseController{
     {
          $query=DB::table('cotizacion')
         ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
+        ->orderBy('cotizacion.idcotizacion', 'desc')
         ->select('idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','cotizacion.estado','idcotizacion as id');
 
         return Datatable::query($query)

@@ -60,21 +60,26 @@
                         </li>
                         
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-file-text"></i> Reportes <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-file-text "></i> Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
                                 
                                 <li><a href="{{url('reportes/reporte', $parameters = array(), $secure = null);}}" tabindex="-1">
-                                    <i class="dropdown-icon fa  fa-bar-chart-o "></i>
+                                    <i class="dropdown-icon fa  fa-bar-chart-o blue"></i>
                                     Reporte de Ordenes Despachadas vs No Despachadas
                                 </a></li>
                                 <li><a href="{{url('reportes/reporteocxdia', $parameters = array(), $secure = null);}}" tabindex="-1">
-                                    <i class="dropdown-icon fa fa-file-text-o"></i>
+                                    <i class="dropdown-icon fa fa-file-text-o blue"></i>
                                     Reportes de Ordenes de Compra por dia
                                 </a></li>
 
                                 <li><a href="{{url('reportes/reportendxdia', $parameters = array(), $secure = null);}}" tabindex="-1">
-                                    <i class="dropdown-icon fa fa-file-text-o"></i>
+                                    <i class="dropdown-icon fa fa-file-text-o blue"></i>
                                     Reportes de Ordenes de Compra No Despachadas por dia
+                                </a></li>
+
+                                <li><a href="{{url('reportes/reportezonasmes', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-bar-chart-o blue"></i>
+                                    Reportes de Zonas Despachas Por Mes
                                 </a></li>
                             </ul>
                         </li>

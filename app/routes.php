@@ -112,6 +112,9 @@
         Route::get('reportes/reportendxdia', array('uses' => 'OrdenController@reportePorDiaND'));
         Route::post('reportes/ajaxreportendxdia', array('uses' => 'OrdenController@reportePorDiaNDajax'));
 
+        Route::get('reportes/reportezonasmes', array('uses' => 'OrdenController@reporte_zonas_mes'));
+        Route::post('reportes/reportezonasmesajax', array('uses' => 'OrdenController@reporte_zonas_mes_ajax'));
+
 
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));

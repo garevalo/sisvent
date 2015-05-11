@@ -252,7 +252,7 @@
                                                     ?>
                                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 
-                                                        <button id="btn-acreditacion" type="button" class="btn btn-sm btn-primary btn-block " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
+                                                        <button <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> id="btn-acreditacion" type="button" class="btn btn-sm btn-primary btn-block " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
                                                             <i class="glyphicon glyphicon-bell"></i> Acreditación</button>
                                                     </div>
 
@@ -262,30 +262,33 @@
                                                 <div class="row">
                                                      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 
-                                                         <button type="button" class="btn btn-primary btn-sm btn-block shiny "  onclick="form_modal_rutas('Rutas','{{url("ordencompra/modalruta")}}')">
+                                                         <button <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="button" class="btn btn-primary btn-sm btn-block shiny "  onclick="form_modal_rutas('Rutas','{{url("ordencompra/modalruta")}}')">
                                                          <i class="glyphicon glyphicon-road"></i> Ver Rutas</button>
                                                      </div>
 
                                                  </div>
                                            </div>
-                                           
+
                                            <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <button  type="submit" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
-                                                    <button {{$btndespacho}} type="button" class="btn btn-block btn-sm btn-sky" onclick="bootbox.alert('Se envio a despacho')"><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
-                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                    <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''"; $btnguardarenable="";} 
+                                                         else{$btndespacho=""; $btnguardarenable="disabled=''";} ?>
+                                                    <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-sky" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
+                                                    </div>
      
+                                                </div>
                                             </div>
-                                        </div>
+                                           
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button <?= $btnguardarenable ?>  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        
                                     </div>
                                     </div>
                                 </div>

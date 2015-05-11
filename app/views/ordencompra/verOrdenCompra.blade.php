@@ -274,23 +274,23 @@
                                            </div>
                                            
                                            <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <button <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    
-                                                    <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''";} else{$btndespacho="";} ?>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                    <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''"; $btnguardarenable="";} 
+                                                         else{$btndespacho=""; $btnguardarenable="disabled=''";} ?>
                                                     <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-sky" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
-                                                </div>
+                                                    </div>
      
+                                                </div>
                                             </div>
-                                        </div>
+                                           
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button <?= $btnguardarenable ?>  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </div>
                                     </div>
                                 </div>
