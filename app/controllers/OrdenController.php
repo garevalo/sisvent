@@ -555,11 +555,21 @@ class OrdenController extends BaseController{
 
     function reporte_zonas_mes_ajax(){
 
-        $sector = DB::select( DB::raw("select month(fecha_despacho),d.sector,d.iddistrito,count(*) FROM orden_compra o 
-                                            inner join cotizacion c on o.idcotizacion=c.idcotizacion
-                                            inner join distrito d on d.iddistrito=c.iddistrito
-                                            where year(o.fecha_despacho)=2015
-                                            group by month(fecha_despacho),d.sector") ); 
+        $anio= Input::get('anio');
+        $sector = DB::select( DB::raw("select d.sector,case d.sector when 1 then 'Lima Centro'
+                                                                        when 2 then 'Lima Moderna'
+                                                                        when 3 then 'Lima Norte'
+                                                                        when 4 then 'Lima Sur'
+                                                                        when 5 then 'Lima Este'
+                                                                        when 6 then 'Callao'
+                                                                        else '-' end sector_nombre FROM orden_compra o 
+                                        inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                        inner join distrito d on d.iddistrito=c.iddistrito
+                                        where year(o.fecha_despacho)=".$anio."
+                                        group by d.sector") ); 
+
+       
+
 
         return View::make('reportes.reporteZonasMesAjax',array("sector"=>$sector));
 

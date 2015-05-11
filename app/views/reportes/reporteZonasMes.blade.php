@@ -30,7 +30,7 @@
                                 {{ Form::open(array('url' => 'reportes/reportezonasmesajax',"id"=>"form",'class'=>"form-inline",'role'=>'form','method' => 'post'))}}    
                                                 <div class="form-group">
                                                     <label  >Seleccione Año :</label>
-                                                    <select class="form-control">
+                                                    <select class="form-control" name="anio">
                                                     	<option value="0">Año</option>
                                                     	
                                                     	<?php for($x=2015; $x>=2000; $x--) { ?>
