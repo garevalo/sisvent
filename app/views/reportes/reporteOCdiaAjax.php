@@ -1,44 +1,29 @@
-
     <style>
-        table.first{
-            border-style: solid;
-            border-color: #000;
-            border-width: 3px 3px 3px 3px;
-            color:#D81A1A; 
-            font-size: 40px;           
-        }
-         table.second{
-            border-style: solid;
-            border-color: #000;
-            border-width: 1px 1px 1px 1px;
-            padding: 15px 15px 15px 15px;
-            
-        }
+       
+        td{
 
-        td.borde{
-            border-style: solid;
-            border-color: #000;
-            border-width: 0px 0px 2px 0px;
-            padding: 15px 15px 15px 15px;
-            
+            vertical-align: middle;
         }
         h2 {
                 color: navy;
                 font-family: times;
                 font-size: 18pt;
-                text-decoration: underline;
             }
-
-        th{
-
-            background-color: #ccffcc;
-        }   
+  
         table.tabla td{
             border-width: 2px 2px 2px 2px;
             border-color: #333;
             text-align: center;
             font-family: times;
             font-size: 35px;
+        }
+
+        table.subtabla td{
+            border-width: 1px 1px 1px 1px;
+            border-color: #333;
+            text-align: center;
+            font-family: times;
+            font-size: 25px;
         }
     </style>
 
@@ -60,37 +45,51 @@
             </td>
         </tr>
     </table>
+
+    <h2  align="center">Reporte de Ordenes de Compra No Despachadas por día</h2>
     
-    <br><br>
-    <h2  align="center">Reporte de Ordenes de Compra despachadas por día</h2>
-    
-    <table class="tabla" border="" cellpadding="8" cellspacing="0">
-        <tr class="" style="background-color:#5cb85c ;color:#fff; font-size: 45px;">
+    <table class="tabla" border="" cellpadding="0" cellspacing="0">
+        <tr class="" style="background-color:#328aa4 ;color:#fff; font-size: 45px;">
             
-            <td width="10%"> Nro.Orden</td>
-            <td width="20%"> Empresa</td>
-            <td width="20%"> Productos</td>
-            <td width="10%"> Prec.Uni</td>
-            <td width="10%"> Cantidad</td>
-            <td width="10%"> Precio</td>
-            <td width="10%"> T.Pago</td>
-            <td width="10%"> Zona Despacho</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" width="10%"> Nro.Orden</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" width="13%"> Empresa</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" width="40%"> Productos</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" width="7%"> Monto</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" width="7%"> T.Pago</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" width="23%"> Zona Despacho</td>
         </tr>
-        <?php $i=0; foreach ($ordencompra as $key=> $value) { ?>
+        <?php $monto_total=0; $i=0; foreach ($ordencompra as $key=> $value) { $monto_total += $value->precio;?>
         <tr style="background-color:#fcf8e3;">
            
             <td><?=  str_pad($value->idorden_compra, 10, "0", STR_PAD_LEFT)  ?></td>
             <td><?= $value->nombre_cliente?></td>
-            <td><?= $value->nombre_producto?></td>
-            <td><?= $value->precio / $value->cantidad?></td>
-            <td><?= $value->cantidad?></td>
+            <td>
+                <table class="subtabla"> 
+                    <tr style="background-color:#f0ad4e ;color:#fff;">
+                        <td>Nombre</td>
+                        <td>Cantidad</td>
+                        <td>P.Uni</td>
+                        <td>Precio</td>
+                    </tr>
+                <?php foreach ($productos as $key => $prod) { if($value->idcotizacion == $prod->idcotizacion){?>
+                  <tr style="background-color:#6f5499 ;color:#fff;">
+                    <td><?= $prod->nombre_producto?></td>
+                    <td><?= $prod->cantidad?></td>
+                    <td><?= $prod->precio / $prod->cantidad?></td>
+                    <td><?= $prod->precio ?></td>
+                  </tr> 
+                <?php }}?>
+                </table>
+            </td>
             <td><?= $value->precio?></td>
             <td><?= $value->pago?></td>
             <td><?= $value->sector_nombre?></td>
         </tr>
         <?php  $i++;} ?>
     </table>
-    <br> <br> <br>
+
+    <h3>Monto total del día: <?= $monto_total ?></h3>
+    
     
 
 

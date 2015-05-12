@@ -409,7 +409,7 @@ class OrdenController extends BaseController{
 
         $fecha= $this->convertir_fecha(Input::get('fecha'));
 
-        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,dc.cantidad,
+        $ordencomprass = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,dc.cantidad,
                                                                         case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago,
                                                                         case dis.sector when 1 then 'Lima Centro'
                                                                         when 2 then 'Lima Moderna'
@@ -424,7 +424,29 @@ class OrdenController extends BaseController{
                                         inner join productos pr on pr.idproducto = dc.idproducto
                                         inner join distrito dis on dis.iddistrito=c.iddistrito
                                         where o.despacho=2 and date(o.fecha_despacho)='$fecha'") );    
+        
+          $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,c.idcotizacion,c.precio,case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago, case dis.sector when 1 then 'Lima Centro'
+                                                                        when 2 then 'Lima Moderna'
+                                                                        when 3 then 'Lima Norte'
+                                                                        when 4 then 'Lima Sur'
+                                                                        when 5 then 'Lima Este'
+                                                                        when 6 then 'Callao'
+                                                                        else '-' end sector_nombre  
+                                            from orden_compra o
+                                            inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                            inner join clientes cl on cl.idclientes=c.idclientes
+                                            inner join distrito dis on dis.iddistrito=c.iddistrito
+                                            where  o.despacho=2 and date(o.fecha_despacho)='$fecha' ") ); 
 
+
+        $productos = DB::select( DB::raw("select pr.nombre_producto,dc.precio, dc.cantidad,c.idcotizacion from orden_compra o
+                                        inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                        inner join clientes cl on cl.idclientes=c.idclientes
+                                        inner join detalle_cotizacion dc on dc.idcotizacion=c.idcotizacion
+                                        inner join productos pr on pr.idproducto = dc.idproducto
+                                        inner join distrito dis on dis.iddistrito=c.iddistrito
+                                        where  o.despacho=2 and date(o.fecha_despacho)='$fecha'") ); 
+      
       
         // set document information
         PDF::SetCreator(PDF_CREATOR);
@@ -454,7 +476,7 @@ class OrdenController extends BaseController{
 
         PDF::AddPage();
 
-        $datos=array("ordencompra"=>$ordencompra);   
+        $datos=array("ordencompra"=>$ordencompra,"productos"=>$productos);   
         $html = View::make('reportes.reporteOCdiaAjax',$datos);
 
         PDF::writeHTML($html, true, false, true, false, '');
