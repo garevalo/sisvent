@@ -123,14 +123,14 @@
                  
 
                 <!-- Account Area and Settings -->
-
+                
                 <div class="navbar-header pull-right">
                     <div class="navbar-account">
                         <ul class="account-area">
                            
                             
-                            
-<li>
+                            <?php /*
+                            <li>
                                 <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
                                     <i class="icon fa fa-envelope"></i>
                                     <span class="badge">3</span>
@@ -194,11 +194,11 @@
                                             </div>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> 
                                 <!--/Messages Dropdown-->
                             </li>
-
-
+                            */ ?>
+                            
 
 
                             <li>

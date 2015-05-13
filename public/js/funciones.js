@@ -1,13 +1,18 @@
 
 
  $(function(){
+
+    var f=new Date();
+    var hoy= (f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+
             $(".date").datepicker({
                 dateFormat: "dd/mm/yy",
                 changeMonth: true,
                 changeYear: true ,
                 monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiebre", "Octubre", "Noviembre", "Diciembre" ],
                 monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
-                dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ]
+                dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ],
+                maxDate: hoy
             });
                         
                         

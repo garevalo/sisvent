@@ -256,7 +256,7 @@
                                                     ?>
                                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 
-                                                        <button id="btn-acreditacion" <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="button" class="btn btn-sm btn-primary btn-block " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
+                                                        <button id="btn-acreditacion" <?= ($cotizacion[0]->despacho==2 || $cotizacion[0]->tipo_pago==2)? 'disabled=""':"" ?> type="button" class="btn btn-sm btn-primary btn-block " {{$btndisabled}} onclick="form_modal_acreditacion('Registrar Acreditación','{{url("ordencompra/modal")}}')">
                                                             <i class="glyphicon glyphicon-bell"></i> Acreditación</button>
                                                     </div>
 
@@ -276,8 +276,9 @@
                                            <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                    <?php if($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2){$btndespacho="disabled=''"; $btnguardarenable="";} 
-                                                         else{$btndespacho=""; $btnguardarenable="disabled=''";} ?>
+                                                    <?php if(($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2) && $cotizacion[0]->tipo_pago==1){$btndespacho="disabled=''"; $btnguardarenable="";} 
+                                                           
+                                                            else{$btndespacho=""; $btnguardarenable="disabled=''";} ?>
                                                     <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-sky" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
                                                     </div>
      

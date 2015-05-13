@@ -46,7 +46,7 @@
         </tr>
     </table>
 
-    <h2  align="center">Reporte de Ordenes de Compra No Despachadas por día</h2>
+    <h2  align="center">Reporte de Ordenes de Compra por día</h2>
     
     <table class="tabla" border="" cellpadding="0" cellspacing="0">
         <tr class="" style="background-color:#328aa4 ;color:#fff; font-size: 45px;">

@@ -94,6 +94,7 @@ class OrdenController extends BaseController{
             ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
             ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
             ->where("orden_compra.despacho","2")
+            ->orderBy("orden_compra.idorden_compra","desc")
             ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id');
 
             return Datatable::query($query)
