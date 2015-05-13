@@ -43,7 +43,8 @@
                                 </li>
                             </ul>
                         </li>
-                        
+                        @endif
+                        @if( Auth::user()->idtipo==1 || Auth::user()->idtipo==2)
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-clipboard"></i> Orden Compra <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
@@ -58,7 +59,8 @@
                                 </a></li>
                             </ul>
                         </li>
-                        
+                        @endif
+                         @if( Auth::user()->idtipo==1 || Auth::user()->idtipo==2)
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-file-text "></i> Reportes <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
@@ -92,7 +94,7 @@
                         </li>
                         @endif
                         
-                        @if( Auth::user()->idtipo==1 )
+                        @if( Auth::user()->idtipo==1 || Auth::user()->idtipo==3)
                          <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-folder-open"></i> Almacén<span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-purple" role="menu">
@@ -110,16 +112,17 @@
                             </ul>
                         </li>
                         @endif
-
+                         @if( Auth::user()->idtipo==1 || Auth::user()->idtipo==5)
                         <li class="">
                             <a href="{{url('despacho', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-truck"></i> Despacho </a>
                             
                         </li>
+                        @endif
                     </ul>
                 </div>
                  
 
-                <!-- Account Area and Settings --->
+                <!-- Account Area and Settings -->
 
                 <div class="navbar-header pull-right">
                     <div class="navbar-account">
@@ -210,12 +213,13 @@
                                 <!--Login Area Dropdown-->
                                 <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
                                     <li class="username"><a>{{Auth::user()->usuario}}</a></li>
-                                    <!--<li class="email"><a>David.Stevenson@live.com</a></li>-->
-                                    
+                                   <?php /* <li class="email"><a>David.Stevenson@live.com</a></li>*/ ?>
+                                    <?php /* 
                                     <li class="edit">
                                         <a href="profile.html" class="pull-left">Perfil</a>
                                         <a href="#" class="pull-right">Configuración</a>
                                     </li>
+                                    */ ?>
                                     <!--Theme Selector Area-->
                                     
                                     <!--/Theme Selector Area-->

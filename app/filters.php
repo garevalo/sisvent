@@ -88,7 +88,7 @@ Route::filter('csrf', function()
 
 Route::filter('acceso_acreditacion',function(){
 
-	if(Auth::user()->idtipo==4){
+	if(Auth::user()->idtipo==2 || Auth::user()->idtipo==3 || Auth::user()->idtipo==5){
 
 
 		return Redirect::to('dashboard');
