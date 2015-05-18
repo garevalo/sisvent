@@ -5,15 +5,45 @@
     var f=new Date();
     var hoy= (f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 
-            $(".date").datepicker({
-                dateFormat: "dd/mm/yy",
-                changeMonth: true,
-                changeYear: true ,
-                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiebre", "Octubre", "Noviembre", "Diciembre" ],
-                monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
-                dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ],
-                maxDate: hoy
-            });
+    $(".date").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true ,
+        monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiebre", "Octubre", "Noviembre", "Diciembre" ],
+        monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+        dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ],
+        maxDate: hoy
+    });
+
+    $( "#desde" ).datepicker({
+        defaultDate: "+1w",
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true ,
+        monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiebre", "Octubre", "Noviembre", "Diciembre" ],
+        monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+        dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ],
+        maxDate: hoy,
+      onClose: function( selectedDate ) {
+        $( "#hasta" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#hasta" ).datepicker({
+      defaultDate: "+1w",
+      dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true ,
+        monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiebre", "Octubre", "Noviembre", "Diciembre" ],
+        monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ],
+        dayNamesMin: [ "Do", "Lu", "Ma", "Mie", "Jue", "Vie", "Sa" ],
+        maxDate: hoy,
+      onClose: function( selectedDate ) {
+        $( "#desde" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+
+
+
                         
                         
 
@@ -438,8 +468,9 @@ function solicitar_productos(idcotizacion,idproducto,url){
                         });
                 }
                 else if(datos.error){
-                    $(".modal-body").text(datos.error);
+                    $(".modal-body").html(datos.error);
                     $('#modal-danger').modal('show');
+                    
                 }
             }
             

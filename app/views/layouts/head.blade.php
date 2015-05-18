@@ -83,6 +83,13 @@
                                     <i class="dropdown-icon fa fa-bar-chart-o blue"></i>
                                     Reportes de Zonas Despachas Por Mes
                                 </a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{url('reportes/reportenivelcumplimiento', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <strong>
+                                    <i class="dropdown-icon fa fa-bar-chart-o red"></i>
+                                    Nivel de Cumplimiento de Despacho
+                                    </strong>
+                                </a></li>
                             </ul>
                         </li>
                         @endif

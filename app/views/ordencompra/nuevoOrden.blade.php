@@ -31,11 +31,24 @@
                 
                 <div class="col-md-2" id="alerta-acreditacion">
                     @if($cotizacion[0]->acreditacion==1)
-                     <div class="alert alert-danger">Cliente No Acreditado <span class="fa fa-times"></span></div>
+                    <div class="alert alert-danger fade in radius-bordered alert-shadowed">
+                        <button class="close" data-dismiss="alert">×</button>
+                        <i class="fa-fw fa fa-times"></i>
+                        <strong>Error!</strong> Cliente No Acreditado
+                    </div>
                     @elseif($cotizacion[0]->acreditacion==2)
-                     <div class="alert alert-info">En proceso de Acreditación <span class="fa fa-check"></span></div>
+                    <div class="alert alert-info fade in radius-bordered alert-shadowed">
+                        <button class="close" data-dismiss="alert"> × </button>
+                        <span class="fa-fw fa fa-info"></span>
+                         En proceso de Acreditación
+                    </div>
+                     
                     @elseif($cotizacion[0]->acreditacion==3)
-                     <div class="alert alert-success">Cliente Acreditado <span class="fa fa-check"></span></div>
+                    <div class="alert alert-success fade in radius-bordered alert-shadowed">
+                        <button class="close" data-dismiss="alert">×</button>
+                        <span class="fa fa-check"></span>
+                        Cliente Acreditado 
+                    </div>
                     @endif
                     
                 </div>
@@ -274,7 +287,7 @@
                                                     <div class="col-lg-12">
                                                     <?php if(($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2) && $cotizacion[0]->tipo_pago==1){$btndespacho="disabled=''"; $btnguardarenable="";} 
                                                          else{$btndespacho=""; $btnguardarenable="disabled=''";} ?>
-                                                    <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-sky" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
+                                                    <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-purple shiny" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
                                                     </div>
      
                                                 </div>

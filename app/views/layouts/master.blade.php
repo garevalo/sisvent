@@ -15,7 +15,7 @@
                     {{ HTML::style('css/typicons.min.css') }}
                     {{ HTML::style('css/animate.min.css')}}
                     {{  HTML::script('js/skins.min.js')  }}
-                    
+
           	
 		@show
                 
@@ -25,6 +25,7 @@
                     {{  HTML::script('js/jquery.ui/jquery-ui.js')  }}
                     {{  HTML::script('js/bootstrap.min.js') }}
                     {{  HTML::script('js/slimscroll/jquery.slimscroll.min.js')  }}
+                    {{  HTML::script('js/toastr/toastr.js')  }}
                     {{  HTML::script('js/beyond.min.js')  }}
                     {{  HTML::script('js/bootbox/bootbox.js')  }}
                     

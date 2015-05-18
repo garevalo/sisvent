@@ -254,18 +254,53 @@ class OrdenController extends BaseController{
             ->Join('orden_compra', 'orden_compra.idcotizacion', '=', 'cotizacion.idcotizacion')
             ->join('clientes', 'clientes.idclientes', '=', 'cotizacion.idclientes')
             ->where('orden_compra.idorden_compra', '=', $idoc)
-            ->pluck('clientes.correo');
+            ->pluck('clientes.correo'); 
 
-        if($cantrutas<=15){
-            
-            DB::statement("call sp_registrar_despacho({$idoc});");
-            
-            return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <string>".$correo."</string></p>","dir"=>url("ordencompra")));
+        $hora=date("H");    
+        if($hora<13){
+            if($cantrutas<=15){
+                
+                //DB::statement("call sp_registrar_despacho({$idoc});");
+                
+                return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <string>".$correo."</string></p>","dir"=>url("ordencompra")));
+            }
+            else{
+                return json_encode(array("error"=>"No hay rutas disponibles"));
+            }
+        }else{
+            return json_encode(array("error"=>"No se puede realizar despacho después de la <strong>1 p.m</strong>"));
         }
-        else{
-            return json_encode(array("error"=>"No hay rutas disponibles"));
-        }
-        
+    }
+
+    function pdf(){
+
+        PDF::SetCreator(PDF_CREATOR);
+        PDF::SetAuthor('Cotizacion');
+        PDF::SetTitle('NCH PERU');
+        PDF::SetSubject('NCH PERU');
+        PDF::SetKeywords('TCPDF, PDF, Cotizacion');
+
+       
+        PDF::setPrintHeader(false);
+        PDF::setPrintFooter(true);
+
+        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        // set margins
+        PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
+        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
+        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        // set auto page breaks
+        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        // set image scale factor
+        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        PDF::SetFont('helvetica', '', 10);
+
+        PDF::AddPage();
+
     }
 
     public function generarFactura($idoc){
@@ -409,24 +444,9 @@ class OrdenController extends BaseController{
     public function reportePorDiaOCajax(){
 
         $fecha= $this->convertir_fecha(Input::get('fecha'));
-
-        $ordencomprass = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,pr.nombre_producto,dc.precio,dc.cantidad,
-                                                                        case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago,
-                                                                        case dis.sector when 1 then 'Lima Centro'
-                                                                        when 2 then 'Lima Moderna'
-                                                                        when 3 then 'Lima Norte'
-                                                                        when 4 then 'Lima Sur'
-                                                                        when 5 then 'Lima Este'
-                                                                        when 6 then 'Callao'
-                                                                        else '-' end sector_nombre from orden_compra o
-                                        inner join cotizacion c on o.idcotizacion=c.idcotizacion
-                                        inner join clientes cl on cl.idclientes=c.idclientes
-                                        inner join detalle_cotizacion dc on dc.idcotizacion=c.idcotizacion
-                                        inner join productos pr on pr.idproducto = dc.idproducto
-                                        inner join distrito dis on dis.iddistrito=c.iddistrito
-                                        where o.despacho=2 and date(o.fecha_despacho)='$fecha'") );    
+   
         
-          $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,c.idcotizacion,c.precio,case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago, case dis.sector when 1 then 'Lima Centro'
+        $ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,c.idcotizacion,c.precio,case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago, case dis.sector when 1 then 'Lima Centro'
                                                                         when 2 then 'Lima Moderna'
                                                                         when 3 then 'Lima Norte'
                                                                         when 4 then 'Lima Sur'
@@ -450,32 +470,7 @@ class OrdenController extends BaseController{
       
       
         // set document information
-        PDF::SetCreator(PDF_CREATOR);
-        PDF::SetAuthor('Cotizacion');
-        PDF::SetTitle('NCH PERU');
-        PDF::SetSubject('NCH PERU');
-        PDF::SetKeywords('TCPDF, PDF, Cotizacion');
-
-       
-        PDF::setPrintHeader(false);
-        PDF::setPrintFooter(true);
-
-        PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-        // set margins
-        PDF::SetMargins(PDF_MARGIN_LEFT,10, PDF_MARGIN_RIGHT);
-        PDF::SetHeaderMargin(PDF_MARGIN_HEADER);
-        PDF::SetFooterMargin(PDF_MARGIN_FOOTER);
-
-        // set auto page breaks
-        PDF::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-        // set image scale factor
-        PDF::setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-        PDF::SetFont('helvetica', '', 10);
-
-        PDF::AddPage();
+        $this->pdf();
 
         $datos=array("ordencompra"=>$ordencompra,"productos"=>$productos);   
         $html = View::make('reportes.reporteOCdiaAjax',$datos);
@@ -591,11 +586,52 @@ class OrdenController extends BaseController{
                                         where year(o.fecha_despacho)=".$anio."
                                         group by d.sector") ); 
 
-       
-
-
         return View::make('reportes.reporteZonasMesAjax',array("sector"=>$sector));
 
+    }
+
+
+    /********/
+
+
+    public function reporteNivelCumplimiento(){
+
+        return View::make('reportes.reporteNivelCumplimiento');
+
+    }
+
+    public function reporteNivelCumplimientoAjax(){
+
+        //$fecha= $this->convertir_fecha(Input::get('fecha'));
+   
+        
+        /*$ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,c.idcotizacion,c.precio,case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago, case dis.sector when 1 then 'Lima Centro'
+                                                                        when 2 then 'Lima Moderna'
+                                                                        when 3 then 'Lima Norte'
+                                                                        when 4 then 'Lima Sur'
+                                                                        when 5 then 'Lima Este'
+                                                                        when 6 then 'Callao'
+                                                                        else '-' end sector_nombre  
+                                            from orden_compra o
+                                            inner join cotizacion c on o.idcotizacion=c.idcotizacion
+                                            inner join clientes cl on cl.idclientes=c.idclientes
+                                            inner join distrito dis on dis.iddistrito=c.iddistrito
+                                            where  o.despacho=2 and date(o.fecha_despacho)='$fecha' ") ); */
+
+
+      
+        // set document information
+        $this->pdf();
+
+        $datos=array();   
+        $html = View::make('reportes.reporteNivelCumplimientoAjax',$datos);
+
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output(public_path().'/data.pdf', 'F');
+     
+       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+      echo '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
     }
 
 }

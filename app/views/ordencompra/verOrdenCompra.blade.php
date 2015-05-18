@@ -31,11 +31,24 @@
                 
                 <div class="col-md-2" id="alerta-acreditacion">
                     @if($cotizacion[0]->acreditacion==1)
-                     <div class="alert alert-danger">Cliente No Acreditado <span class="fa fa-times"></span></div>
+                    <div class="alert alert-danger fade in radius-bordered alert-shadowed">
+                        <button class="close" data-dismiss="alert">×</button>
+                        <i class="fa-fw fa fa-times"></i>
+                        <strong>Error!</strong> Cliente No Acreditado
+                    </div>
                     @elseif($cotizacion[0]->acreditacion==2)
-                     <div class="alert alert-info">En proceso de Acreditación <span class="fa fa-check"></span></div>
+                    <div class="alert alert-info fade in radius-bordered alert-shadowed">
+                        <button class="close" data-dismiss="alert"> × </button>
+                        <span class="fa-fw fa fa-info"></span>
+                         En proceso de Acreditación
+                    </div>
+                     
                     @elseif($cotizacion[0]->acreditacion==3)
-                     <div class="alert alert-success">Cliente Acreditado <span class="fa fa-check"></span></div>
+                    <div class="alert alert-success fade in radius-bordered alert-shadowed">
+                        <button class="close" data-dismiss="alert">×</button>
+                        <span class="fa fa-check"></span>
+                        Cliente Acreditado 
+                    </div>
                     @endif
                     
                 </div>
@@ -135,24 +148,22 @@
 
 
                                                             </select>
-                                                            @if($errors->has('precio'))
-                                                            <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                            @endif
 
                                                         </div>
                                                         <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                             <label  id="precio">Dirección de Despacho:</label>
                                                             <input type="text" name="dirdespacho" id="dirdespacho" class="form-control" value="{{$cotizacion[0]->direccion_despacho}}" disabled="">
-                                                            @if($errors->has('precio'))
-                                                           <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                           @endif
                                                         </div>
                                                         <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                             <label  id="precio">Motivo no despacho:</label>
-                                                            <input value="{{$cotizacion[0]->motivo_no_despacho}}" type="text" name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
-                                                            @if($errors->has('precio'))
-                                                           <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                           @endif
+                                                            
+                                                            <select name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
+                                                                <option value="0">Seleccione Motivo</option>
+                                                                <option value="1" <?= ($cotizacion[0]->motivo_no_despacho==1)?"selected=''": "" ?> >No hay Rutas suficientes</option>
+                                                                <option value="2" <?= ($cotizacion[0]->motivo_no_despacho==2)?"selected=''": "" ?>>Cliente No Acreditado</option>
+                                                                <option value="3" <?= ($cotizacion[0]->motivo_no_despacho==3)?"selected=''": "" ?>>No hay stock de productos</option>
+                                                                <option value="4" <?= ($cotizacion[0]->motivo_no_despacho==4)?"selected=''": "" ?>>Hora fuera de despacho</option>
+                                                            </select>
                                                         </div>
 
                                                     </div>
@@ -279,7 +290,7 @@
                                                     <?php if(($contaNoStock>0 || $cotizacion[0]->acreditacion==1 || $cotizacion[0]->acreditacion==2) && $cotizacion[0]->tipo_pago==1){$btndespacho="disabled=''"; $btnguardarenable="";} 
                                                            
                                                             else{$btndespacho=""; $btnguardarenable="disabled=''";} ?>
-                                                    <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-sky" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
+                                                    <button  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> {{$btndespacho}} id="btn-despacho" onclick="despacho('{{url("ordencompra/despacho")}}',{{$cotizacion[0]->idorden_compra}});" type="button" class="btn btn-block btn-sm btn-purple shiny" ><span class="glyphicon glyphicon-send" ></span> Despacho</button> 
                                                     </div>
      
                                                 </div>
