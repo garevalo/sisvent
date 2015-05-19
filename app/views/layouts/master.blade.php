@@ -15,23 +15,12 @@
                     {{ HTML::style('css/typicons.min.css') }}
                     {{ HTML::style('css/animate.min.css')}}
                     {{  HTML::script('js/skins.min.js')  }}
-
+                    {{  HTML::script('js/jquery-2.0.3.min.js')  }}
+                    {{  HTML::script('js/jquery.ui/jquery-ui.js')  }}
           	
 		@show
                 
-                @section('js')
-
-                    {{  HTML::script('js/jquery-2.0.3.min.js')  }}
-                    {{  HTML::script('js/jquery.ui/jquery-ui.js')  }}
-                    {{  HTML::script('js/bootstrap.min.js') }}
-                    {{  HTML::script('js/slimscroll/jquery.slimscroll.min.js')  }}
-                    {{  HTML::script('js/toastr/toastr.js')  }}
-                    {{  HTML::script('js/beyond.min.js')  }}
-                    {{  HTML::script('js/bootbox/bootbox.js')  }}
-                    
-                    
-			
-		@show
+   
 		<title>
 			@section('title')
 				Master Blade
@@ -109,7 +98,17 @@
             
 
    	       @include('layouts/footer')
- 
+          
+           @section('js')
+
+              
+              {{  HTML::script('js/bootstrap.min.js') }}
+              {{  HTML::script('js/slimscroll/jquery.slimscroll.min.js')  }}
+              {{  HTML::script('js/toastr/toastr.js')  }}
+              {{  HTML::script('js/beyond.min.js')  }}
+              {{  HTML::script('js/bootbox/bootbox.js')  }}
+            
+          @show
 		
    </body>
 		

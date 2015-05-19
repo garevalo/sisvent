@@ -118,6 +118,9 @@
         Route::get('reportes/reportenivelcumplimiento', array('uses' => 'OrdenController@reporteNivelCumplimiento'));
         Route::post('reportes/reportenivelcumplimientoajax', array('uses' => 'OrdenController@reporteNivelCumplimientoAjax'));
 
+        Route::get('reportes/reporteniveleficacia', array('uses' => 'OrdenController@reporteNivelEficacia'));
+        Route::post('reportes/reporteniveleficaciaajax', array('uses' => 'OrdenController@reporteNivelEficaciaAjax'));
+
 
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));

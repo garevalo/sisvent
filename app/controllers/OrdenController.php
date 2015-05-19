@@ -602,6 +602,42 @@ class OrdenController extends BaseController{
 
     public function reporteNivelCumplimientoAjax(){
 
+        $fecha_ini= $this->convertir_fecha(Input::get('desde'));
+        $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
+   
+        
+        $ordencompra = DB::select( DB::raw("select  date_format(o.created_at,'%d/%m/%Y') fecha_creacion,
+                    (count(*)-ifnull(o2.cantdesp,0)) no_despachados,
+                    ifnull(o2.cantdesp,0) despachado,count(*)
+                    FROM orden_compra o
+                    left join (select count(*) cantdesp,idorden_compra from orden_compra where  despacho=2 group by date(created_at) ) o2 on o.idorden_compra=o2.idorden_compra 
+                    where date(o.created_at) between '2015-04-17' and '2015-10-27' group by date(o.created_at);") ); 
+
+
+      
+        // set document information
+        $this->pdf();
+
+        $datos=array("orden"=>$ordencompra);   
+        $html = View::make('reportes.reporteNivelCumplimientoAjax',$datos);
+
+        PDF::writeHTML($html, true, false, true, false, '');
+
+        PDF::Output(public_path().'/data.pdf', 'F');
+     
+       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+      echo '<object width="100%" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+    }
+
+
+    public function reporteNivelEficacia(){
+
+        return View::make('reportes.reporteNivelEficacia');
+
+    }
+
+    public function reporteNivelEficaciaAjax(){
+
         //$fecha= $this->convertir_fecha(Input::get('fecha'));
    
         
@@ -624,7 +660,7 @@ class OrdenController extends BaseController{
         $this->pdf();
 
         $datos=array();   
-        $html = View::make('reportes.reporteNivelCumplimientoAjax',$datos);
+        $html = View::make('reportes.reporteNivelEficaciaAjax',$datos);
 
         PDF::writeHTML($html, true, false, true, false, '');
 

@@ -12,19 +12,19 @@
             }
   
         table.tabla td{
-            border-width: 2px 2px 2px 2px;
+            border-width: 2px 1px 2px 1px;
             border-color: #333;
             text-align: center;
             font-family: times;
-            font-size: 35px;
+            font-size: 40px;
         }
 
-        table.subtabla td{
-            border-width: 1px 1px 1px 1px;
-            border-color: #333;
-            text-align: center;
+        .subtabla{
+            
+            text-align: left;
             font-family: times;
-            font-size: 25px;
+            font-size: 35px;
+            width: 100px;
         }
     </style>
 
@@ -50,18 +50,46 @@
     <h2  align="center">Nivel de Cumplimiento de Despacho</h2>
     
     <table class="tabla" border="" cellpadding="0" cellspacing="0">
+        <tr>
+            <td colspan="2">
+            </td>
+            <td colspan="2"> <strong>Fórmula:</strong> NCD=((NDCA/NTDR)*100)</td>
+
+            
+        </tr>
         <tr class="" style="background-color:#328aa4 ;color:#fff; font-size: 45px;">
             
-            <td style="font:100% Arial, Helvetica, sans-serif" width=""> Día</td>
-            <td style="font:100% Arial, Helvetica, sans-serif" width=""> NDCR</td>
-            <td style="font:100% Arial, Helvetica, sans-serif" width=""> NDCA</td>
-            <td style="font:100% Arial, Helvetica, sans-serif" width=""> NE%</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" > Día</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" > NDCR</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" > NDCA</td>
+            <td style="font:100% Arial, Helvetica, sans-serif" > NE%</td>
         </tr>
-       
+       <?php  foreach ($orden as $key => $value) { ?>
+           <tr>
+                <td><?= $value->fecha_creacion ?></td>
+                <td><?= $value->despachado ?></td>
+                <td><?= $value->no_despachados ?></td>
+                <td></td>
+           </tr>
+       <?php } ?>
+        <tr class="" style="background-color:#328aa4 ;color:#fff; font-size: 45px;">
+            
+            <td> TOTAL</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
     </table>
+    <br><br>
+    <div class="subtabla">
+        
+        <strong>NCD: </strong>Nivel de Cumplimiento en Despacho<br>
+        <strong>NDCA: </strong>Número de Despachos Cumplidos a Tiempo<br>
+        <strong>NTDR: </strong>Número Total de Despachos Requerido
+             
+    </div>
+    
 
-    <h3>Monto total del día: </h3>
-    
-    
+
 
 
