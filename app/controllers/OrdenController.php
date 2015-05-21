@@ -605,15 +605,11 @@ class OrdenController extends BaseController{
         $fecha_ini= $this->convertir_fecha(Input::get('desde'));
         $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
    
-        
         $ordencompra = DB::select( DB::raw("select  date_format(o.created_at,'%d/%m/%Y') fecha_creacion,
-                    (count(*)-ifnull(o2.cantdesp,0)) no_despachados,
-                    ifnull(o2.cantdesp,0) despachado,count(*)
+                    ifnull(o2.cantdesp,0) despachado,count(*) total_oc
                     FROM orden_compra o
                     left join (select count(*) cantdesp,idorden_compra from orden_compra where  despacho=2 group by date(created_at) ) o2 on o.idorden_compra=o2.idorden_compra 
-                    where date(o.created_at) between '2015-04-17' and '2015-10-27' group by date(o.created_at);") ); 
-
-
+                    where date(o.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(o.created_at);") ); 
       
         // set document information
         $this->pdf();

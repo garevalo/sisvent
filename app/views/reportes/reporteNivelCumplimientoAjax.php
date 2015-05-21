@@ -64,20 +64,23 @@
             <td style="font:100% Arial, Helvetica, sans-serif" > NDCA</td>
             <td style="font:100% Arial, Helvetica, sans-serif" > NE%</td>
         </tr>
-       <?php  foreach ($orden as $key => $value) { ?>
+       <?php  
+        $tot_ocr=0;
+        $tot_oca=0;
+        foreach ($orden as $key => $value) { $tot_ocr+=$value->total_oc; $tot_oca+=$value->despachado;?>
            <tr>
                 <td><?= $value->fecha_creacion ?></td>
+                <td><?= $value->total_oc ?></td>
                 <td><?= $value->despachado ?></td>
-                <td><?= $value->no_despachados ?></td>
-                <td></td>
+                <td><?= ($value->despachado / $value->total_oc)*100; ?> %</td>
            </tr>
        <?php } ?>
         <tr class="" style="background-color:#328aa4 ;color:#fff; font-size: 45px;">
             
             <td> TOTAL</td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
+            <td> <?= $tot_ocr?></td>
+            <td> <?= $tot_oca?></td>
+            <td> <?=  ($tot_oca/$tot_ocr)*100?> %</td>
         </tr>
     </table>
     <br><br>
