@@ -16,7 +16,7 @@ function generar_reporte(form,content){
                 processData: false,
                 type: 'POST',
                 beforeSend: function( xhr ) {
-                  $("#reporte").html("Cargando...");
+                  $("#reporte").html("<center style='margin-top:100px;'><img src='/sisvent/public/images/intersection.gif'></center>");
                 },
                 success: function(data) {
                     $("#reporte").html(data);

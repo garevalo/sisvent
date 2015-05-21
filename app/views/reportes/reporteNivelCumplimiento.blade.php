@@ -68,7 +68,7 @@
                     </div>
                 </div><!--Widget Header-->
                 <div class="widget-body bordered-left bordered-blue">
-                    <div class="" id="reporte"> </div> 
+                    <div class="" id="reporte" style="height:700px;"> </div> 
                 </div><!--Widget Body-->
 
             </div>

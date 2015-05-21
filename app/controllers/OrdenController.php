@@ -612,17 +612,21 @@ class OrdenController extends BaseController{
                     where date(o.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(o.created_at);") ); 
       
         // set document information
-        $this->pdf();
+        if(count( $ordencompra) >0){
+            $this->pdf();
 
-        $datos=array("orden"=>$ordencompra);   
-        $html = View::make('reportes.reporteNivelCumplimientoAjax',$datos);
+            $datos=array("orden"=>$ordencompra);   
+            $html = View::make('reportes.reporteNivelCumplimientoAjax',$datos);
 
-        PDF::writeHTML($html, true, false, true, false, '');
+            PDF::writeHTML($html, true, false, true, false, '');
 
-        PDF::Output(public_path().'/data.pdf', 'F');
-     
-       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
-      echo '<object width="100%" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+            PDF::Output(public_path().'/data.pdf', 'F');
+         
+           //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+           return '<object width="100%" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+        }else{
+            return "<center>No hay datos en la fecha seleccionada</center>";
+        }
     }
 
 
@@ -642,18 +646,24 @@ class OrdenController extends BaseController{
                     ifnull(o2.cantdesp,0) despachado,count(*) total_oc
                     FROM orden_compra o
                     left join (select count(*) cantdesp,idorden_compra from orden_compra where  despacho=2 group by date(created_at) ) o2 on o.idorden_compra=o2.idorden_compra 
-                    where date(o.created_at) between '2015-04-17' and '2015-10-27' group by date(o.created_at);") ); 
-        $this->pdf();
+                    where date(o.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(o.created_at);") ); 
+        
 
-        $datos=array("orden"=>$ordencompra);   
-        $html = View::make('reportes.reporteNivelEficaciaAjax',$datos);
+        if(count( $ordencompra) >0){
 
-        PDF::writeHTML($html, true, false, true, false, '');
+            $this->pdf();
+            $datos=array("orden"=>$ordencompra);   
+            $html = View::make('reportes.reporteNivelEficaciaAjax',$datos);
 
-        PDF::Output(public_path().'/data.pdf', 'F');
-     
-       //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
-      echo '<object width="100%" height="100%" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+            PDF::writeHTML($html, true, false, true, false, '');
+
+            PDF::Output(public_path().'/data.pdf', 'F');
+         
+           //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+           return '<object width="100%" height="100%" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+        }else {
+            return "<center>No hay datos en la fecha seleccionada</center>";
+        }
     }
 
 }

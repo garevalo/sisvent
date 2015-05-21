@@ -80,7 +80,7 @@
             <td> TOTAL</td>
             <td> <?= $tot_ocr?></td>
             <td> <?= $tot_oca?></td>
-            <td> <?=  ($tot_oca/$tot_ocr)*100?> %</td>
+            <td> <?=  number_format(($tot_oca/$tot_ocr)*100,2) ?> %</td>
         </tr>
     </table>
     <br><br>
