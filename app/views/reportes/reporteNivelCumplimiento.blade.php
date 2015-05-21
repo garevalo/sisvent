@@ -56,9 +56,6 @@
                 <div class="widget-header bordered-left bordered-blueberry">
                     <span class="widget-caption">Reporte</span>
                     <div class="widget-buttons">
-                        <a href="#" data-toggle="config">
-                            <i class="fa fa-cog"></i>
-                        </a>
                         <a href="#" data-toggle="maximize">
                             <i class="fa fa-expand"></i>
                         </a>

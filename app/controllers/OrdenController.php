@@ -282,7 +282,7 @@ class OrdenController extends BaseController{
 
        
         PDF::setPrintHeader(false);
-        PDF::setPrintFooter(true);
+        PDF::setPrintFooter(false);
 
         PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
@@ -638,28 +638,18 @@ class OrdenController extends BaseController{
 
     public function reporteNivelEficaciaAjax(){
 
-        //$fecha= $this->convertir_fecha(Input::get('fecha'));
+        $fecha_ini= $this->convertir_fecha(Input::get('desde'));
+        $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
    
         
-        /*$ordencompra = DB::select( DB::raw("select o.idorden_compra,cl.nombre_cliente,c.idcotizacion,c.precio,case c.tipo_pago when 1 then 'Crédito' else 'Contado' end pago, case dis.sector when 1 then 'Lima Centro'
-                                                                        when 2 then 'Lima Moderna'
-                                                                        when 3 then 'Lima Norte'
-                                                                        when 4 then 'Lima Sur'
-                                                                        when 5 then 'Lima Este'
-                                                                        when 6 then 'Callao'
-                                                                        else '-' end sector_nombre  
-                                            from orden_compra o
-                                            inner join cotizacion c on o.idcotizacion=c.idcotizacion
-                                            inner join clientes cl on cl.idclientes=c.idclientes
-                                            inner join distrito dis on dis.iddistrito=c.iddistrito
-                                            where  o.despacho=2 and date(o.fecha_despacho)='$fecha' ") ); */
-
-
-      
-        // set document information
+        $ordencompra = DB::select( DB::raw("select  date_format(o.created_at,'%d/%m/%Y') fecha_creacion,
+                    ifnull(o2.cantdesp,0) despachado,count(*) total_oc
+                    FROM orden_compra o
+                    left join (select count(*) cantdesp,idorden_compra from orden_compra where  despacho=2 group by date(created_at) ) o2 on o.idorden_compra=o2.idorden_compra 
+                    where date(o.created_at) between '2015-04-17' and '2015-10-27' group by date(o.created_at);") ); 
         $this->pdf();
 
-        $datos=array();   
+        $datos=array("orden"=>$ordencompra);   
         $html = View::make('reportes.reporteNivelEficaciaAjax',$datos);
 
         PDF::writeHTML($html, true, false, true, false, '');
@@ -667,7 +657,7 @@ class OrdenController extends BaseController{
         PDF::Output(public_path().'/data.pdf', 'F');
      
        //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
-      echo '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+      echo '<object width="100%" height="100%" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
     }
 
 }
