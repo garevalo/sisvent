@@ -23,7 +23,7 @@
 
                 <div class="modal-body">You'vd done bad!</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="ok-error">OK</button>
                 </div>
             </div> <!-- / .modal-content -->
         </div> <!-- / .modal-dialog -->

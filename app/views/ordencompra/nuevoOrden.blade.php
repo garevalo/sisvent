@@ -162,10 +162,13 @@
                                                         </div>
                                                         <div class="col-lg-3 col-sm-3 col-md-4 col-xs-12">
                                                             <label  id="precio">Motivo no despacho:</label>
-                                                            <input value="" type="text" name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
-                                                            @if($errors->has('precio'))
-                                                           <small class="text-danger">* <?php echo $errors->first('precio') ?></small>
-                                                           @endif
+                                                            <select name="motivo" id="motivo" class="form-control" required="" title="ingrese el motivo por el cual no se realiza el despacho">
+                                                                <option value="0">Seleccione Motivo</option>
+                                                                <option value="1">No hay Rutas suficientes</option>
+                                                                <option value="2">Cliente No Acreditado</option>
+                                                                <option value="3">No hay stock de productos</option>
+                                                                <option value="4">Hora fuera de despacho</option>
+                                                            </select>
                                                         </div>
 
                                                     </div>
@@ -296,7 +299,7 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <button <?= $btnguardarenable ?>  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                        <button <?= $btnguardarenable ?>  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" id="btn-guardar" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                     </div>
                                                 </div>
                                             </div>

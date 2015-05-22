@@ -84,16 +84,16 @@
                                     Reportes de Zonas Despachas Por Mes
                                 </a></li>
                                 <li class="divider"></li>
-                                <li><a href="{{url('reportes/reportenivelcumplimiento', $parameters = array(), $secure = null);}}" tabindex="-1">
-                                    <strong>
-                                    <i class="dropdown-icon fa fa-file-text red"></i>
-                                    Nivel de Cumplimiento de Despacho
-                                    </strong>
-                                </a></li>
                                 <li><a href="{{url('reportes/reporteniveleficacia', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <strong>
                                     <i class="dropdown-icon fa fa-file-text red"></i>
                                     Nivel de Eficacia Para Cierre de Ventas
+                                    </strong>
+                                </a></li>
+                                <li><a href="{{url('reportes/reportenivelcumplimiento', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <strong>
+                                    <i class="dropdown-icon fa fa-file-text red"></i>
+                                    Nivel de Cumplimiento de Despacho
                                     </strong>
                                 </a></li>
                             </ul>

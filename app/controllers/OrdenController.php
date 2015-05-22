@@ -69,7 +69,8 @@ class OrdenController extends BaseController{
          $query=DB::table('orden_compra')
         ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
         ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
-        ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id');
+        ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id')
+        ->orderBy("orden_compra.idorden_compra","desc");
 
         return Datatable::query($query)
         ->showColumns('idorden_compra','nombre_cliente','ruc','preciototal')   
@@ -257,18 +258,18 @@ class OrdenController extends BaseController{
             ->pluck('clientes.correo'); 
 
         $hora=date("H");    
-        if($hora<13){
+        if($hora<0){
             if($cantrutas<=15){
                 
                 //DB::statement("call sp_registrar_despacho({$idoc});");
                 
-                return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <string>".$correo."</string></p>","dir"=>url("ordencompra")));
+                return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <strong>".$correo."</strong></p>","dir"=>url("ordencompra")));
             }
             else{
                 return json_encode(array("error"=>"No hay rutas disponibles"));
             }
         }else{
-            return json_encode(array("error"=>"No se puede realizar despacho después de la <strong>1 p.m</strong>"));
+            return json_encode(array("error"=>"No se puede realizar despacho después de la <strong>1 p.m</strong>","activarbtn"=>"activar"));
         }
     }
 
@@ -604,14 +605,14 @@ class OrdenController extends BaseController{
 
         $fecha_ini= $this->convertir_fecha(Input::get('desde'));
         $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
+
+
+        $ordencompra = DB::select( DB::raw("select  date_format(o.created_at,'%d/%m/%Y') fecha_creacion,
+                    ifnull(o2.cantdesp,0) despachado,count(*) total_oc
+                    FROM orden_compra o
+                    left join (select count(*) cantdesp,idorden_compra from orden_compra where  despacho=2 group by date(created_at) ) o2 on o.idorden_compra=o2.idorden_compra 
+                    where date(o.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(o.created_at);") ); 
    
-        $ordencompra = DB::select( DB::raw("select date_format(date(c.created_at),'%d/%m/%Y') fecha,count(c.idcotizacion) cotizaciones,
-                                            ifnull((select count(o2.idorden_compra) from orden_compra o2 inner join cotizacion c2 on o2.idcotizacion=c2.idcotizacion
-                                                where date(c2.created_at)=date(c.created_at) group by date(c2.created_at)),0) ordenes,
-                                            c.idcotizacion,o.idorden_compra,o.idcotizacion FROM cotizacion c
-                                            left join orden_compra o on c.idcotizacion=o.idcotizacion
-                                             where date(c.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(c.created_at);") ); 
-      
         // set document information
         if(count( $ordencompra) >0){
             $this->pdf();
@@ -643,13 +644,13 @@ class OrdenController extends BaseController{
         $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
    
         
-        $ordencompra = DB::select( DB::raw("select  date_format(o.created_at,'%d/%m/%Y') fecha_creacion,
-                    ifnull(o2.cantdesp,0) despachado,count(*) total_oc
-                    FROM orden_compra o
-                    left join (select count(*) cantdesp,idorden_compra from orden_compra where  despacho=2 group by date(created_at) ) o2 on o.idorden_compra=o2.idorden_compra 
-                    where date(o.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(o.created_at);") ); 
+        $ordencompra = DB::select( DB::raw("select date_format(date(c.created_at),'%d/%m/%Y') fecha,count(c.idcotizacion) cotizaciones,
+                                            ifnull((select count(o2.idorden_compra) from orden_compra o2 inner join cotizacion c2 on o2.idcotizacion=c2.idcotizacion
+                                                where date(c2.created_at)=date(c.created_at) group by date(c2.created_at)),0) ordenes,
+                                            c.idcotizacion,o.idorden_compra,o.idcotizacion FROM cotizacion c
+                                            left join orden_compra o on c.idcotizacion=o.idcotizacion
+                                             where date(c.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(c.created_at);") ); 
         
-
         if(count( $ordencompra) >0){
 
             $this->pdf();

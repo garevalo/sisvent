@@ -299,7 +299,7 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-12">
-                                                        <button <?= $btnguardarenable ?>  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
+                                                        <button <?= $btnguardarenable ?>  <?= ($cotizacion[0]->despacho==2? 'disabled=""':"") ?> type="submit" id="btn-guardar" class="btn btn-danger btn-block btn-sm shiny" onclick="registrar_ajax('formordencompra', 0)"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -64,24 +64,26 @@
             <td style="font:100% Arial, Helvetica, sans-serif" > NDCA</td>
             <td style="font:100% Arial, Helvetica, sans-serif" > NE%</td>
         </tr>
-       <?php  
+
+        <?php  
         $tot_ocr=0;
         $tot_oca=0;
-        foreach ($orden as $key => $value) { $tot_ocr+=$value->cotizaciones; $tot_oca+=$value->ordenes;?>
+        foreach ($orden as $key => $value) { $tot_ocr+=$value->total_oc; $tot_oca+=$value->despachado;?>
            <tr>
-                <td><?= $value->fecha ?></td>
-                <td><?= $value->cotizaciones ?></td>
-                <td><?= $value->ordenes ?></td>
-                <td><?= ($value->ordenes / $value->cotizaciones)*100; ?> %</td>
+                <td><?= $value->fecha_creacion ?></td>
+                <td><?= $value->total_oc ?></td>
+                <td><?= $value->despachado ?></td>
+                <td><?= number_format(($value->despachado / $value->total_oc)*100,2); ?> %</td>
            </tr>
-       <?php } ?>
+        <?php } ?>
         <tr class="" style="background-color:#328aa4 ;color:#fff; font-size: 45px;">
             
             <td> TOTAL</td>
             <td> <?= $tot_ocr?></td>
             <td> <?= $tot_oca?></td>
-            <td> <?= number_format(($tot_oca/$tot_ocr)*100,2) ?> %</td>
+            <td> <?=  number_format(($tot_oca/$tot_ocr)*100,2) ?> %</td>
         </tr>
+
     </table>
     <br><br>
     <div class="subtabla">
@@ -91,8 +93,3 @@
         <strong>NTDR: </strong>Número Total de Despachos Requerido
              
     </div>
-    
-
-
-
-
