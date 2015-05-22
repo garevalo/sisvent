@@ -86,13 +86,13 @@
                                 <li class="divider"></li>
                                 <li><a href="{{url('reportes/reportenivelcumplimiento', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <strong>
-                                    <i class="dropdown-icon fa fa-bar-chart-o red"></i>
+                                    <i class="dropdown-icon fa fa-file-text red"></i>
                                     Nivel de Cumplimiento de Despacho
                                     </strong>
                                 </a></li>
                                 <li><a href="{{url('reportes/reporteniveleficacia', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <strong>
-                                    <i class="dropdown-icon fa fa-bar-chart-o red"></i>
+                                    <i class="dropdown-icon fa fa-file-text red"></i>
                                     Nivel de Eficacia Para Cierre de Ventas
                                     </strong>
                                 </a></li>
