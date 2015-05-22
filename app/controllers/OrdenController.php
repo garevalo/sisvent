@@ -258,7 +258,7 @@ class OrdenController extends BaseController{
             ->pluck('clientes.correo'); 
 
         $hora=date("H");    
-        if($hora<0){
+        if($hora<13){
             if($cantrutas<=15){
                 
                 //DB::statement("call sp_registrar_despacho({$idoc});");
