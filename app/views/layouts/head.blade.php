@@ -41,6 +41,12 @@
                                     Registrar Distritos
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{url('categoria/nuevo', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-wrench"></i>
+                                    Registrar Categorias
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         @endif

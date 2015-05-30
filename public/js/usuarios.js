@@ -1,6 +1,6 @@
 
 function get_usuario(url,id){
-
+     $("#information-title").html("Editar Usuario");
 	$.get(url,{id:id},function(data){
 		//var datos=JQuery.
 		console.log(data);
@@ -120,6 +120,7 @@ function guardar_usuario_ajax(form) {
 
 function editar_usuario_ajax(form) {
 
+      
 
        $('#' + form).submit(function(event) {
             var formData = new FormData(this);

@@ -144,12 +144,21 @@
         
 
 
-        /*PRODUCTOS*/
+        /*Distrito*/
         Route::get('distrito/nuevo', array('uses' => 'DistritoController@nuevoDistrito'));
         Route::post('distrito/crear', array('uses' => 'DistritoController@crearDistrito'));
         Route::post('distrito/editar', array('uses' => 'DistritoController@editarDistrito'));
         Route::get('api/getdistritos', array('as'=>'api.getdistritos','uses'=>'DistritoController@getListaDistrito'));
-        Route::post('distrito/getdistrito', array('uses' => 'DistritoController@getDistritoJson'));    
+        Route::post('distrito/getdistrito', array('uses' => 'DistritoController@getDistritoJson'));
+
+
+        /*Categorias*/
+        Route::get('categoria/nuevo', array('uses' => 'CategoriaController@nuevoCategoria'));
+        Route::post('categoria/crear', array('uses' => 'CategoriaController@crearCategoria'));
+        Route::post('categoria/editar', array('uses' => 'CategoriaController@editarCategoria'));
+        Route::get('api/getcategoria', array('as'=>'api.getcategorias','uses'=>'CategoriaController@getListaCategoria'));
+        Route::post('categoria/getcategoria', array('uses' => 'CategoriaController@getCategoriaJson'));    
+            
         
 
         /*DESPACHO*/

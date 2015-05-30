@@ -17,7 +17,7 @@ function guardar_ajax(form) {
                     	var errores=datos.error;
                         console.log(datos.error);
                        	
-                       	if(typeof errores.distrito !=="undefined"){$("#error-distrito").html(errores.distrito[0]); } else{$("#error-distrito").html("");}
+                       	if(typeof errores.categoria !=="undefined"){$("#error-categoria").html(errores.categoria[0]); } else{$("#error-categoria").html("");}
 
                     }
 
@@ -43,36 +43,11 @@ function guardar_ajax(form) {
     
 }
 
-function atender_pedido(url,id,idprod){
-
-    $.post(url,{id:id,idprod:idprod},function(data,status){
-
-        if(status==="success"){
-
-            var datos = jQuery.parseJSON(data);
-            if (datos.dir) {
-                        $("#atender"+id).prop("disabled","disabled");
-                        $(".modal-body").text(datos.mensaje);
-                        $('#modal-success').modal('show');
-
-                       // $("#ok").click(function() {
-                            // $("#form")[0].reset();
-                         //   window.location = datos.dir;
-                        //});
-                    }
-                    else if (datos.datos) {
-                        console.log(data);
-                    }
-            console.log(data);
-        }
-
-    });
 
 
-}
+function editar_categoria(id,url){
 
-function editar_distrito(id,url){
-     $("#information-title").html("Editar Distrito");
+    $("#information-title").html("Editar Categoria");
 
 	$.post(url,{id:id},function(data,status){
 
@@ -80,11 +55,11 @@ function editar_distrito(id,url){
 		
 			console.log(data[0]);
 
-			$("#frm").prop("action","/sisvent/public/distrito/editar");
-			$("#iddistrito").html("<input type='hidden' name='iddistrito' value='"+data[0].iddistrito+"'>");
+			$("#frm").prop("action","/sisvent/public/categoria/editar");
+			$("#idcategoria").html("<input type='hidden' name='idcategoria' value='"+data[0].idcategoria+"'>");
 			$("#guardar").html("<span class='glyphicon glyphicon-edit'></span> Editar");
-			$("#distrito").val(data[0].nombre_distrito);
-			$("#sector").val(data[0].sector);
+			$("#categoria").val(data[0].nombre_categoria);
+			
 		}
 
 

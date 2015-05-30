@@ -19,7 +19,7 @@
        <div class="col-lg-4 col-sm-5 col-md-6 col-xs-12">
                 <div class="widget">
                     <div class="widget-header bordered-top bordered-palegreen">
-                        <span class="widget-caption">Registro de Nuevos Productos</span>
+                        <span class="widget-caption" id="information-title">Registro de Nuevos Productos</span>
                     </div>
                                         <div class="widget-body">
                                             <div class="collapse in">
@@ -91,7 +91,7 @@
 
                                                             <div class="form-group">
                                                                 <input type="submit" value="Guardar" class="btn btn-primary" onclick="" id="btnguardar">
-                                                                <a href="" class="btn btn-danger">Nuevo</a>
+                                                                <?php /*<a href="" class="btn btn-danger">Nuevo</a>*/ ?>
                                                             </div>
 
                                                     {{ Form::close() }}

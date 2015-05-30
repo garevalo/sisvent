@@ -18,7 +18,7 @@
                 {{ Form::open(array('url' => 'usuarios/crear','name'=>'form','id'=>'form')) }}
                                 <div class="widget">
                                     <div class="widget-header bordered-top bordered-palegreen">
-                                        <span class="widget-caption">Registro de Usuario</span>
+                                        <span class="widget-caption" id="information-title">Registro de Usuario</span>
                                     </div>
                                     <div class="widget-body">
                                         <div id="registration-form">
@@ -50,7 +50,7 @@
                                                         <select class="form-control" name="tipo" id="tipo"  >
                                                             <option value="">Seleccione</option>
                                                             <option value="1">Administrador</option>
-                                                            <option value="2">Administrativo</option>
+                                                            <option value="2">Asistente de ventas</option>
                                                             <option value="3">Almacen</option>
                                                             <option value="4">Acreditación</option>
                                                             <option value="5">Despacho</option>
@@ -131,7 +131,7 @@
                                                 </div>
                                                
                                                 <button id="btnguardar" type="submit" class="btn btn-primary" onclick="guardar_usuario_ajax('form')"><i class="glyphicon glyphicon-save"></i> Guardar</button>
-                                                <a href="" class="btn btn-danger">Nuevo</a>
+                                                <?php /*<a href="" class="btn btn-danger">Nuevo</a>*/ ?>
                                             </form>
                                         </div>
                                     </div>

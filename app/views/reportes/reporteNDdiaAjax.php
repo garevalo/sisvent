@@ -84,7 +84,20 @@
             </td>
             <td><?= $value->precio?></td>
             <td><?= $value->pago?></td>
-            <td><?= $value->motivo_no_despacho?></td>
+            <td>
+                <?php 
+                    if($value->motivo_no_despacho==1){echo "No hay rutas suficientes";}
+                    elseif($value->motivo_no_despacho==2){
+                        echo "Cliente no Acreditado";
+                    }
+                    elseif($value->motivo_no_despacho==3){
+                        echo "No hay stock de productos";
+                    }
+                    elseif($value->motivo_no_despacho==4){
+                        echo "Hora fuera de despacho";
+                    }
+                ?>
+            </td>
         </tr>
         <?php  $i++;} ?>
     </table>

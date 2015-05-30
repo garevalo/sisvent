@@ -1,6 +1,6 @@
 
 function editar_producto(url,id){
-
+    $("#information-title").html("Editar Producto");
 	$.get(url,{id:id},function(data){
 		//var datos=JQuery.
 		console.log(data);
