@@ -18,7 +18,7 @@
     <div class="row well">
         
 
-       <div class="col-lg-3 col-sm-6 col-xs-12">
+       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="widget">
                     <div class="widget-header bordered-top bordered-palegreen">
                         <span class="widget-caption">Reportes de Ordenes de Compra No Despachadas por día</span>
@@ -46,14 +46,14 @@
                     </div>
         </div>
 
-        <div class="col-lg-7 col-sm-6 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 
         	<div class="widget">
                                         <div class="widget-header bordered-left bordered-blueberry">
                                             <span class="widget-caption">Reporte</span>
                                         </div><!--Widget Header-->
                                         <div class="widget-body bordered-left bordered-blue">
-                                            <div class="" id="reporte"> </div> 
+                                            <div class="" id="reporte" style="height:700px;"> </div> 
                                         </div><!--Widget Body-->
             </div>
 
@@ -76,3 +76,4 @@
         {{ HTML::script('js/reportes.js')  }}
         
 @stop
+

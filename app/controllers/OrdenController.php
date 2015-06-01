@@ -15,7 +15,7 @@ class OrdenController extends BaseController{
         
         */
         
-       DB::statement("call sp_crear_orden_ruta({$id});");
+      DB::statement("call sp_crear_orden_ruta({$id});");
         
        $cotizacion= DB::table('cotizacion')
             ->join('detalle_cotizacion', 'cotizacion.idcotizacion', '=', 'detalle_cotizacion.idcotizacion')
@@ -261,7 +261,7 @@ class OrdenController extends BaseController{
         if($hora<13){
             if($cantrutas<=15){
                 
-                //DB::statement("call sp_registrar_despacho({$idoc});");
+                DB::statement("call sp_registrar_despacho({$idoc});");
                 
                 return json_encode(array("ok"=>"Se Despachó Correctamente  <p>Se envió una notificación al siguiente correo <strong>".$correo."</strong></p>","dir"=>url("ordencompra")));
             }
@@ -549,7 +549,7 @@ class OrdenController extends BaseController{
 
         PDF::Output(public_path().'/data.pdf', 'F');
         
-        return '<object width="1000" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+        return '<object width="100%" height="100%" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
     }
 
     /*****************/
