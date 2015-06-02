@@ -18,16 +18,6 @@ $(function () {
             ?>
             ]
         },
-        labels: {
-            items: [{
-                html: 'Total',
-                style: {
-                    left: '50px',
-                    top: '18px',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
-                }
-            }]
-        },
         series: [{
             type: 'column',
             name: 'No hay Rutas',
@@ -70,32 +60,6 @@ $(function () {
                 lineWidth: 2,
                 lineColor: Highcharts.getOptions().colors[3],
                 fillColor: 'white'
-            }
-        }, {
-            type: 'pie',
-            name: 'Total',
-            data: [{
-                name: 'NohayRutas',
-                y: 13,
-                color: Highcharts.getOptions().colors[0] // Jane's color
-            }, {
-                name: 'ClienteNoAcreditado',
-                y: 23,
-                color: Highcharts.getOptions().colors[1] // John's color
-            }, {
-                name: 'No hay Stock',
-                y: 19,
-                color: Highcharts.getOptions().colors[2] // Joe's color
-            }, {
-                name: 'Hora fuera Despacho',
-                y: 19,
-                color: Highcharts.getOptions().colors[3] // Joe's color
-            }],
-            center: [100, 80],
-            size: 100,
-            showInLegend: false,
-            dataLabels: {
-                enabled: false
             }
         }]
     });
