@@ -89,6 +89,10 @@
                                     <i class="dropdown-icon fa fa-bar-chart-o blue"></i>
                                     Reportes de Zonas Despachas Por Mes
                                 </a></li>
+                                <li><a href="{{url('reportes/reportemotivonodespacho', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa  fa-bar-chart-o blue"></i>
+                                    Reporte Motivo no Despacho
+                                </a></li>
                                 <li class="divider"></li>
                                 <li><a href="{{url('reportes/reporteniveleficacia', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <strong>

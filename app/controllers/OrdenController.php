@@ -668,4 +668,27 @@ class OrdenController extends BaseController{
         }
     }
 
+
+    public function reporteMotivoNoDespacho(){
+
+        return View::make('reportes.reporteMotivoNoDespacho');
+    }
+
+    public function reporteMotivoNoDespachoAjax(){
+
+        $fecha_ini= $this->convertir_fecha(Input::get('desde'));
+        $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
+
+        $resultados = DB::select( DB::raw("select 
+                                             date_format(date(o.created_at),'%d/%m/%Y') fecha_registro,
+                                            (select count(*) from orden_compra where motivo_no_despacho=1 and date(created_at)= date(o.created_at)) 'NohayRutas',
+                                            (select count(*) from orden_compra where motivo_no_despacho=2 and date(created_at)= date(o.created_at)) 'ClienteNoAcreditado',
+                                            (select count(*) from orden_compra where motivo_no_despacho=3 and date(created_at)= date(o.created_at)) 'Nohaystock',
+                                            (select count(*) from orden_compra where motivo_no_despacho=4 and date(created_at)= date(o.created_at)) 'HorafueraDespacho'
+                                             from orden_compra o
+                                            where date(o.created_at) between '{$fecha_ini}' and '{$fecha_fin}' group by date(o.created_at);") ); 
+
+        return View::make('reportes.reporteMotivoNoDespachoAjax',array("resultados"=>$resultados));
+    }
+
 }
