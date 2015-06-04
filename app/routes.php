@@ -124,6 +124,9 @@
         Route::get('reportes/reportemotivonodespacho', array('uses' => 'OrdenController@reporteMotivoNoDespacho'));
         Route::post('reportes/reportemotivonodespachoajax', array('uses' => 'OrdenController@reporteMotivoNoDespachoAjax'));
 
+        Route::get('reportes/reporteingresosproductos', array('uses' => 'OrdenController@reporteIngresosProductos'));
+        Route::post('reportes/reporteingresosproductosajax', array('uses' => 'OrdenController@reporteIngresosProductosAjax'));
+
 
          //Acreditacion
         Route::get('ordencompra/modal', array('uses' => 'OrdenController@modalAcreditacion'));

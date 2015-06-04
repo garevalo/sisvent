@@ -691,4 +691,13 @@ class OrdenController extends BaseController{
         return View::make('reportes.reporteMotivoNoDespachoAjax',array("resultados"=>$resultados));
     }
 
+    public function reporteIngresosProductos(){
+        return View::make('reportes.reporteIngresosProductos');
+    }
+
+
+    public function reporteIngresosProductosAjax(){
+
+    }
+
 }
