@@ -107,10 +107,10 @@ class OrdenController extends BaseController{
                 return $estado;
             })        
             ->addColumn('id',function($model){
-                return '<a href="'.url("factura/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Factura</a>
-                        <a href="'.url("guia/crear/".$model->id).'" target="_blanck" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
+                return '<a href="'.url("factura/crear/".$model->id).'" target="_blank" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Factura</a>
+                        <a href="'.url("guia/crear/".$model->id).'" target="_blank" class="btn btn-sm btn-danger"><i class="fa fa-file-text fa-lg"></i> Guia de Remisión</a>';
             })
-            
+            ->searchColumns('nombre_cliente', 'ruc','preciototal')
             ->make();
 
         }
@@ -127,7 +127,7 @@ class OrdenController extends BaseController{
     public function listaDespacho(){
         
         
-        return View::make('ordencompra.listaDespacho',array('subtitulo' => "Lista de pedidos" ));
+        return View::make('ordencompra.listaDespacho',array('subtitulo' => "Lista de despacho" ));
     }
 
     public function verOrdenCompra($idoc){
@@ -697,7 +697,29 @@ class OrdenController extends BaseController{
 
 
     public function reporteIngresosProductosAjax(){
+        
+        $fecha_ini= $this->convertir_fecha(Input::get('desde'));
+        $fecha_fin= $this->convertir_fecha(Input::get('hasta'));
+        
+        $productos = DB::select( DB::raw("select p.nombre_producto,i.cantidad,i.created_at from ingresos i 
+                                            inner join productos p on i.idproducto=p.idproducto
+                                            where date(i.created_at)  between '{$fecha_ini}' and '{$fecha_fin}';")); 
+        
+        if(count( $productos) >0){
 
+            $this->pdf();
+            $datos=array("productos"=>$productos);   
+            $html = View::make('reportes.reporteIngresosProductosAjax',$datos);
+
+            PDF::writeHTML($html, true, false, true, false, '');
+
+            PDF::Output(public_path().'/data.pdf', 'F');
+         
+           //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
+           return '<object width="100%" height="100%" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+        }else {
+            return "<center>No hay datos en la fecha seleccionada</center>";
+        }
     }
 
 }

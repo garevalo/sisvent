@@ -18,7 +18,7 @@
     <div class="row well">
         
 
-       <div class="col-lg-2 col-sm-6 col-xs-12">
+       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="widget">
                     <div class="widget-header bordered-top bordered-palegreen">
                         <span class="widget-caption">Reportes de Zonas Despachadas Por Mes</span>
@@ -53,7 +53,7 @@
                     </div>
         </div>
 
-        <div class="col-lg-10 col-sm-6 col-xs-12">
+        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12">
 
         	<div class="widget">
                                         <div class="widget-header bordered-left bordered-blueberry">

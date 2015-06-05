@@ -25,7 +25,7 @@
                         <div class="collapse in">
                             
                             <div class="form-group ">
-                                {{ Form::open(array('url' => 'reportes/reportemotivonodespachoajax',"id"=>"form",'class'=>"form-horizontal",'role'=>'form','method' => 'post'))}}    
+                                {{ Form::open(array('url' => 'reportes/reporteingresosproductosajax',"id"=>"form",'class'=>"form-horizontal",'role'=>'form','method' => 'post'))}}    
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label>Desde :</label>
@@ -68,7 +68,7 @@
                     </div>
                 </div><!--Widget Header-->
                 <div class="widget-body bordered-left bordered-blue">
-                    <div class="" id="reporte" > </div> 
+                    <div class="" id="reporte" style="height: 500px;"> </div> 
                 </div><!--Widget Body-->
 
             </div>

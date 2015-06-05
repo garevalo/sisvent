@@ -1,3 +1,19 @@
+<script type="text/javascript">
+
+$(function(){
+    $("#notificaciones").slimScroll({
+        height:'300px',
+        width:'300px',
+        size:'10px',
+        alwaysVisible:true,
+        allowPageScroll:false,
+        disableFadeOut:false
+    });
+
+});
+
+</script>
+
 <div class="navbar">
         <div class="navbar-inner">
             <div class="navbar-container">
@@ -93,6 +109,10 @@
                                     <i class="dropdown-icon fa  fa-bar-chart-o blue"></i>
                                     Reporte Motivo no Despacho
                                 </a></li>
+                                <li><a href="{{url('reportes/reporteingresosproductos', $parameters = array(), $secure = null);}}" tabindex="-1">
+                                    <i class="dropdown-icon fa fa-file-text-o blue"></i>
+                                    Reporte de Productos Ingresados en Almacén
+                                </a></li>
                                 <li class="divider"></li>
                                 <li><a href="{{url('reportes/reporteniveleficacia', $parameters = array(), $secure = null);}}" tabindex="-1">
                                     <strong>
@@ -152,17 +172,16 @@
                         <ul class="account-area">
                            
                             
-                            <?php /*
                             <li>
                                 <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
                                     <i class="icon fa fa-envelope"></i>
                                     <span class="badge">3</span>
                                 </a>
                                 <!--Messages Dropdown-->
-                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
+                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages" style="max-height: 350px; overflow: auto;">
                                     <li>
                                         <a href="#">
-                                            <img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">
+                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
                                             <div class="message">
                                                 <span class="message-sender">
                                                     Divyia Austin
@@ -181,38 +200,76 @@
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <img src="assets/img/avatars/bing.png" class="message-avatar" alt="Microsoft Bing">
+                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
                                             <div class="message">
                                                 <span class="message-sender">
-                                                    Bing.com
+                                                    Divyia Austin
                                                 </span>
                                                 <span class="message-time">
-                                                    Yesterday
+                                                    2 minutes ago
                                                 </span>
                                                 <span class="message-subject">
-                                                    Bing Newsletter: The January Issue‏
+                                                    Here's the recipe for apple pie
                                                 </span>
                                                 <span class="message-body">
-                                                    Discover new music just in time for the Grammy® Awards.
+                                                    to identify the sending application when the senders image is shown for the main icon
                                                 </span>
                                             </div>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <img src="assets/img/avatars/adam-jansen.jpg" class="message-avatar" alt="Divyia Austin">
+                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
                                             <div class="message">
                                                 <span class="message-sender">
-                                                    Nicolas
+                                                    Divyia Austin
                                                 </span>
                                                 <span class="message-time">
-                                                    Friday, September 22
+                                                    2 minutes ago
                                                 </span>
                                                 <span class="message-subject">
-                                                    New 4K Cameras
+                                                    Here's the recipe for apple pie
                                                 </span>
                                                 <span class="message-body">
-                                                    The 4K revolution has come over the horizon and is reaching the general populous
+                                                    to identify the sending application when the senders image is shown for the main icon
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
+                                            <div class="message">
+                                                <span class="message-sender">
+                                                    Divyia Austin
+                                                </span>
+                                                <span class="message-time">
+                                                    2 minutes ago
+                                                </span>
+                                                <span class="message-subject">
+                                                    Here's the recipe for apple pie
+                                                </span>
+                                                <span class="message-body">
+                                                    to identify the sending application when the senders image is shown for the main icon
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
+                                            <div class="message">
+                                                <span class="message-sender">
+                                                    Divyia Austin
+                                                </span>
+                                                <span class="message-time">
+                                                    2 minutes ago
+                                                </span>
+                                                <span class="message-subject">
+                                                    Here's the recipe for apple pie
+                                                </span>
+                                                <span class="message-body">
+                                                    to identify the sending application when the senders image is shown for the main icon
                                                 </span>
                                             </div>
                                         </a>
@@ -220,7 +277,6 @@
                                 </ul> 
                                 <!--/Messages Dropdown-->
                             </li>
-                            */ ?>
                             
 
 
