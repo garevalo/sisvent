@@ -165,9 +165,10 @@
         Route::get('api/getcategoria', array('as'=>'api.getcategorias','uses'=>'CategoriaController@getListaCategoria'));
         Route::post('categoria/getcategoria', array('uses' => 'CategoriaController@getCategoriaJson'));    
             
+        /*CORREO*/
+        Route::get('correo', array('uses' => 'CotizacionController@correo'));
         
+        /*NOTIFICACIONES*/
+        Route::get('notificaciones', array('uses' => 'NotificacionController@notificacion'));
 
-        /*DESPACHO*/
-
-        
     });

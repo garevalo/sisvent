@@ -41,7 +41,7 @@ return array(
 	|
 	*/
 
-	'port' => 587,
+	'port' => 465,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,8 +53,8 @@ return array(
 	| used globally for all e-mails that are sent by your application.
 	|
 	*/
-
-	'from' => array('address' => 'zagha.s@gmail.com', 'name' => 'giordan brian'),
+								  
+	'from' => array('address' => 'zagha.s@gmail.com', 'name' => 'Gio Arevalo'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => 'ssl',
 
 	/*
 	|--------------------------------------------------------------------------

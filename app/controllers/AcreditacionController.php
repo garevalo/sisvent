@@ -18,6 +18,8 @@ class AcreditacionController extends BaseController{
        $idcliente = Input::get('idcliente');
               
        DB::update('UPDATE clientes SET acreditacion = ? WHERE idclientes = ? ', array( '3', $idcliente));
+
+       DB::table('notificaciones')->insert(array('idtipo' => 2,'idestado'=>1,'desde'=>4,'detalle_notificacion'=>"Cliente Acreditado:".$idcliente,'created_at'=>  date("Y-m-d H:i:s") ));
        return json_encode(array( "dir" =>  url("acreditacion/lista"),"mensaje"=>"Cliente Acreditado Correctamente"));
     }
     

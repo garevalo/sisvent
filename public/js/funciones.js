@@ -486,8 +486,3 @@ function solicitar_productos(idcotizacion,idproducto,url){
 
     //alert(ruta);
     }
-
-
-
-
-

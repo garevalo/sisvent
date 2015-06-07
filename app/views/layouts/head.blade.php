@@ -1,13 +1,8 @@
 <script type="text/javascript">
 
 $(function(){
-    $("#notificaciones").slimScroll({
-        height:'300px',
-        width:'300px',
-        size:'10px',
-        alwaysVisible:true,
-        allowPageScroll:false,
-        disableFadeOut:false
+    $(".slim").slimScroll({
+        height:'300px'
     });
 
 });
@@ -172,113 +167,20 @@ $(function(){
                         <ul class="account-area">
                            
                             
-                            <li>
-                                <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
-                                    <i class="icon fa fa-envelope"></i>
-                                    <span class="badge">3</span>
-                                </a>
-                                <!--Messages Dropdown-->
-                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages" style="max-height: 350px; overflow: auto;">
-                                    <li>
-                                        <a href="#">
-                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
-                                            <div class="message">
-                                                <span class="message-sender">
-                                                    Divyia Austin
-                                                </span>
-                                                <span class="message-time">
-                                                    2 minutes ago
-                                                </span>
-                                                <span class="message-subject">
-                                                    Here's the recipe for apple pie
-                                                </span>
-                                                <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
-                                            <div class="message">
-                                                <span class="message-sender">
-                                                    Divyia Austin
-                                                </span>
-                                                <span class="message-time">
-                                                    2 minutes ago
-                                                </span>
-                                                <span class="message-subject">
-                                                    Here's the recipe for apple pie
-                                                </span>
-                                                <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
-                                            <div class="message">
-                                                <span class="message-sender">
-                                                    Divyia Austin
-                                                </span>
-                                                <span class="message-time">
-                                                    2 minutes ago
-                                                </span>
-                                                <span class="message-subject">
-                                                    Here's the recipe for apple pie
-                                                </span>
-                                                <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
-                                            <div class="message">
-                                                <span class="message-sender">
-                                                    Divyia Austin
-                                                </span>
-                                                <span class="message-time">
-                                                    2 minutes ago
-                                                </span>
-                                                <span class="message-subject">
-                                                    Here's the recipe for apple pie
-                                                </span>
-                                                <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <!--<img src="assets/img/avatars/divyia.jpg" class="message-avatar" alt="Divyia Austin">-->
-                                            <div class="message">
-                                                <span class="message-sender">
-                                                    Divyia Austin
-                                                </span>
-                                                <span class="message-time">
-                                                    2 minutes ago
-                                                </span>
-                                                <span class="message-subject">
-                                                    Here's the recipe for apple pie
-                                                </span>
-                                                <span class="message-body">
-                                                    to identify the sending application when the senders image is shown for the main icon
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul> 
-                                <!--/Messages Dropdown-->
-                            </li>
-                            
+                            <!-- Notificaciones -->    
+                            <script type="text/javascript">
+                                $(function(){
+                                    notificacion('{{ url("notificaciones"); }}',{{Auth::user()->idtipo}});
 
+                                   var refreshId = setInterval(function() {
+                                      notificacion('{{ url("notificaciones"); }}',{{Auth::user()->idtipo}});
+                                   }, 9000);
+                                   $.ajaxSetup({ cache: false });
+
+                                });
+                            </script>
+                            <li id="notificaciones"></li>
+                            <!-- Fin Notificaciones -->
 
                             <li>
                                 <a class="login-area dropdown-toggle" data-toggle="dropdown">

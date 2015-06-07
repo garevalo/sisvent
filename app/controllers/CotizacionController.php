@@ -111,12 +111,14 @@ class CotizacionController extends BaseController{
            
        }
        else{
+
             $cant=count($idprod);
         
             for($x=0;$x<$cant;$x++){
 
                 DB::statement("call sp_registrar_cotizacion('{$idprod[$x]}','{$ruc}','{$nombre}','{$contacto}','{$direccion}','{$correo}','{$telefono}','{$pago}','{$dirdespacho}','{$cantidad[$x]}','{$preciot[$x]}','{$preciobruto}','{$igv}','{$precioneto}','{$distrito}','{$x}');");
             } 
+            DB::table('notificaciones')->insert(array('idtipo' => 2,'idestado'=>1,'desde'=>1,'detalle_notificacion'=>"Se ha creado una nueva cotizacion :".$idcotizacion,'created_at'=>  date("Y-m-d H:i:s") ));
             return json_encode( array("dir"=>url("productos"),"mensaje"=>url("cotizacion/reporte/".$idcotizacion)));
        }
        
@@ -125,7 +127,7 @@ class CotizacionController extends BaseController{
     
 
     public function correo(){
-      Mail::send('cotizacion.imprimir',  array('id' => 1 ), function ($message){
+      Mail::send('reportes.reporte',  array('id' => 1 ), function ($message){
 
             $message->subject('Aquí va el mensaje del asunto del email ');
 

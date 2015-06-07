@@ -625,7 +625,7 @@ class OrdenController extends BaseController{
             PDF::Output(public_path().'/data.pdf', 'F');
          
            //echo '<iframe src="'.asset('data.pdf').'.&embedded=true" style="width:500px; height:375px;" frameborder="1"></iframe>';
-           return '<object width="100%" height="600" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
+           return '<object width="100%" height="100%" type="application/pdf" data="'.asset('data.pdf').'"><p>N o PDF available</p></object>';
         }else{
             return "<center>No hay datos en la fecha seleccionada</center>";
         }

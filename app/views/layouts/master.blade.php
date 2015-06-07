@@ -17,6 +17,7 @@
                     {{  HTML::script('js/skins.min.js')  }}
                     {{  HTML::script('js/jquery-2.0.3.min.js')  }}
                     {{  HTML::script('js/jquery.ui/jquery-ui.js')  }}
+                    {{  HTML::script('js/notificacion.js')  }}
           	
 		@show
                 
@@ -30,7 +31,7 @@
 
 	</head>
 	
-   <body>
+   <body onload="">
     
     
        
