@@ -84,6 +84,8 @@ class AlmacenController extends BaseController{
                 ->where('idproducto', $idproducto)
                 ->update(array('stock' => $stockprod[0]->stock+$cantidad ));
 
+                
+
                  $datos=array("dir"=>url("almacen/ingreso"),"mensaje"=>"Se registro correctamente");
                 
                 return json_encode($datos);
@@ -110,14 +112,22 @@ class AlmacenController extends BaseController{
         $idprod=Input::get('idprod');
 
 
-                DB::table('detalle_cotizacion')
-                ->where('iddetalle_cotizacion', $id)
-                ->where('idproducto', $idprod)
-                ->update(array('estado_pedido' => 2 ));
+           DB::table('detalle_cotizacion')
+            ->where('iddetalle_cotizacion', $id)
+            ->where('idproducto', $idprod)
+            ->update(array('estado_pedido' => 2 ));
+        
+            $ordencompra = DB::select( DB::raw("select o.idorden_compra from detalle_cotizacion dc
+                                                inner join orden_compra o on dc.idcotizacion=o.idcotizacion
+                                                where dc.iddetalle_cotizacion={$id}
+                                                limit 1") ); 
 
-                 $datos=array("dir"=>url("almacen/pedido"),"mensaje"=>"Pedido se atendio correctamente");
-                
-                return json_encode($datos);
+
+            //print_r($ordencompra);        
+            DB::table('notificaciones')->insert(array('idtipo' => 2,'idestado'=>1,'desde'=>3,'detalle_notificacion'=>"Producto Atendido:".$idprod."<br> Orden Compra:".$ordencompra[0]->idorden_compra,'created_at'=>  date("Y-m-d H:i:s") ));
+            $datos=array("dir"=>url("almacen/pedido"),"mensaje"=>"Pedido se atendio correctamente");
+               
+            return json_encode($datos);
 
         
 
