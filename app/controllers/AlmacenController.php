@@ -15,10 +15,25 @@ class AlmacenController extends BaseController{
         ->join('productos', 'productos.idproducto', '=', 'detalle_cotizacion.idproducto')
         ->select('orden_compra.idorden_compra','detalle_cotizacion.idcotizacion','detalle_cotizacion.iddetalle_cotizacion',
                 'productos.idproducto','productos.nombre_producto','productos.stock','detalle_cotizacion.cantidad','detalle_cotizacion.estado_pedido')
+        ->orderBy("detalle_cotizacion.idcotizacion","desc")
         ->where('detalle_cotizacion.pedido',1);
 
         return Datatable::query($query)
         ->showColumns('idorden_compra','nombre_producto','cantidad','stock')                    
+        ->addColumn('estado',function($model){
+            
+            if($model->estado_pedido==2 ){
+
+                $btndisabled="disabled=''";
+                return '<span class="label label-success">Atendido</span>';
+            }
+            else{ 
+                $btndisabled="";
+                return '<span class="label label-warning">No Atendido</span>';
+            }
+
+            
+        })
         ->addColumn('iddetalle_cotizacion',function($model){
             
             if($model->estado_pedido==2 || ($model->stock < $model->cantidad )){

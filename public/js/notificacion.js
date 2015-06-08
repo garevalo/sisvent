@@ -15,3 +15,11 @@ function notificacion(url,idtipo){
 
 
 }
+
+function cerra_notificacion(){
+
+
+	
+
+
+}

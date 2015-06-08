@@ -25,10 +25,6 @@ class NotificacionController extends BaseController{
 
 		}
 
-		
-
-		
-
 		return View::make('notificaciones.notificaciones',array("notificaciones"=>$notificacion));
 	}
 
