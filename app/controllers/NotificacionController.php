@@ -28,5 +28,14 @@ class NotificacionController extends BaseController{
 		return View::make('notificaciones.notificaciones',array("notificaciones"=>$notificacion));
 	}
 
+	public function cerrar_notificacion(){
+		$id=Input::get("idnotificacion");
+
+		DB::table('notificaciones')
+            ->where('idnotificaciones', $id)
+            ->update(array('idestado' => 2));
+
+	}
+
 
 }

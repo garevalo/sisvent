@@ -13,7 +13,7 @@
     			
     	?>
         <li >
-            <a href="#">
+            <a href="#" onclick="cerrar_notificacion('<?= url("notificaciones/cerrar")?>', <?= $value->idnotificaciones?>);">
                 <div class="clearfix">
                     <div class="notification-icon">
                         <i class="fa fa-shopping-cart bg-warning white"></i>

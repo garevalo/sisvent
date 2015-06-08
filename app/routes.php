@@ -170,5 +170,6 @@
         
         /*NOTIFICACIONES*/
         Route::get('notificaciones', array('uses' => 'NotificacionController@notificacion'));
+        Route::get('notificaciones/cerrar', array('uses' => 'NotificacionController@cerrar_notificacion'));
 
     });

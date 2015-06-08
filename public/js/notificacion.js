@@ -16,10 +16,20 @@ function notificacion(url,idtipo){
 
 }
 
-function cerra_notificacion(){
+function cerrar_notificacion(url,idnotificacion){
+
+	//alert(idnotificacion);
+
+	$.get(url,{idnotificacion:idnotificacion},function(data,status){
+
+		if(status==="success"){
+
+			alert("ok");
+
+		}
 
 
-	
+	});
 
 
 }
