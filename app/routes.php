@@ -102,6 +102,7 @@
 
 
         Route::get('despacho', array('uses' => 'OrdenController@listaDespacho'));
+        Route::get('despacho/cerrar', array('uses' => 'OrdenController@cerrarRutas'));
         Route::get('api/despacho', array('as'=>'api.despacho','uses'=>'OrdenController@getDatatableDespacho'));
         /****REPORTES***/
         Route::get('reportes/reporte', array('uses' => 'OrdenController@reporte'));

@@ -16,6 +16,9 @@
     <div class="row well">
 
        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+        <?php /*<button class="btn btn-primary btn-lg">Cerrar Despacho</button><br>*/ ?>
+        <a href="{{url("despacho/cerrar")}}" class="btn btn-primary btn-lg">Cerrar Envíos En Despacho</a>
+        
                 <div class="widget">
                     <div class="widget-header bordered-top bordered-palegreen">
                         <span class="widget-caption">Lista de Ordenes de Compra Despachadas</span>

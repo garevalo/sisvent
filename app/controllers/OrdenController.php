@@ -94,16 +94,17 @@ class OrdenController extends BaseController{
              $query=DB::table('orden_compra')
             ->join('cotizacion','orden_compra.idcotizacion','=','cotizacion.idcotizacion')
             ->join('clientes', 'cotizacion.idclientes', '=', 'clientes.idclientes')
+            ->join('ruta', 'ruta.idorden_compra', '=', 'orden_compra.idorden_compra')
             ->where("orden_compra.despacho","2")
             ->orderBy("orden_compra.idorden_compra","desc")
-            ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id');
+            ->select('orden_compra.idorden_compra','cotizacion.idcotizacion','clientes.nombre_cliente', 'clientes.ruc','cotizacion.preciototal','orden_compra.despacho','orden_compra.idorden_compra as id','ruta.estado');
 
             return Datatable::query($query)
             ->showColumns('idorden_compra','nombre_cliente','ruc','preciototal')   
-            ->addColumn('despacho',function($model){
-                if($model->despacho =='1'){$estado="<span class='label label-info'>No Despachado</span>";}
-                elseif($model->despacho =='2'){$estado="<span class='label label-success'>Despachado</span>";}
-                else{$estado="<span class='label label-info'>No Despachado</span>";}
+            ->addColumn('estado',function($model){
+                if($model->estado =='1'){$estado="<span class='label label-info'>No Despachado</span>";}
+                elseif($model->estado =='2'){$estado="<span class='label label-success'>Despachado</span>";}
+                else{$estado="<span class='label label-info'>Cerrado</span>";}
                 return $estado;
             })        
             ->addColumn('id',function($model){
@@ -720,6 +721,17 @@ class OrdenController extends BaseController{
         }else {
             return "<center>No hay datos en la fecha seleccionada</center>";
         }
+    }
+
+    public function cerrarRutas(){
+
+        DB::table('ruta')
+            ->where('estado', 2)
+            ->update(array('estado' => 3,'fecha_ruta' => date("Y-m-d H:m:s" ,time())));
+
+        return Redirect::to('despacho');    
+        // $this->listaDespacho();    
+        /*return View::make('ordencompra.listaDespacho',array('subtitulo' => "Lista de despacho" ));    */
     }
 
 }
