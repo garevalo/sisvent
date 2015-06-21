@@ -9,6 +9,10 @@ class AcreditacionController extends BaseController{
        $idcliente = Input::get('idcliente');
        $idcotizacion= Input::get('idcotizacion');
        
+       
+       
+       
+       
        DB::update('UPDATE clientes SET acreditacion = ? WHERE idclientes = ? ', array( '2', $idcliente));
        return json_encode(array( "mensaje"=>"Acreditacion Enviada"));
     }
