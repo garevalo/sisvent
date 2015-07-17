@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `sistventas` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `sistventas`;
--- MySQL dump 10.13  Distrib 5.6.23, for Linux (i686)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: sistventas
+-- Host: localhost    Database: sistventas
 -- ------------------------------------------------------
--- Server version	5.6.23
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `categoria` (
   `nombre_categoria` varchar(45) NOT NULL,
   `descripcion_categoria` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idcategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idclientes`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `cotizacion` (
   PRIMARY KEY (`idcotizacion`),
   KEY `fk_cotizacion_clientes1_idx` (`idclientes`),
   CONSTRAINT `fk_cotizacion_clientes1` FOREIGN KEY (`idclientes`) REFERENCES `clientes` (`idclientes`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `detalle_cotizacion` (
   KEY `fk_detalle_cotizacion_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_detalle_cotizacion_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_detalle_cotizacion_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,8 +114,9 @@ DROP TABLE IF EXISTS `distrito`;
 CREATE TABLE `distrito` (
   `iddistrito` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_distrito` varchar(45) DEFAULT NULL,
+  `sector` int(11) DEFAULT NULL COMMENT '1->lima centro 2->moderna  3->norte  4->sur  5->este  6->callao',
   PRIMARY KEY (`iddistrito`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,13 +130,32 @@ CREATE TABLE `ingresos` (
   `idingresos` int(11) NOT NULL AUTO_INCREMENT,
   `idproducto` int(11) NOT NULL,
   `cantidad` int(4) DEFAULT NULL,
-  `idorde_compra` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idingresos`),
   KEY `fk_ingresos_productos1_idx` (`idproducto`),
   CONSTRAINT `fk_ingresos_productos1` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `notificaciones`
+--
+
+DROP TABLE IF EXISTS `notificaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notificaciones` (
+  `idnotificaciones` int(11) NOT NULL AUTO_INCREMENT,
+  `idtipo` int(11) DEFAULT NULL,
+  `idestado` int(11) DEFAULT NULL,
+  `detalle_notificacion` varchar(45) DEFAULT NULL,
+  `desde` int(11) DEFAULT NULL,
+  `link` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`idnotificaciones`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,15 +169,17 @@ CREATE TABLE `orden_compra` (
   `idorden_compra` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `despacho` int(11) DEFAULT NULL COMMENT '1->despachado,2->no despachado',
+  `despacho` int(11) DEFAULT NULL COMMENT '1->no despachado,2-> despachado',
   `motivo_no_despacho` varchar(100) DEFAULT NULL,
   `fecha_no_cotizacion` datetime DEFAULT NULL,
   `fecha_despacho` datetime DEFAULT NULL,
   `idcotizacion` int(11) unsigned zerofill NOT NULL,
+  `numero_factura` int(10) unsigned zerofill DEFAULT NULL,
+  `numero_guia` int(10) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`idorden_compra`),
   KEY `fk_orden_compra_cotizacion1_idx` (`idcotizacion`),
   CONSTRAINT `fk_orden_compra_cotizacion1` FOREIGN KEY (`idcotizacion`) REFERENCES `cotizacion` (`idcotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +201,7 @@ CREATE TABLE `personas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idpersonas`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,8 +225,40 @@ CREATE TABLE `productos` (
   PRIMARY KEY (`idproducto`),
   KEY `fk_productos_categoria_idx` (`idcategoria`),
   CONSTRAINT `fk_productos_categoria` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trigger_producto_notificacion
+AFTER UPDATE ON productos 
+FOR EACH ROW 
+BEGIN 
+DECLARE cantidad INT; 
+SELECT stock INTO cantidad FROM productos WHERE idproducto=OLD.idproducto; 
+IF cantidad <= 5 THEN 
+
+/*UPDATE TOTAL_VENTAS 
+SET total=total+NEW.total 
+
+WHERE idcliente=NEW.idcliente; */
+
+insert into notificaciones(idtipo,idestado,detalle_notificacion,desde,created_at)
+values(3,1, concat("Verifique Stock: ",OLD.nombre_producto,' - stock actual: ',NEW.stock),3,now());
+
+END IF; 
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ruta`
@@ -219,13 +273,13 @@ CREATE TABLE `ruta` (
   `iddistrito` int(11) DEFAULT NULL,
   `idorden_compra` int(11) unsigned zerofill NOT NULL,
   `precio` decimal(9,3) DEFAULT NULL,
-  `estado` int(1) DEFAULT NULL,
+  `estado` int(1) DEFAULT NULL COMMENT '1->activo , 2->despacho, 3->cerrado',
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_salida` datetime DEFAULT NULL,
   PRIMARY KEY (`idruta`),
   KEY `fk_ruta_orden_compra1_idx` (`idorden_compra`),
   CONSTRAINT `fk_ruta_orden_compra1` FOREIGN KEY (`idorden_compra`) REFERENCES `orden_compra` (`idorden_compra`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,12 +302,91 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   KEY `fk_usuarios_personas1_idx` (`idpersonas`),
   CONSTRAINT `fk_usuarios_personas1` FOREIGN KEY (`idpersonas`) REFERENCES `personas` (`idpersonas`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping events for database 'sistventas'
+--
 
 --
 -- Dumping routines for database 'sistventas'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `sp_crear_orden_ruta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_crear_orden_ruta`(
+in vidcot int
+)
+BEGIN
+
+declare viddistrito ,vidoc,cant,cantruta,vidprod,vcantprod int;
+declare vprecio decimal(9,3);
+declare done boolean default false;
+declare cur CURSOR FOR select idproducto , cantidad from detalle_cotizacion where idcotizacion=vidcot;
+declare CONTINUE HANDLER FOR SQLSTATE '02000' SET done=true;
+-- select count(idorden_compra) into cant from cotizacion where idcotizacion = vidcot;
+ 
+
+select count(oc.idorden_compra) into cant from cotizacion c
+inner join orden_compra oc ON c.idcotizacion = oc.idcotizacion
+where oc.idcotizacion = vidcot;
+
+select oc.idorden_compra into vidoc from cotizacion c 
+inner join orden_compra oc ON c.idcotizacion = oc.idcotizacion
+where oc.idcotizacion = vidcot;
+
+if cant=0 then
+ 
+  insert into orden_compra (idcotizacion,created_at,fecha_no_cotizacion,despacho) values(vidcot,now(),now(),1);
+ 
+update cotizacion set   estado = 2 where idcotizacion = vidcot;
+
+select  c.iddistrito, c.preciototal into viddistrito , vprecio from cotizacion c
+where c.idcotizacion = vidcot;
+
+select c.iddistrito, c.preciototal, oc.idorden_compra into viddistrito , vprecio , vidoc from cotizacion c
+inner join orden_compra oc ON c.idcotizacion = oc.idcotizacion where oc.idcotizacion = vidcot;
+
+
+ -- crea la ruta
+ insert into ruta (iddistrito,idorden_compra,precio,estado,fecha_creacion) values(viddistrito,vidoc,vprecio,1,now());
+
+-- RESTAR PRODUCTOS QUE SALEN
+
+	open cur;
+
+	cur_loop:loop
+
+		fetch cur into vidprod,vcantprod;
+		if done then leave cur_loop; end if;
+		
+		update producto set stock=(select(select stock from productos where idproducto=vidprod) - vcantprod)  where idproducto=vidprod;
+		
+
+	end loop cur_loop;
+	close cur;
+
+
+end if;
+
+
+
+-- select viddistrito;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_crear_ruta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -332,30 +465,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sp_prueba` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_prueba`(
-in nombre varchar(100),
-in descripcion varchar(100)
-)
-BEGIN
-
-insert into productos (nombre_producto,img_producto,descripcion_producto,precio_producto,created_at,updated_at,idcategoria) values(nombre,descripcion,'dsfsdfsd','15',now(),now(),1);
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_cotizacion` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -425,6 +534,35 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_despacho` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_despacho`(in idoc int)
+BEGIN
+
+declare idcoti int;
+
+update orden_compra set despacho = 2, fecha_despacho = now() where idorden_compra=idoc;
+update ruta set estado = 2, fecha_salida = now() where idorden_compra=idoc;
+
+select idcotizacion into idcoti from orden_compra where idorden_compra=idoc;
+
+update cotizacion set estado=3 where idcotizacion=idcoti;
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_registrar_usuario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -474,4 +612,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-16 17:42:30
+-- Dump completed on 2015-07-16 22:42:24
