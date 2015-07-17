@@ -152,7 +152,7 @@ $(function(){
                         @endif
                          @if( Auth::user()->idtipo==1 || Auth::user()->idtipo==5)
                         <li class="">
-                            <a href="{{url('despacho', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-truck"></i> Despachoss </a>
+                            <a href="{{url('despacho', $parameters = array(), $secure = null);}}"  role="button" aria-expanded="false"  style="font-size:15px; color:white; "><i class="fa fa-truck"></i> Despacho </a>
                             
                         </li>
                         @endif
